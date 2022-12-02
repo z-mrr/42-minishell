@@ -1,29 +1,73 @@
 #include "../include/minishell.h"
 
+void printList(t_token *head)
+{
+	while (head != NULL)
+	{
+		printf("%s\n", head->token_str);
+		head = head->next;
+	}
+}
 
-//	netstat | grep tcp > file1
-//define command table -> 0 | netstat | NULL
-//			  1 | grep    | tcp | NULL
-//			I/O | in: dflt | out:file1 | err: dflt 
-void	ft_parser(t_mainf *main_f)
+void	ft_ll_append(t_token *head, char *s)
+{
+	t_token	*new_node;
+	t_token	*last;
+
+	new_node = (t_token *)malloc(sizeof(t_token));
+	last = (t_token *)malloc(sizeof(t_token));
+	new_node->token_str = ft_strdup(s);
+	free(s);
+	new_node->next = NULL;
+	if (head == NULL)
+	{
+		head = new_node;
+		return ;
+	}
+	while (last->next != NULL)
+		last = last->next;
+	last->next = new_node;
+}
+
+int	ft_token_word(t_mainf *main_f, char *s, char c)
 {
 	int	i;
 
 	i = 0;
-	while (main_f->token_l[i] != NULL)
-	{
-		printf("%s\n", main_f->token_l[i]);
+	while (s[i] != c && s[i])
 		i++;
+	/*if (s[i] != c)
+		readline(">"); */ //add loop to readline until match if found
+	ft_ll_append(main_f->token_f, ft_substr(s, 0, i));
+	return (i);
+}
+
+//read input, tokenizing (split) by spaces except if single or double quote found
+void	ft_tokenizer(t_mainf *main_f, char *line_r)
+{
+	int	i;
+	int	wsize;
+
+	i = 0;
+	while (line_r[i] != '\0')
+	{
+		if (line_r[i] == '\"')
+			wsize = ft_token_word(main_f, line_r + i + 1, '\"');
+		/*else if (line_r[i] == '\'')
+			wsize = ft_token_word(main_f, line_r[++i], '\'');
+		else if(line_r[i] == ' ')
+			wsize = ft_token_word(main_f, line_r[++i], ' ');*/
+		printf("i = %i\n", i);
+		i += wsize + 2;
+		printf("i = %i\n", i);
 	}
 }
 
-void	ft_tokenizer(t_mainf *main_f, char *line_r)
-{
-	main_f->token_l = ft_split(line_r, ' '); //tokenize input word by word
-}
-
-//READ-EVAL-PRINT-LOOP
-//have a working history
+/*
+READ-EVAL-PRINT-LOOP:
+	->Loop between reading, tokenizing and executing | no
+	-> have a working history | no
+*/
 void	ft_repl(t_mainf *main_f, char **env)
 {
 	char	*line_r;
@@ -33,7 +77,7 @@ void	ft_repl(t_mainf *main_f, char **env)
 	while (line_r != NULL)
 	{
 		ft_tokenizer(main_f, line_r);
-		ft_parser(main_f);
+		//printList(main_f->token_f);
 		printf("\x1B[32m%s\x1b[0m", getenv("USER"));
 		line_r = readline("\x1B[34m~\x1b[0m$ ");
 	}

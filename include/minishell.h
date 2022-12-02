@@ -13,19 +13,17 @@
 # define PURPLE "\x1B[35m"
 # define RESET "\x1b[0m"
 
+typedef struct s_token {
+	int		token_id;
+	char		*token_str;
+	struct	s_token	*next;
+} t_token;
 
-
-//simpleCommand struct
-/*typedef struct s_command {
-	
-} t_command; */
-
-//main frame struct
 typedef struct s_mainf {
-	char	**token_l;
+	struct	s_token *token_f;
 } t_mainf;
 
 //utils
-char		**ft_split(char const *s, char c);
-size_t		ft_strlen(const char *s);
-char		*ft_strjoin(char const *s1, char const *s2);
+int	ft_strlen(char *s);
+char	*ft_strdup(char *s1);
+char	*ft_substr(char *s, unsigned int start, size_t len);

@@ -27,3 +27,5 @@ typedef struct s_mainf {
 
 //utils
 char		**ft_split(char const *s, char c);
+size_t		ft_strlen(const char *s);
+char		*ft_strjoin(char const *s1, char const *s2);

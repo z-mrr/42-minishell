@@ -1,13 +1,26 @@
 #include "../include/minishell.h"
 
-/*
-void	mini_parser(char *lr)
+
+//	netstat | grep tcp > file1
+//define command table -> 0 | netstat | NULL
+//			  1 | grep    | tcp | NULL
+//			I/O | in: dflt | out:file1 | err: dflt 
+void	ft_parser(t_mainf *main_f)
 {
-	//	netstat | grep tcp > file1
-	//define command table -> 0 | netstat | NULL
-	//			  1 | grep    | tcp | NULL
-	//			I/O | in: dflt | out:file1 | err: dflt 
-}*/
+	int	i;
+
+	i = 0;
+	while (main_f->token_l[i] != NULL)
+	{
+		printf("%s\n", main_f->token_l[i]);
+		i++;
+	}
+}
+
+void	ft_tokenizer(t_mainf *main_f, char *line_r)
+{
+	main_f->token_l = ft_split(line_r, ' '); //tokenize input word by word
+}
 
 //READ-EVAL-PRINT-LOOP
 //have a working history
@@ -19,7 +32,8 @@ void	ft_repl(t_mainf *main_f, char **env)
 	line_r = readline("\x1B[34m~\x1b[0m$ ");
 	while (line_r != NULL)
 	{
-		main_f->token_l = ft_split(line_r, ' '); //tokenize input word by word
+		ft_tokenizer(main_f, line_r);
+		ft_parser(main_f);
 		printf("\x1B[32m%s\x1b[0m", getenv("USER"));
 		line_r = readline("\x1B[34m~\x1b[0m$ ");
 	}

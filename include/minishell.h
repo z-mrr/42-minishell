@@ -13,11 +13,17 @@
 # define PURPLE "\x1B[35m"
 # define RESET "\x1b[0m"
 
-/* 
-typedef struct s_command {
+
+
+//simpleCommand struct
+/*typedef struct s_command {
 	
-} t_command;
- */
+} t_command; */
+
+//main frame struct
+typedef struct s_mainf {
+	char	**token_l;
+} t_mainf;
 
 //utils
-char	*ft_strjoin(char const *s1, char const *s2);
+char		**ft_split(char const *s, char c);

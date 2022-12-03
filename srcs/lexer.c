@@ -41,6 +41,15 @@ void	ft_ll_append(t_token **head, char *s)
 	}
 }
 
+static char	*ft_wait_match(char c)
+{
+	char 	*str;
+
+	//handle_sig();
+	str = get_str();
+	while (ft_strchr())
+}
+
 /* calcula tamanho palavra e adiciona a lista */
 int	ft_token_word(t_frame *main_f, char *s, char c)
 {
@@ -49,8 +58,8 @@ int	ft_token_word(t_frame *main_f, char *s, char c)
 	i = 0;
 	while (s[i] != c && s[i])
 		i++;
-	/*if (s[i] != c)
-		readline(">"); */ //add loop to readline until match if found
+	if (c != ' ' && s[i] != c)
+		s = ft_wait_match(c);
 	ft_ll_append(&(main_f->token_f), ft_substr(s, 0, i));
 	return (i);
 }

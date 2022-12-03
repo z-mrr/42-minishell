@@ -1,17 +1,28 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
-#include <sys/types.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
+/*   Updated: 2022/12/03 00:54:16 by jdias-mo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# define RED "\x1B[31m"
-# define GREEN "\x1B[32m"
-# define YELLOW "\x1B[33m"
-# define BLUE "\x1B[34m"
-# define PURPLE "\x1B[35m"
-# define RESET "\x1b[0m"
+#ifndef MINISHELL_H
+# define MINISHELL_H
+
+# include "../libft/libft.h"
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <signal.h>
+# include <stdlib.h>
+# include <unistd.h>
+
+# define SYNTAX_ERR "-minishell: syntax error near unexpected token"
 
 typedef struct s_token {
 	int		token_id;
@@ -19,11 +30,21 @@ typedef struct s_token {
 	struct	s_token	*next;
 } t_token;
 
-typedef struct s_mainf {
+typedef struct s_frame {
 	struct	s_token *token_f;
-} t_mainf;
+} t_frame;
 
-//utils
-int	ft_strlen(char *s);
-char	*ft_strdup(char *s1);
-char	*ft_substr(char *s, unsigned int start, size_t len);
+//lexer.c
+void    ft_tokenizer(t_frame *main_f, char *line_r);
+//readline.c
+char	*get_str(void);
+char	*resolve_str(char	*line);
+char	*get_prompt(void);
+//signal.c
+void sig_handler(int signal);
+void handle_sig();
+//main.c"
+void handle_sig();
+void sig_handler(int signal);
+
+#endif

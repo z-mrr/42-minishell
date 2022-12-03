@@ -41,13 +41,20 @@ void	ft_ll_append(t_token **head, char *s)
 	}
 }
 
+/* espera pela " ou ' para fechar  */
 static char	*ft_wait_match(char c)
 {
 	char 	*str;
 
 	//handle_sig();
 	str = get_str();
-	while (ft_strchr())
+	while (!(ft_strchr(str, c)))
+	{
+		free(str);
+		str = get_str();
+	}
+	free(str);
+	return ()
 }
 
 /* calcula tamanho palavra e adiciona a lista */

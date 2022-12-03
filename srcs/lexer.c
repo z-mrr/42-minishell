@@ -29,6 +29,7 @@ void	ft_ll_append(t_token **head, char *s)
 	new_node = (t_token *)malloc(sizeof(t_token));
 	new_node->token_str = ft_strdup(s);
 	free(s);
+	printf("new_node_str:%s\n", new_node->token_str);
 	new_node->next = NULL;
 	if (*head == NULL)
 		*head = new_node;
@@ -41,33 +42,20 @@ void	ft_ll_append(t_token **head, char *s)
 	}
 }
 
-/* espera pela " ou ' para fechar  */
-static char	*ft_wait_match(char c)
-{
-	char 	*str;
-
-	//handle_sig();
-	str = get_str();
-	while (!(ft_strchr(str, c)))
-	{
-		free(str);
-		str = get_str();
-	}
-	free(str);
-	return ()
-}
-
 /* calcula tamanho palavra e adiciona a lista */
 int	ft_token_word(t_frame *main_f, char *s, char c)
 {
 	int	i;
 
 	i = 0;
-	while (s[i] != c && s[i])
+	while (s[i] != c && s[i] != '\0')
 		i++;
-	if (c != ' ' && s[i] != c)
-		s = ft_wait_match(c);
-	ft_ll_append(&(main_f->token_f), ft_substr(s, 0, i));
+	/*if (c != ' ' && s[i] != c)
+		s = ft_wait_match(s, c);*/
+	if (i)
+		ft_ll_append(&(main_f->token_f), ft_substr(s, 0, i));
+	if (s[i] == ' ')
+		return (i + 1);
 	return (i);
 }
 
@@ -86,7 +74,7 @@ void	ft_tokenizer(t_frame *main_f, char *line_r)
 		else if (line_r[i] == '\'')
 			wsize = ft_token_word(main_f, line_r + i + 1, '\'') + 2;
 		else
-			wsize = ft_token_word(main_f, line_r + i, ' ') + 1;
+			wsize = ft_token_word(main_f, line_r + i, ' ');
 		printf("i = %i\n", i);
 		i += wsize;
 		printf("i = %i\n", i);

@@ -6,12 +6,12 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 21:15:40 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/03 00:33:01 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/03 01:04:31 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*user e dir no prompt, através da getenv $USER e getcwd = pwd*/
+/*user e dir no prompt, através da getenv=$USER e getcwd=wd*/
 char	*get_prompt(void)
 {
 	char	*user;
@@ -58,7 +58,7 @@ char	*get_str(void)
 
 	prompt = get_prompt();
 	line = readline(prompt);
-	if (!line)
+	if (!line)//case CTRL+D
 		exit(0);
 	str = resolve_str(line);
 	if(str && *str)

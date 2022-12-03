@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/03 00:34:55 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/03 01:04:32 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		handle_sig();
 		str = get_str();
-		if(!str)
+		if(!str)//case ;
 			continue ;
 		free(str);
 	}

@@ -6,26 +6,18 @@
 #    By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 13:13:31 by jdias-mo          #+#    #+#              #
-#    Updated: 2022/12/02 21:04:25 by jdias-mo         ###   ########.fr        #
+#    Updated: 2022/12/03 00:53:45 by jdias-mo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	minishell
-
 INC_DIR		=	inc
 LIBFT_DIR	=	libft
-BUILD_DIR	=	build
+BUILD_DIR	=	obj
 SRC_DIR		=	src
 OBJ_DIR		=	$(BUILD_DIR)/objects
-
+READLINE_DIR	=	/usr/include/readline
 SRC		=	$(SRC_DIR)/*.c
-
-ifeq ($(shell uname), Linux)
-	READLINE_DIR	=	/usr/include/readline
-else
-	READLINE_DIR	=	~/.brew/opt/readline/lib
-endif
-
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror -fsanitize=address -g
 INCLUDES	=	-I$(INC_DIR) -I$(LIBFT_DIR) -I$(READLINE_DIR)

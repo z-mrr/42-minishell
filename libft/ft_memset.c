@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 13:22:21 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/10/10 00:36:29 by ncolomer         ###   ########.fr       */
+/*   Created: 2022/12/04 13:34:28 by gde-alme          #+#    #+#             */
+/*   Updated: 2022/12/04 13:34:35 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void
 	{
 		*(unsigned char*)(b + i) = (unsigned char)c;
 		i++;
+A
 	}
 	return (b);
 }

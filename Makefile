@@ -6,5 +6,9 @@ fclean:
 
 re: fclean all
 
-e:
+val:
 	@valgrind ./minishell
+valtrack:
+	@valgrind --track-origins=yes ./minishell
+valleak:
+	@valgrind --leak-check=full ./minishell

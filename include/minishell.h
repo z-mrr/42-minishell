@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/03 00:54:16 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/04 15:21:26 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ typedef struct s_frame {
 } t_frame;
 
 //lexer.c
-int	ft_countWords(char const *s, char c);
-int	ft_ll_append(t_token **head, char *s);
-void    ft_lexer_split(t_frame *main_f, char *s);
 //readline.c
 char	*get_str(void);
 char	*resolve_str(char	*line);

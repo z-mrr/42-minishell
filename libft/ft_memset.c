@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 13:34:28 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/04 13:34:35 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/04 14:57:25 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void
 	{
 		*(unsigned char*)(b + i) = (unsigned char)c;
 		i++;
-A
 	}
 	return (b);
 }

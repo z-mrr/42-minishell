@@ -36,7 +36,9 @@ typedef struct s_frame {
 } t_frame;
 
 //lexer.c
-void    ft_tokenizer(t_frame *main_f, char *line_r);
+int	ft_countWords(char const *s, char c);
+int	ft_ll_append(t_token **head, char *s);
+void    ft_lexer_split(t_frame *main_f, char *s);
 //readline.c
 char	*get_str(void);
 char	*resolve_str(char	*line);

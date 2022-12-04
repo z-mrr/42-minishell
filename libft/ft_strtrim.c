@@ -1,36 +1,52 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/07 15:31:04 by ncolomer          #+#    #+#             */
+/*   Updated: 2019/10/10 00:34:34 by ncolomer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-static int		is_in_set(char c, const char *set)
+static int
+	ft_char_in_set(char c, char const *set)
 {
-	while (*set)
-		if (c == *set++)
-			return (0);
-	return (1);
+	size_t	i;
+
+	i = 0;
+	while (set[i])
+	{
+		if (set[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
-char			*ft_strtrim(char const *s1, char const *set)
+char
+	*ft_strtrim(char const *s1, char const *set)
 {
+	char	*str;
+	size_t	i;
 	size_t	start;
 	size_t	end;
-	char	*rtn;
 
-	if (!s1)
-		return (NULL);
-	if (!set)
-		return (ft_strdup(s1));
 	start = 0;
-	end = ft_strlen(s1);
-	while (is_in_set(s1[start], set) == 0)
+	while (s1[start] && ft_char_in_set(s1[start], set))
 		start++;
-	if (start == ft_strlen(s1))
-	{
-		if (!(rtn = ft_strdup("")))
-			return (NULL);
-		else
-			return (rtn);
-	}
-	while (is_in_set(s1[end - 1], set) == 0)
+	end = ft_strlen(s1);
+	while (end > start && ft_char_in_set(s1[end - 1], set))
 		end--;
-	rtn = ft_substr(s1, start, end - start);
-	return (rtn);
+	str = (char*)malloc(sizeof(*s1) * (end - start + 1));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (start < end)
+		str[i++] = s1[start++];
+	str[i] = 0;
+	return (str);
 }

@@ -7,4 +7,4 @@ fclean:
 re: fclean all
 
 e:
-	@./minishell
+	@valgrind ./minishell

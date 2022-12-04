@@ -27,7 +27,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		handle_sig();
 		str = get_str();
-		ft_tokenizer(main_f, str);
+		ft_lexer_split(main_f, str);
 		if(!str)//case ;
 			continue ;
 		free(str);

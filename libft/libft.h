@@ -16,6 +16,8 @@ typedef struct	s_split_next
 	size_t length;
 }				t_split_next;
 
+int			ft_strcmp(char *s1, char *s2);
+
 char			*ft_strcpy(char *dest, char *src);
 
 int				ft_atoi(const char *str);

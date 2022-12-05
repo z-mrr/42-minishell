@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/04 15:21:26 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/05 21:26:28 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@
 # define SYNTAX_ERR "-minishell: syntax error near unexpected token"
 
 typedef struct s_token {
-	int		token_id;
 	char		*token_str;
-	char		*token_type;
 	struct	s_token	*next;
 } t_token;
 
 typedef struct s_frame {
-	struct	s_token *token_f;
+	t_token *token;
 } t_frame;
 
 //lexer.c
+int	next_quote(char *s, int pos);
+int	lexer(char *s);
 //readline.c
 char	*get_str(void);
 char	*resolve_str(char	*line);

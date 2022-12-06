@@ -6,7 +6,7 @@
 #    By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 13:13:31 by jdias-mo          #+#    #+#              #
-#    Updated: 2022/12/03 00:59:34 by jdias-mo         ###   ########.fr        #
+#    Updated: 2022/12/06 14:36:32 by jdias-mo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ $(BUILD_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 mklibft:
-	@make -s -C $(LIBFT_DIR)
+	@make bonus -s -C $(LIBFT_DIR)
 
 clean:
 	@make clean -s -C $(LIBFT_DIR)

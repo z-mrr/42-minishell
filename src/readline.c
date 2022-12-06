@@ -6,12 +6,13 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 21:15:40 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/03 01:04:31 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:59:30 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*user e dir no prompt, através da getenv=$USER e getcwd=wd*/
+
+/*user e dir no prompt, através da getenv=$USER e getcwd=pwd*/
 char	*get_prompt(void)
 {
 	char	*user;
@@ -46,10 +47,16 @@ char	*resolve_str(char	*line)
 		free(str);
 		str = NULL;
 	}
+	else if (((*str == '<' || *str == '>') && !*str + 1) ||
+			(*str == '<' || *str == '<'))
+	{
+		printf("%s `newline'", SYNTAX_ERR);
+	}
 	return (str);
 }
 
-/*prompt, readline, adiciona à história line já tratada*/
+/*prompt, readline, adiciona à história line já tratada
+sem espaços ou se for ;*/
 char	*get_str(void)
 {
 	char	*str;

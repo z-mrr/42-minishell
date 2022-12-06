@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/06 14:14:09 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/06 15:03:34 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@
 
 # define SYNTAX_ERR "minishell: syntax error near unexpected token"
 
-typedef struct s_shell
+typedef struct s_sh
 {
 	t_list	*cmds;
 	char	**envp;
-}			t_shell;
+}			t_sh;
 
 //env.c
 char	*get_env(char *var, char **envp);
 void	set_env(char *var, char *value, char **envp);
 
-//mtr_utils.c
+//mtr.c
 int		mtr_len(char **m);
 void	free_mtr(char **m);
 char	**mtr_dup(char **m);
@@ -52,6 +52,6 @@ void sig_handler(int signal);
 void handle_sig();
 
 //main.c"
-void	init_shell(int argc, char **argv, char **envp, t_shell *shell);
+void	init_sh(int argc, char **argv, char **envp, t_sh *sh);
 
 #endif

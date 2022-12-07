@@ -1,43 +1,18 @@
 #include "../include/minishell.h"
-
-void	printList(t_token *head)
-{
-	while (head != NULL)
-	{
-		printf("token: <<%s>>\n", head->token_str);
-		head = head->next;
-	}
-}
 /*
-void	free_ll(t_token **head)
+char	first_quote(char *s)
 {
-	while ((*head)->next != NULL)
-	{
-		
-	}
+	
 }
-*/
 
-void append_ll(t_token **head, char *s)
+char	*trim_quotes(char *s)
 {
-	t_token	*new_node;
-	t_token	*last;
+	char	c;
+	int	i;
 
-	new_node = NULL;
-	new_node = (t_token *)malloc(sizeof(t_token *));
-
-	last = *head;
-	new_node->token_str = ft_strdup(s);
-	new_node->next = NULL;
-	if (*head == NULL)
-		*head = new_node;
-	else
-	{
-		while (last->next != NULL)
-			last = last->next;
-		last->next = new_node;
-	}
-}
+	i = 0;
+	c = first_quote(s);
+} */
 
 int	lexer(char *s)
 {
@@ -54,18 +29,18 @@ int	lexer(char *s)
 		{
 			pos = next_quote(s, pos);
 			if (pos < 0)
-				return (1); //$
+				return (1); //tratar de separar $..
 			if (pos - wd_begin)
 				append_ll(&(token), ft_substr(s, wd_begin, pos - wd_begin));
-			wd_begin = ++pos;
+			wd_begin = pos;
 		}
 		else if (s[pos] == '$') //operators
 		{
 			if (pos - wd_begin)
-				append_ll(&(token), ft_substr(s, wd_begin, pos - wd_begin));
+				append_ll(&(token), ft_substr(s, wd_begin, pos - wd_begin)); //palavra ate operator
 			wd_begin = pos;
 			pos++;
-			append_ll(&(token), ft_substr(s, wd_begin, pos - wd_begin));
+			append_ll(&(token), ft_substr(s, wd_begin, pos - wd_begin)); //operator
 			wd_begin = pos;
 		}
 		else if (s[pos] == ' ') //final de word

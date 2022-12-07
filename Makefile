@@ -1,5 +1,5 @@
 all:
-	@gcc include/minishell.h libft/*.h libft/*.c srcs/*.c -lreadline -o minishell
+	@gcc -ggdb -g include/minishell.h libft/*.h libft/*.c srcs/*.c -lreadline -o minishell
 	@echo "Compiled"
 fclean:
 	@rm -rf minishell
@@ -11,4 +11,8 @@ val:
 valtrack:
 	@valgrind --track-origins=yes ./minishell
 valleak:
-	@valgrind --leak-check=full ./minishell
+	@valgrind --leak-check=full --show-leak-kinds=all ./minishell
+gdb:
+	@valgrind --vgdb=yes --vgdb-error=0 ./minishell
+fsanitize:
+	@gcc -ggdb -fsanitize=address -g include/minishell.h libft/*.h libft/*.c srcs/*.c -lreadline -o minishell

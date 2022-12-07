@@ -7,15 +7,10 @@ void	expandToken(t_token *t) //se '=' u '$' expande para os respetivos valores(e
 	int	i;
 
 	i = 0;
-	while (t->str[i] != '\0')
-	{
-		if (t->str[i] == 39)
-		{
-			i++;
-			while (t->str)
-		}
-		i++;
-	}
+	countQuote(t);  //qts casas precisa p guardar pos dos pares de aspas
+	//criar **int; guardar pos dos pares de aspas
+	//iterar str, se encontrar '$' ou '=' fora de aspas expande, se encontrar '$' dentro de " expande
+	//romover pares de aspas
 }
 
 void	parser(t_frame *f)
@@ -32,12 +27,13 @@ void	parser(t_frame *f)
 	//create cmd struct
 }
 
+/* tokenizer; separa dentro de aspas, operadores e palavras */
 void	lexer(t_frame *f) //os operadores definem o resto dos tokens!!
 {
 	while (f->str[f->pos] != '\0')
 	{
 		if (f->str[f->pos] == '\'' || f->str[f->pos] == '\"') //dentro de quotes 
-			next_quote(f);
+			lexQuote(f);
 		else if (findOperator(f->str[f->pos])) //operador
 			lexOp(f);
 		else if (f->str[f->pos] == ' ') //final de word

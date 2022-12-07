@@ -47,7 +47,7 @@ void	lexFwd(t_frame *f)
 }
 
 /* separa desde 1a aspa ate proxima aspa*/
-void	next_quote(t_frame *f)
+void	lexQuote(t_frame *f)
 {
 	if (f->str[f->pos] == 34)
 	{

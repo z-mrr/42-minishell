@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/07 19:09:03 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/07 19:56:07 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	append_ll(t_frame *f, t_token **head, char *s);
 int	findOperator(char c);
 void	lexFwd(t_frame *f);
 void	lexOp(t_frame *f);
-void	next_quote(t_frame *f);
+void	lexQuote(t_frame *f);
 void	lexer(t_frame *f);
 //readline.c
 char	*get_str(void);

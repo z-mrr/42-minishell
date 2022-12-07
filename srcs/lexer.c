@@ -20,12 +20,7 @@ void	lexer(t_frame *f) //os operadores definem o resto dos tokens!!
 	while (f->str[f->pos] != '\0')
 	{
 		if (f->str[f->pos] == '\'' || f->str[f->pos] == '\"') //dentro de quotes 
-		{
 			next_quote(f);
-			if (f->pos - f->wd_begin)
-				append_ll(&(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
-			f->wd_begin = f->pos;
-		}
 		else if (findOperator(f->str[f->pos])) //operador
 		{
 			if (f->pos - f->wd_begin)

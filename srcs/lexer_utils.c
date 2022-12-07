@@ -1,5 +1,48 @@
 #include "../include/minishell.h"
 
+int	findOperator(char c)
+{
+	/*if (c == 61)  // =
+		return (1);
+	if (c == 36)  // $ 
+		return (1); */
+	if (c == 60)  /* < */
+		return (1);
+	if (c == 62)  /* > */
+		return (1);
+	if (c == 124) /* | */
+		return (1);
+	return (0);
+}
+
+void	lexOp(t_frame *f)
+{
+	if (f->pos - f->wd_begin)
+		append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //palavra ate operator
+	f->wd_begin = f->pos;
+	if (f->str[f->pos] == 60 || f->str[f->pos] == 62) /* >> << */
+	{
+		if (f->str[f->pos + 1] == f->str[f->pos])
+			f->pos += 2;
+		else
+			f->pos++;
+	}
+	else
+		f->pos++;
+	append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //operator
+	f->wd_begin = f->pos;
+	addType_ll(f, 'O');
+}
+
+void	lexFwd(t_frame *f)
+{
+	if (f->pos - f->wd_begin)
+		append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
+	while (f->str[f->pos] == ' ')
+		f->pos++;
+	f->wd_begin = f->pos;
+}
+
 void	next_quote(t_frame *f)
 {
 	if (f->str[f->pos] == 34)
@@ -16,9 +59,9 @@ void	next_quote(t_frame *f)
 	}
 	if (f->str[f->pos] == '\0')
 		{printf("err quotes");exit(-1);}
-	f->pos++;
-	append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
-	f->wd_begin = f->pos;
+	f->pos++;/*
 	while (f->str[f->pos] != ' ' && f->str[f->pos])
 		f->pos++;
+	append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
+	f->wd_begin = f->pos;*/ //stupid
 }

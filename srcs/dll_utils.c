@@ -6,7 +6,7 @@ void	printList(t_token *head)
 	{
 		printf("token_id:%i; | ", head->token_id);
 		printf("token_str:%s; | ", head->token_str);
-		printf("token_type:%s;\n", head->token_type);
+		printf("token_type:%c;\n", head->token_type);
 		head = head->next;
 	}
 }
@@ -23,6 +23,16 @@ void	free_ll(t_token *head)
 	}
 }
 
+void	addType_ll(t_frame *f, char type)
+{
+	t_token	*head;
+
+	head = f->token;
+	while (head->next != NULL)
+		head = head->next;
+	head->token_type = type;
+}
+
 void append_ll(t_frame *f, t_token **head, char *s)
 {
 	t_token	*new_node;
@@ -34,7 +44,7 @@ void append_ll(t_frame *f, t_token **head, char *s)
 	new_node->token_id = f->id;
 	f->id++;
 	new_node->token_str = ft_strdup(s);
-	new_node->token_type = NULL;
+	new_node->token_type = 'N';
 	new_node->next = NULL;
 	if (*head == NULL)
 	{

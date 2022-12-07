@@ -4,7 +4,7 @@ void	printList(t_token *head)
 {
 	while (head != NULL)
 	{
-		printf("token: \"  %s  \"\n", head->token_str);
+		printf("token:%s;\n", head->token_str);
 		head = head->next;
 	}
 }

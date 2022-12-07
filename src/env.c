@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 13:34:21 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/07 22:04:55 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/07 22:44:13 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,15 @@
 /*return valor de env*/
 char	*get_env(char *var, t_sh *sh)
 {
-	int		len;
-	int		i;
-	char	*aux;
+	int	pos;
 
-	aux = ft_strjoin(var, "=");
-	len = ft_strlen(aux);
-	i = -1;
-	while (sh->envp[++i])
+	pos = pos_env(var, sh->envp);
+	if (pos < 0)
 	{
-		if (!ft_strncmp(sh->envp[i], aux, len))
-		{
-			free(aux);
-			return(ft_strdup(sh->envp[i] + len));
-		}
+		perror("error");
+		return (NULL);
 	}
-	return (NULL);
+	return(ft_strdup(sh->envp[pos] + (ft_strlen(var) + 1)));//return de mallocd string after =
 }
 
 /*modifica valor de env se já existente ou adiciona env se nao existe*/
@@ -62,8 +55,12 @@ void	rmv_env(char *var, t_sh *sh)
 	int		pos;
 
 	pos = pos_env(var, sh->envp);
-	if (pos >= 0)
-		sh->envp = mtr_rmv(pos, sh->envp);
+	if (pos < 0)
+	{
+		perror("error");
+		return ;
+	}
+	sh->envp = mtr_rmv(pos, sh->envp);
 }
 
 /*verifica se ha e return pos, é preciso para dar a pos no mtr_rmv. -1 se nao houver*/

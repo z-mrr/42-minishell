@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/07 22:07:10 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/07 22:49:02 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,23 @@ void	init_sh(int argc, char **argv, char **envp, t_sh *sh)
 	sh->envp = mtr_dup(envp);
 	temp = get_env("SHLVL", sh);
 	shlvl = ft_atoi(temp);
-	free(temp);
 	shlvl++;
+	free(temp);
 	temp = ft_itoa(shlvl);
 	set_env("SHLVL", temp, sh);
 	free(temp);
 //	tests
 /*	int i = 0;
+	char *test;
 	while ((sh->envp)[i])
 		printf("%s\n", (sh->envp)[i++]);
 	printf("\n");
+	test = get_env("SHLL", sh);
+	if (test)
+		free(test);
+	rmv_env("_", sh);
+	set_env("SHELL", "done", sh);
+	set_env("Ricardo", "Maior", sh);
 	printf("\n");
 	i = 0;
 	while ((sh->envp)[i])

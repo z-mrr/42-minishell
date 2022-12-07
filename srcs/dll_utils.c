@@ -4,7 +4,8 @@ void	printList(t_token *head)
 {
 	while (head != NULL)
 	{
-		printf("token:%s;\n", head->token_str);
+		printf("token_id:%i; | ", head->token_id);
+		printf("token_str:%s;\n", head->token_str);
 		head = head->next;
 	}
 }
@@ -21,7 +22,7 @@ void	free_ll(t_token *head)
 	}
 }
 
-void append_ll(t_token **head, char *s)
+void append_ll(t_frame *f, t_token **head, char *s)
 {
 	t_token	*new_node;
 	t_token	*last;
@@ -29,6 +30,8 @@ void append_ll(t_token **head, char *s)
 	new_node = NULL;
 	new_node = (t_token *)malloc(sizeof(t_token));
 
+	new_node->token_id = f->id;
+	f->id++;
 	new_node->token_str = ft_strdup(s);
 	new_node->token_type = NULL;
 	new_node->next = NULL;

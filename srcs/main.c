@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/07 04:54:12 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/07 17:05:44 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ t_frame	*create_frame(t_frame *frame, char **envp, char *s)
 	frame = (t_frame *)malloc(sizeof(t_frame));
 	if (!(frame))
 		exit(1);
+	frame->id = 0;
 	frame->token = NULL;
 	frame->envp = envp;
 	frame->str = s;
 	frame->pos = 0;
 	frame->wd_begin = 0;
-	frame->in_quote = 0;
 	return (frame);
 }
 

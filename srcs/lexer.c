@@ -18,8 +18,10 @@ int	findOperator(char c)
 void	lexDollar(t_frame *f)
 {
 	f->pos++;
+	while (f->str[f->pos] != ' ' && f->str[f->pos])
+		f->pos++;
 	if (f->pos - f->wd_begin)
-		append_ll(&(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //palavra ate operator
+		append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //palavra ate operator
 	f->wd_begin = f->pos;
 }
 
@@ -27,7 +29,7 @@ void	lexOp(t_frame *f)
 {
 	
 	if (f->pos - f->wd_begin)
-		append_ll(&(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //palavra ate operator
+		append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //palavra ate operator
 	f->wd_begin = f->pos;
 	if (f->str[f->pos] == 60 || f->str[f->pos] == 62) /* >> << */
 	{
@@ -38,7 +40,7 @@ void	lexOp(t_frame *f)
 	}
 	else
 		f->pos++;
-	append_ll(&(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //operator
+	append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //operator
 	f->wd_begin = f->pos;
 }
 
@@ -58,7 +60,7 @@ void	lexer(t_frame *f) //os operadores definem o resto dos tokens!!
 		else if (f->str[f->pos] == ' ') //final de word
 		{
 			if (f->pos - f->wd_begin)
-				append_ll(&(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
+				append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
 			while (f->str[f->pos] == ' ')
 				f->pos++;
 			f->wd_begin = f->pos;
@@ -67,7 +69,7 @@ void	lexer(t_frame *f) //os operadores definem o resto dos tokens!!
 			f->pos++;
 	}
 	if (f->pos - f->wd_begin)
-		append_ll(&(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //ultima palavra 
+		append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //ultima palavra 
 	printf("current f->pos: %i - %c\n", f->pos, f->str[f->pos]);
 	printList(f->token);
 }

@@ -17,7 +17,7 @@ void	next_quote(t_frame *f)
 	if (f->str[f->pos] == '\0')
 		{printf("err quotes");exit(-1);}
 	f->pos++;
-	append_ll(&(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
+	append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
 	f->wd_begin = f->pos;
 	while (f->str[f->pos] != ' ' && f->str[f->pos])
 		f->pos++;

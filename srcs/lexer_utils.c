@@ -1,9 +1,9 @@
 #include "../include/minishell.h"
 void	expand_quote(t_frame *f)
 {
-	if () // $" $ "
+	//if () // $" $ "
 	//if // $?
-	//if //$var
+	//if //$var expand_dollar()
 }
 
 void	next_quote(t_frame *f)

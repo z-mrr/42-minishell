@@ -1,79 +1,30 @@
 #include "../include/minishell.h"
 
-void	printList(t_token *head)
+void	next_quote(t_frame *f)
 {
-	while (head != NULL)
+	if (f->str[f->pos] == 34)
 	{
-		printf("token: <<%s>>\n", head->token_str);
-		head = head->next;
-	}
-}
-
-void	free_ll(t_token *head)
-{
-	t_token *tmp;
-
-	while (head != NULL)
-	{
-		tmp = head;
-		head = head->next;
-		free(tmp);
-	}
-}
-
-void append_ll(t_token **head, char *s)
-{
-	t_token	*new_node;
-	t_token	*last;
-
-	new_node = NULL;
-	new_node = (t_token *)malloc(sizeof(t_token *));
-
-	new_node->token_str = ft_strdup(s);
-	new_node->token_type = NULL;
-	new_node->next = NULL;
-	if (*head == NULL)
-	{
-		new_node->prev = NULL;
-		*head = new_node;
-		return ;
-	}
-	last = *head;
-	while (last->next != NULL)
-		last = last->next;
-	last->next = new_node;
-	new_node->prev = last;
-}
-
-int	next_quote(char *s, int pos)
-{
-	int	sig;
-
-	sig = 1;
-	if (s[pos] == 34)
-	{
-		pos++;
-		while (s[pos] != 34 && s[pos])
+		f->pos++;
+		while (f->str[f->pos] != 34 && f->str[f->pos])
 		{
-			if (s[pos + 1] == 34)
-				sig = 0;
-			//if (s[pos] == '$') handle token
-			pos++;
+			if (f->str[f->pos] == '$')
+			{
+				append_ll(&(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
+				f->pos++;
+				f->wd_begin = f->pos;
+			}
+			else
+				f->pos++;
 		}
 	}
 	else
 	{
-		pos++;
-		while (s[pos] != 39 && s[pos])
-		{
-			if (s[pos + 1] == 39)
-				sig = 0;
-			pos++;
-		}
+		f->pos++;
+		while (f->str[f->pos] != 39 && f->str[f->pos])
+			f->pos++;
 	}
-	if (sig)
-		return (-1);
-	while (s[pos] != ' ' && s[pos])
-		pos++;
-	return (pos);
+	if (f->str[f->pos] == '\0')
+		{printf("err quotes");exit(-1);}
+	while (f->str[f->pos] != ' ' && f->str[f->pos])
+		f->pos++;
 }

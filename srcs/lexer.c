@@ -1,62 +1,56 @@
 #include "../include/minishell.h"
-/*
-char	first_quote(char *s)
+
+int	findOperator(char c)
 {
-	
+	if (c == 61) /* = */
+		return (1);
+	if (c == 60) /* < */
+		return (1);
+	if (c == 62) /* > */
+		return (1);
+	if (c == 124) /* | */
+		return (1);
+	if (c == 36)/* $ */
+		return (1);
+	return (0);
 }
 
-char	*trim_quotes(char *s)
+void	lexer(t_frame *f) //os operadores definem o resto dos tokens!!
 {
-	char	c;
-	int	i;
-
-	i = 0;
-	c = first_quote(s);
-} */
-
-int	lexer(char *s)
-{
-	int	pos;
-	int	wd_begin;
-	t_token *token;
-
-	token = NULL;
-	pos = 0;
-	wd_begin = 0;
-	while (s[pos] != '\0')
+	while (f->str[f->pos] != '\0')
 	{
-		if (s[pos] == '\'' || s[pos] == '\"') //dentro de quotes 
+		if (f->str[f->pos] == '\'' || f->str[f->pos] == '\"') //dentro de quotes 
 		{
-			pos = next_quote(s, pos);
-			if (pos < 0)
-				return (1); //tratar de separar $..
-			if (pos - wd_begin)
-				append_ll(&(token), ft_substr(s, wd_begin, pos - wd_begin));
-			wd_begin = pos;
+			next_quote(f);
+			if (f->pos - f->wd_begin)
+				append_ll(&(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
+			f->wd_begin = f->pos;
 		}
-		else if (s[pos] == '$') //operators
+		else if (findOperator(f->str[f->pos])) //operador
 		{
-			if (pos - wd_begin)
-				append_ll(&(token), ft_substr(s, wd_begin, pos - wd_begin)); //palavra ate operator
-			wd_begin = pos;
-			pos++;
-			append_ll(&(token), ft_substr(s, wd_begin, pos - wd_begin)); //operator
-			wd_begin = pos;
+			if (f->pos - f->wd_begin)
+				append_ll(&(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //palavra ate operator
+			f->wd_begin = f->pos;
+			if (f->str[f->pos] == 60 || f->str[f->pos] == 62) /* >> << */
+				f->pos += 2;
+			else
+				f->pos++;
+			append_ll(&(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //operator
+			f->wd_begin = f->pos;
 		}
-		else if (s[pos] == ' ') //final de word
+		else if (f->str[f->pos] == ' ') //final de word
 		{
-			if (pos - wd_begin)
-				append_ll(&(token), ft_substr(s, wd_begin, pos - wd_begin));
-			while (s[pos] == ' ')
-				pos++;
-			wd_begin = pos;
+			if (f->pos - f->wd_begin)
+				append_ll(&(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
+			while (f->str[f->pos] == ' ')
+				f->pos++;
+			f->wd_begin = f->pos;
 		}
 		else //args
-			pos++;
+			f->pos++;
 	}
-	if (pos - wd_begin)
-		append_ll(&(token), ft_substr(s, wd_begin, pos - wd_begin)); //ultima palavra
-	printf("current pos: %i - %c\n", pos, s[pos]);
-	printList(token);
-	return (0);
+	if (f->pos - f->wd_begin)
+		append_ll(&(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //ultima palavra
+	printf("current f->pos: %i - %c\n", f->pos, f->str[f->pos]);
+	printList(f->token);
 }

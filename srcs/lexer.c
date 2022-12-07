@@ -15,7 +15,7 @@ int	findOperator(char c)
 	return (0);
 }
 
-void	lexDollar(t_frame *f)
+void	lexDollarEqual(t_frame *f)
 {
 	f->pos++;
 	while (f->str[f->pos] != ' ' && f->str[f->pos])
@@ -52,8 +52,8 @@ void	lexer(t_frame *f) //os operadores definem o resto dos tokens!!
 			next_quote(f);
 		else if (findOperator(f->str[f->pos])) //operador
 		{
-			if (f->str[f->pos] == 36)
-				lexDollar(f);
+			if (f->str[f->pos] == 36 || f->str[f->pos] == 61)
+				lexDollarEqual(f);
 			else
 				lexOp(f);
 		}

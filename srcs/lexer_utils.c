@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+/* check for operators */
 int	findOperator(char c)
 {
 	/*if (c == 61)  // =
@@ -15,6 +16,7 @@ int	findOperator(char c)
 	return (0);
 }
 
+/* separa palavra antes de operador e o operador */
 void	lexOp(t_frame *f)
 {
 	if (f->pos - f->wd_begin)
@@ -34,6 +36,7 @@ void	lexOp(t_frame *f)
 	addType_ll(f, 'O');
 }
 
+/* separa palavra normal + espacos entre palavras */
 void	lexFwd(t_frame *f)
 {
 	if (f->pos - f->wd_begin)
@@ -43,6 +46,7 @@ void	lexFwd(t_frame *f)
 	f->wd_begin = f->pos;
 }
 
+/* separa desde 1a aspa ate proxima aspa*/
 void	next_quote(t_frame *f)
 {
 	if (f->str[f->pos] == 34)

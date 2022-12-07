@@ -11,6 +11,7 @@ void	printList(t_token *head)
 	}
 }
 
+/* free lista de tokens - imcompleto */
 void	free_ll(t_token *head)
 {
 	t_token *tmp;
@@ -23,6 +24,7 @@ void	free_ll(t_token *head)
 	}
 }
 
+/* adiciona tipo de token */
 void	addType_ll(t_frame *f, char type)
 {
 	t_token	*head;
@@ -33,6 +35,7 @@ void	addType_ll(t_frame *f, char type)
 	head->token_type = type;
 }
 
+/* adiciona mais um node (do tipo neutro) a lista de tokens */
 void append_ll(t_frame *f, t_token **head, char *s)
 {
 	t_token	*new_node;

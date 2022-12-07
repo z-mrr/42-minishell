@@ -1,8 +1,21 @@
 #include "../include/minishell.h"
 
-void	expandToken(t_token *token) //se '=' u '$' expande para os respetivos valores(exceptions aspas); remove aspas
+char	*
+
+void	expandToken(t_token *t) //se '=' u '$' expande para os respetivos valores(exceptions aspas); remove aspas
 {
-	
+	int	i;
+
+	i = 0;
+	while (t->str[i] != '\0')
+	{
+		if (t->str[i] == 39)
+		{
+			i++;
+			while (t->str)
+		}
+		i++;
+	}
 }
 
 void	parser(t_frame *f)
@@ -16,6 +29,7 @@ void	parser(t_frame *f)
 			expandToken(head);
 		head = head->next;
 	}
+	//create cmd struct
 }
 
 void	lexer(t_frame *f) //os operadores definem o resto dos tokens!!

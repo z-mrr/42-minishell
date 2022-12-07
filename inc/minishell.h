@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/06 15:03:34 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/07 12:41:51 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,19 @@
 
 # define SYNTAX_ERR "minishell: syntax error near unexpected token"
 
-typedef struct s_sh
+typedef struct	s_sh
 {
-	t_list	*cmds;
-	char	**envp;
-}			t_sh;
+	t_list	*cmds;//lista de nodes t_cmd, novo node a cada pipe
+	char	**envp;//duplicado de **envp
+}				t_sh;
+
+typedef struct	s_cmd
+{
+	char	**args;//comando e argumentos
+	char	*path;//path do comando a executar no caso de nao ser um builtin
+	int		in;//default se nao houver redirect/pipe
+	int		out;//default se nao houver redirect/pipe
+}				t_cmd;
 
 //env.c
 char	*get_env(char *var, char **envp);

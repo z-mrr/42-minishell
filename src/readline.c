@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 21:15:40 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/05 15:59:30 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/07 12:42:04 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,6 @@ char	*resolve_str(char	*line)
 		printf("%s `;'\n", SYNTAX_ERR);
 		free(str);
 		str = NULL;
-	}
-	else if (((*str == '<' || *str == '>') && !*str + 1) ||
-			(*str == '<' || *str == '<'))
-	{
-		printf("%s `newline'", SYNTAX_ERR);
 	}
 	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/07 18:37:04 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/07 22:04:56 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,10 @@ typedef struct	s_cmd
 }				t_cmd;
 
 //env.c
-char	*get_env(char *var, char **envp);
-void	set_env(char *var, char *value, char **envp);
+char	*get_env(char *var, t_sh *sh);
 int		pos_env(char *var, char **envp);
-char	**add_env(char *var, char *value, char **envp);
-char	**rmv_env(char *var, char **envp);
+void	set_env(char *var, char *value, t_sh *sh);
+void	rmv_env(char *var, t_sh *sh);
 
 //mtr.c
 int		mtr_len(char **m);

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/07 19:28:56 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/07 22:07:10 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,23 @@ void	init_sh(int argc, char **argv, char **envp, t_sh *sh)
 	(void)argv;
 	sh->cmds = NULL;
 	sh->envp = mtr_dup(envp);
-	temp = get_env("SHLVL", sh->envp);
+	temp = get_env("SHLVL", sh);
 	shlvl = ft_atoi(temp);
 	free(temp);
 	shlvl++;
 	temp = ft_itoa(shlvl);
-	set_env("SHLVL", temp, sh->envp);
+	set_env("SHLVL", temp, sh);
 	free(temp);
-	//tests
-	/*
-	int i = 0;
+//	tests
+/*	int i = 0;
 	while ((sh->envp)[i])
 		printf("%s\n", (sh->envp)[i++]);
 	printf("\n");
-	printf("\tLEN = %d\n", mtr_len(sh->envp));
-	printf("\n\n");
-	printf("\tpos = %d\n", pos_env("_", envp));
-	sh->envp = rmv_env("_", sh->envp);
-	printf("\tLEN = %d\n", mtr_len(sh->envp));
 	printf("\n");
 	i = 0;
 	while ((sh->envp)[i])
 		printf("%s\n", (sh->envp)[i++]);
-	*/
+*/
 }
 
 /*trata dos sinais, corta espaços no inicio e fim da string, adiciona à history,

@@ -44,8 +44,6 @@ void append_ll(t_frame *f, t_token **head, char *s)
 	new_node = NULL;
 	new_node = (t_token *)malloc(sizeof(t_token));
 
-	new_node->token_id = f->id;
-	f->id++;
 	new_node->token_str = ft_strdup(s);
 	new_node->token_type = 'N';
 	new_node->next = NULL;

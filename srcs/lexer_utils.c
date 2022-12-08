@@ -1,71 +1,64 @@
 #include "../include/minishell.h"
 
-/* check for operators */
-int	findOperator(char c)
+int	checkqts(char *s)
 {
-	/*if (c == 61)  // =
-		return (1);
-	if (c == 36)  // $ 
-		return (1); */
-	if (c == 60)  /* < */
-		return (1);
-	if (c == 62)  /* > */
-		return (1);
-	if (c == 124) /* | */
-		return (1);
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == 34 || s[i] == 39)
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
-/* separa palavra antes de operador e o operador */
-void	lexOp(t_frame *f)
+// '=' //palavra a esquerda n pode ter aspas; nao pode estar dentro de aspas; se invalido corta bocado
+void	twEqual(t_frame *f, t_token *head)
 {
-	if (f->pos - f->wd_begin)
-		append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //palavra ate operator
+	char	*pesq;
+	char	*pdir;
+
+	
+	pesq = ft_substr(head->token_str, f->wd_begin, f->pos - f->wd_begin);
+	f->pos++;
 	f->wd_begin = f->pos;
-	if (f->str[f->pos] == 60 || f->str[f->pos] == 62) /* >> << */
+	if (checkqts(pesq))
 	{
-		if (f->str[f->pos + 1] == f->str[f->pos])
-			f->pos += 2;
+		printf("pesq: %s\n", pesq);
+		printf("pdir: %s\n", pdir);
+		free(pesq);
+		return ;
+	}
+	while (head->token_str[f->pos])
+		f->pos++;
+	pdir = ft_substr(head->token_str, f->wd_begin, f->pos - f->wd_begin);
+	free(head->token_str);
+	head->token_str = pesq;
+	//insert_ll('=')
+	//insert_ll(pdir)
+	printf("pesq: %s\n", pesq);
+	printf("pdir: %s\n", pdir);
+	
+}
+
+/* lida com '$' e '=' */
+void	tokenizeWord(t_frame *f, t_token *head)
+{
+	f->pos = 0;
+	f->wd_begin = 0;
+	while (head->token_str[f->pos])
+	{
+		// '=' //palavra a esquerda n pode ter aspas; nao pode estar dentro de aspas;
+		if (head->token_str[f->pos] == '=')
+			twEqual(f, head);
 		else
 			f->pos++;
+		// '$' //palavra a dereita para com aspas;
+			//$? PID do ultimo running process at end
+			//$$ PID da shell
+			//se $ ou $kahbekb , corta so este bocado
+		//retirar aspas
 	}
-	else
-		f->pos++;
-	append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //operator
-	f->wd_begin = f->pos;
-	addType_ll(f, 'O');
-}
-
-/* separa palavra normal + espacos entre palavras */
-void	lexWdend(t_frame *f)
-{
-	if (f->pos - f->wd_begin)
-		append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
-	while (f->str[f->pos] == ' ')
-		f->pos++;
-	f->wd_begin = f->pos;
-}
-
-/* separa desde 1a aspa ate proxima aspa*/
-void	lexQuote(t_frame *f)
-{
-	if (f->str[f->pos] == 34)
-	{
-		f->pos++;
-		while (f->str[f->pos] != 34 && f->str[f->pos])
-				f->pos++;
-	}
-	else
-	{
-		f->pos++;
-		while (f->str[f->pos] != 39 && f->str[f->pos])
-			f->pos++;
-	}
-	if (f->str[f->pos] == '\0')
-		{printf("err quotes");exit(-1);}
-	f->pos++;/*
-	while (f->str[f->pos] != ' ' && f->str[f->pos])
-		f->pos++;
-	append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
-	f->wd_begin = f->pos;*/ //stupid
 }

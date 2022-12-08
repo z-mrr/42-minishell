@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 21:15:40 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/08 15:32:14 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/08 15:43:46 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*get_user(void)
 	return (user);
 }
 
-/*user e dir no prompt, através da getenv=$USER e getcwd=pwd*/
+/*$ azul sem erro, vermelho se erro*/
 char	*get_prompt(t_sh *sh)
 {
 	char	*aux[3];
@@ -86,7 +86,7 @@ char	*get_str(t_sh *sh)
 	prompt = get_prompt(sh);
 	line = readline(prompt);
 	if (!line)//case CTRL+D
-		exit(g_status);
+		exit(g_status);//
 	str = ft_strtrim(line, " \t");
 	if(str && *str)
 		add_history(str);

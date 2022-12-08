@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 13:34:21 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/08 14:28:04 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/08 15:44:52 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_env(char *var, t_sh *sh)
 	pos = pos_env(var, sh->envp);
 	if (pos < 0)
 	{
-		perror("get_env");
+	//	perror("get_env");
 		return (NULL);
 	}
 	return(ft_strdup(sh->envp[pos] + (ft_strlen(var) + 1)));//return de mallocd string after =
@@ -57,7 +57,7 @@ void	rmv_env(char *var, t_sh *sh)
 	pos = pos_env(var, sh->envp);
 	if (pos < 0)
 	{
-		perror("rmv_env");
+	//	perror("rmv_env");
 		return ;
 	}
 	sh->envp = mtr_rmv(pos, sh->envp);

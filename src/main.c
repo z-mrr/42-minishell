@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/08 15:32:48 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/08 15:44:30 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	shlvl(t_sh *sh)
 	temp = get_env("SHLVL", sh);
 	if(!temp)
 	{
-		perror("shlvl");
+	//	perror("shlvl");
 		return ;
 	}
 	shlvl = ft_atoi(temp);
@@ -62,7 +62,7 @@ void	init_sh(int argc, char **argv, char **envp, t_sh *sh)
 	sh->envp = mtr_dup(envp);
 	if (!(sh->envp))
 	{
-		perror("envp");
+	//	perror("envp");
 		return ;
 	}
 	shlvl(sh);
@@ -84,5 +84,5 @@ int	main(int argc, char **argv, char **envp)
 		str = get_str(&sh);
 		free(str);
 	}
-	exit(g_status);
+	exit(g_status);//
 }

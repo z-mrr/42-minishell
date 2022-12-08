@@ -66,6 +66,39 @@ void	handleEqual(t_frame *f)
 }
 */
 
+int	countPairs(char *s)
+{
+	int	i;
+	int	pairs;
+	char	c;
+
+	i = 0;
+	pairs = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == 34 || s[i] == 39)
+		{
+			c = s[i];
+			i++;
+			pairs++;
+			while (s[i] != c)
+				i++;
+		}
+		i++;
+	}
+	return (pairs);
+}
+
+void	rmvQuotes(t_frame *f)
+{
+	int	i;
+	char c;
+
+	i = 0;
+	//contar pares de "; new_str = (char *)malloc(sizeof(char) * (ft_strlen(f->token->token_str) - nbrPairs + 1));
+	printf("pares: %i\n", countPairs(f->token->token_str));
+}
+
 /* lida com '$' e '=' */
 void	tokenizeWord(t_frame *f)
 {
@@ -117,6 +150,6 @@ void	tokenizeWord(t_frame *f)
 			handleEqual(f); */
 		else
 			f->pos++;
-		//retirar aspas
 	}
+	rmvQuotes(f);
 }

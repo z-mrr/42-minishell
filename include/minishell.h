@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/07 19:56:07 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/08 01:01:45 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ typedef struct s_frame {
 	char	**envp;
 	int	id;
 	char	*str;
+	char	*new_str;
 	int	pos;
 	int	wd_begin;
+	char	c;
 } t_frame;
 
 //ddl_utils.c 
@@ -48,10 +50,11 @@ void	addType_ll(t_frame *f, char type);
 void	append_ll(t_frame *f, t_token **head, char *s);
 //lexer.c
 int	findOperator(char c);
-void	lexFwd(t_frame *f);
+void	lexWdend(t_frame *f);
 void	lexOp(t_frame *f);
 void	lexQuote(t_frame *f);
 void	lexer(t_frame *f);
+void	tokenizer(t_frame *f);
 //readline.c
 char	*get_str(void);
 char	*resolve_str(char	*line);

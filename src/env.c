@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 13:34:21 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/07 22:44:13 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/08 11:48:04 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_env(char *var, t_sh *sh)
 	pos = pos_env(var, sh->envp);
 	if (pos < 0)
 	{
-		perror("error");
+		perror("get_env");
 		return (NULL);
 	}
 	return(ft_strdup(sh->envp[pos] + (ft_strlen(var) + 1)));//return de mallocd string after =
@@ -36,7 +36,7 @@ void	set_env(char *var, char *value, t_sh *sh)
 	aux[1] = ft_strjoin(aux[0], value);
 	free(aux[0]);
 	pos = pos_env(var, sh->envp);
-	if (pos < 0)//se nao houver pos=-1
+	if (pos < 0)
 	{
 		sh->envp = mtr_add(aux[1], sh->envp);
 		free(aux[1]);
@@ -57,13 +57,13 @@ void	rmv_env(char *var, t_sh *sh)
 	pos = pos_env(var, sh->envp);
 	if (pos < 0)
 	{
-		perror("error");
+		perror("rmv_env");
 		return ;
 	}
 	sh->envp = mtr_rmv(pos, sh->envp);
 }
 
-/*verifica se ha e return pos, é preciso para dar a pos no mtr_rmv. -1 se nao houver*/
+/*verifica se ha, return pos. -1 se nao houver*/
 int	pos_env(char *var, char **envp)
 {
 	char	*aux;

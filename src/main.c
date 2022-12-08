@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/08 12:55:53 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/08 13:27:28 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void	init_sh(int argc, char **argv, char **envp, t_sh *sh)
 		return ;
 	}
 	shlvl(sh);
-	test(sh);
+	//test
+//	test(sh);
 }
 
 /*trata dos sinais, corta espaços no inicio e fim da string, adiciona à history,

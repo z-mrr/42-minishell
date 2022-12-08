@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/08 15:02:37 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/08 21:34:05 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ typedef struct	s_cmd
 	int		out;//default se nao houver redirect/pipe
 }				t_cmd;
 
+//env_export.c
+int		ft_env(t_sh *sh);
+int		ft_export(t_sh *sh);
+int		print_export(t_sh *sh);
+int		ft_strichr(char *str, char c);
+
 //env.c
 char	*get_env(char *var, t_sh *sh);
 int		pos_env(char *var, char **envp);
@@ -62,8 +68,8 @@ char	*get_user(void);
 char	*get_dir(t_sh *sh);
 
 //signal.c
-void sig_handler(int signal);
-void handle_sig(void);
+void	sig_handler(int signal);
+void	handle_sig(void);
 
 //main.c
 void	shlvl(t_sh *sh);

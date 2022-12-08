@@ -4,7 +4,6 @@ void	printList(t_token *head)
 {
 	while (head != NULL)
 	{
-		printf("token_id:%i; | ", head->token_id);
 		printf("token_str:%s; | ", head->token_str);
 		printf("token_type:%c;\n", head->token_type);
 		head = head->next;
@@ -33,6 +32,24 @@ void	addType_ll(t_frame *f, char type)
 	while (head->next != NULL)
 		head = head->next;
 	head->token_type = type;
+}
+
+void	insert_ll(t_token **head, char *s)
+{
+	t_token *new_node;
+	t_token	*last;
+	t_token *node;
+
+	node = (t_token *)*head;
+	new_node = NULL;
+	new_node = (t_token *)malloc(sizeof(t_token));
+
+	new_node->token_str = ft_strdup(s);
+	new_node->token_type = 'N';
+	new_node->next = node;
+	new_node->prev = node->prev;
+	node->prev = new_node;
+	
 }
 
 /* adiciona mais um node (do tipo neutro) a lista de tokens */

@@ -1,64 +1,72 @@
 #include "../include/minishell.h"
 
-int	checkqts(char *s)
+void	handleDollar(t_frame *f)
 {
-	int	i;
+	int	dollar;
+	t_token *node;
+	char	*tmp;
+	char	*expand;
+	char	*tmp2;
 
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == 34 || s[i] == 39)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-// '=' //palavra a esquerda n pode ter aspas; nao pode estar dentro de aspas; se invalido corta bocado
-void	twEqual(t_frame *f, t_token *head)
-{
-	char	*pesq;
-	char	*pdir;
-
-	
-	pesq = ft_substr(head->token_str, f->wd_begin, f->pos - f->wd_begin);
-	f->pos++;
-	f->wd_begin = f->pos;
-	if (checkqts(pesq))
-	{
-		printf("pesq: %s\n", pesq);
-		printf("pdir: %s\n", pdir);
-		free(pesq);
-		return ;
-	}
-	while (head->token_str[f->pos])
+	node = f->token;
+	dollar = f->pos;
+	tmp = ft_substr(node->token_str, f->wd_begin, (f->pos - 1) - f->wd_begin);
+	while (node->token_str[f->pos] != '\"' && node->token_str[f->pos] != ' ' && node->token_str[f->pos])
 		f->pos++;
-	pdir = ft_substr(head->token_str, f->wd_begin, f->pos - f->wd_begin);
-	free(head->token_str);
-	head->token_str = pesq;
-	//insert_ll('=')
-	//insert_ll(pdir)
-	printf("pesq: %s\n", pesq);
-	printf("pdir: %s\n", pdir);
-	
+	tmp2 = ft_strjoin(tmp, getenv("USER"/*ft_substr(node->token_str, dollar, f->pos - dollar)*/));
+	free(tmp);
+	expand = ft_substr(node->token_str, f->pos, ft_strlen(node->token_str) - f->pos);
+	free(node->token_str);
+	node->token_str = ft_strjoin(tmp2, expand);
+	free(tmp2);
+	free(expand);
+	printf("expand$: %s\n", node->token_str);
 }
 
 /* lida com '$' e '=' */
-void	tokenizeWord(t_frame *f, t_token *head)
+void	tokenizeWord(t_frame *f)
 {
+	t_token *node;
+
+	node = f->token;
 	f->pos = 0;
 	f->wd_begin = 0;
-	while (head->token_str[f->pos])
+	if (ft_strlen(node->token_str) < 2 && node->token_str[0] == '$')
+		return ;
+	while (node->token_str[f->pos])
 	{
-		// '=' //palavra a esquerda n pode ter aspas; nao pode estar dentro de aspas;
-		if (head->token_str[f->pos] == '=')
-			twEqual(f, head);
+		//dentro de '' passa so a frente;
+		if (node->token_str[f->pos] == 39)
+		{
+			f->pos++;
+			printf("dentro de \' \n");
+			while (node->token_str[f->pos] != 39)
+				f->pos++;
+			f->pos++;
+		}
+		//se dentro de aspas:
+			// '$' //pega na palavra a direita para com aspas ou final de palavra; retira a var e insere o value; se n der match delete_ll
+		else if (node->token_str[f->pos] == 34)
+		{
+			f->pos++;
+			printf("fora de \" \n");
+			while (node->token_str[f->pos] != 34 && node->token_str[f->pos])
+			{
+				if (node->token_str[f->pos] == '$')
+				{
+					handleDollar(f);
+					f->pos++;
+				}
+				else
+					f->pos++;
+			}
+			f->pos++;
+		}
 		else
 			f->pos++;
-		// '$' //palavra a dereita para com aspas;
-			//$? PID do ultimo running process at end
-			//$$ PID da shell
-			//se $ ou $kahbekb , corta so este bocado
+		//se fora de aspas:
+			// '$' //palavra a direita para com aspas ou final de palavra;
+			// '=' //palavra a esquerda n pode ter aspas; insert(pesq) atras, insert(token) atras, continua 
 		//retirar aspas
 	}
 }

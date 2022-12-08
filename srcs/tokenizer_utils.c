@@ -63,9 +63,9 @@ void	lexQuote(t_frame *f)
 	}
 	if (f->str[f->pos] == '\0')
 		{printf("err quotes");exit(-1);}
-	f->pos++;/*
+	f->pos++;
 	while (f->str[f->pos] != ' ' && f->str[f->pos])
 		f->pos++;
 	append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
-	f->wd_begin = f->pos;*/ //stupid
+	f->wd_begin = f->pos;
 }

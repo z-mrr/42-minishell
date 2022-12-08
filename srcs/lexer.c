@@ -2,16 +2,17 @@
 
 void	lexer(t_frame *f)
 {
-	t_token *head;
-
-	head = f->token;
-	
-	while (head != NULL)
+	while (f->token->next != NULL)
 	{
-		if (head->token_type != 'O')
-			tokenizeWord(f, head);
-		head = head->next;
+		tokenizeWord(f);
+		printf("lex: %s\n", f->token->token_str);
+		f->token = f->token->next;
 	}
+	tokenizeWord(f);
+	printf("lex: %s\n", f->token->token_str);
+	while (f->token->prev != NULL)
+		f->token = f->token->prev;
+	//reset token to 1st
 	//fill cmd struct
 }
 

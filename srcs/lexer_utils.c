@@ -10,11 +10,18 @@ void	handleDollar(t_frame *f)
 
 	node = f->token;
 	dollar = f->pos;
-	tmp = ft_substr(node->token_str, f->wd_begin, (f->pos - 1) - f->wd_begin);
+	tmp = NULL;
+	if (f->pos - f->wd_begin)
+		tmp = ft_substr(node->token_str, f->wd_begin, (f->pos - 1) - f->wd_begin);
 	while (node->token_str[f->pos] != '\"' && node->token_str[f->pos] != ' ' && node->token_str[f->pos])
 		f->pos++;
-	tmp2 = ft_strjoin(tmp, getenv("USER"/*ft_substr(node->token_str, dollar, f->pos - dollar)*/));
-	free(tmp);
+	if (tmp)
+	{
+		tmp2 = ft_strjoin(tmp, getenv("USER"/*ft_substr(node->token_str, dollar, f->pos - dollar)*/));
+		free(tmp);
+	}
+	else
+		tmp2 = ft_strdup(getenv("USER"));
 	expand = ft_substr(node->token_str, f->pos, ft_strlen(node->token_str) - f->pos);
 	free(node->token_str);
 	node->token_str = ft_strjoin(tmp2, expand);
@@ -62,6 +69,15 @@ void	tokenizeWord(t_frame *f)
 			}
 			f->pos++;
 		}
+		else if (node->token_str[f->pos] == '$')
+		{
+			handleDollar(f);
+			f->pos++;
+		}
+		/*else if (node->token_str[f->pos] == '=')
+		{
+
+		}*/
 		else
 			f->pos++;
 		//se fora de aspas:

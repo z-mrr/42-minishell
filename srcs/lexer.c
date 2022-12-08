@@ -10,9 +10,9 @@ void	lexer(t_frame *f)
 	}
 	tokenizeWord(f);
 	printf("lex: %s\n", f->token->token_str);
+	//reset token to 1st
 	while (f->token->prev != NULL)
 		f->token = f->token->prev;
-	//reset token to 1st
 	//fill cmd struct
 }
 

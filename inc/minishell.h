@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/08 13:15:10 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/08 13:28:43 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ typedef struct	s_cmd
 	int		in;//default se nao houver redirect/pipe
 	int		out;//default se nao houver redirect/pipe
 }				t_cmd;
-
-//builtins.c
-
 
 //env.c
 char	*get_env(char *var, t_sh *sh);

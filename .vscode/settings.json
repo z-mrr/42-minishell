@@ -4,6 +4,7 @@
 		"fcntl.h": "c",
 		"readline.h": "c",
 		"minishell.h": "c",
-		"signal.h": "c"
+		"signal.h": "c",
+		"color.h": "c"
 	}
 }

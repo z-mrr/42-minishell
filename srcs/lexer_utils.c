@@ -30,6 +30,21 @@ void	handleDollar(t_frame *f)
 	printf("expand$: %s\n", node->token_str);
 }
 
+void	handleEqual(t_frame *f)
+{
+	char	*esq;
+	char	*dir;
+	t_token	*node;
+
+	node = f->token;
+	esq = ft_substr(node->token_str, f->wd_begin, f->pos - f->wd_begin);
+	f->pos++;
+	dir = ft_substr(node->token_str, f->pos, ft_strlen(node->token_str) - f->pos);
+	printf("esq: %s\n", esq);
+	printf("dir: %s\n", dir);
+	//adicionar as var;
+}
+
 /* lida com '$' e '=' */
 void	tokenizeWord(t_frame *f)
 {
@@ -74,15 +89,13 @@ void	tokenizeWord(t_frame *f)
 			handleDollar(f);
 			f->pos++;
 		}
-		/*else if (node->token_str[f->pos] == '=')
-		{
-
-		}*/
-		else
-			f->pos++;
 		//se fora de aspas:
 			// '$' //palavra a direita para com aspas ou final de palavra;
 			// '=' //palavra a esquerda n pode ter aspas; insert(pesq) atras, insert(token) atras, continua 
+		else if (node->token_str[f->pos] == '=' && node->prev == NULL)
+			handleEqual(f);
+		else
+			f->pos++;
 		//retirar aspas
 	}
 }

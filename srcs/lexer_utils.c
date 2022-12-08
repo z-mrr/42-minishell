@@ -12,16 +12,35 @@ void	handleDollar(t_frame *f)
 	dollar = f->pos;
 	tmp = NULL;
 	if (f->pos - f->wd_begin)
-		tmp = ft_substr(node->token_str, f->wd_begin, (f->pos - 1) - f->wd_begin);
-	while (node->token_str[f->pos] != '\"' && node->token_str[f->pos] != ' ' && node->token_str[f->pos])
+		tmp = ft_substr(node->token_str, f->wd_begin, (f->pos) - f->wd_begin);
+	printf("pos: %i - char: %c\n", f->pos, node->token_str[f->pos]);
+	f->pos++;
+	if (node->token_str[f->pos] == '?')
+	{
+		f->pos++;
+		if (tmp)
+			tmp2 = ft_strjoin(tmp, ft_itoa(f->last_pid));
+		else
+			tmp2 = ft_strdup(ft_itoa(f->last_pid));
+	}
+	else
+	{
+	while (node->token_str[f->pos] != '\"' && node->token_str[f->pos] != ' ' && node->token_str[f->pos] != '$' && node->token_str[f->pos])
 		f->pos++;
 	if (tmp)
 	{
+		if (ft_strlen(ft_substr(node->token_str, dollar, f->pos - dollar)) < 2)
+			{printf("siga\n");exit(-1);}
 		tmp2 = ft_strjoin(tmp, getenv("USER"/*ft_substr(node->token_str, dollar, f->pos - dollar)*/));
 		free(tmp);
 	}
 	else
-		tmp2 = ft_strdup(getenv("USER"));
+	{
+		if (ft_strlen(ft_substr(node->token_str, dollar, f->pos - dollar)) < 2)
+			{printf("siga\n");exit(-1);}
+		tmp2 = ft_strdup(getenv("USER")); //se n encontrar match, tmp2 = ""
+	}
+	}
 	expand = ft_substr(node->token_str, f->pos, ft_strlen(node->token_str) - f->pos);
 	free(node->token_str);
 	node->token_str = ft_strjoin(tmp2, expand);
@@ -30,6 +49,7 @@ void	handleDollar(t_frame *f)
 	printf("expand$: %s\n", node->token_str);
 }
 
+/*
 void	handleEqual(t_frame *f)
 {
 	char	*esq;
@@ -44,6 +64,7 @@ void	handleEqual(t_frame *f)
 	printf("dir: %s\n", dir);
 	//adicionar as var;
 }
+*/
 
 /* lida com '$' e '=' */
 void	tokenizeWord(t_frame *f)
@@ -53,8 +74,8 @@ void	tokenizeWord(t_frame *f)
 	node = f->token;
 	f->pos = 0;
 	f->wd_begin = 0;
-	if (ft_strlen(node->token_str) < 2 && node->token_str[0] == '$')
-		return ;
+	/*if (ft_strlen(node->token_str) < 2 && node->token_str[0] == '$')
+		return ;*/
 	while (node->token_str[f->pos])
 	{
 		//dentro de '' passa so a frente;
@@ -84,16 +105,16 @@ void	tokenizeWord(t_frame *f)
 			}
 			f->pos++;
 		}
+		//se fora de aspas:
+			// '$' //palavra a direita para com aspas ou final de palavra;
 		else if (node->token_str[f->pos] == '$')
 		{
 			handleDollar(f);
-			f->pos++;
+			//f->pos++;
 		}
-		//se fora de aspas:
-			// '$' //palavra a direita para com aspas ou final de palavra;
-			// '=' //palavra a esquerda n pode ter aspas; insert(pesq) atras, insert(token) atras, continua 
-		else if (node->token_str[f->pos] == '=' && node->prev == NULL)
-			handleEqual(f);
+		// '=' // se var nao tiver aspas: adiciona a var com valor value a uma **vars, remove token; se var tiver aspas, n faz nada
+		/*else if (node->token_str[f->pos] == '=' && node->prev == NULL)
+			handleEqual(f); */
 		else
 			f->pos++;
 		//retirar aspas

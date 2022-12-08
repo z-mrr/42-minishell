@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/08 01:57:32 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/08 19:25:45 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_frame	*create_frame(t_frame *frame, char **envp, char *s)
 		exit(1);
 	frame->token = NULL;
 	frame->envp = envp;
+	frame->last_pid = 0;
 	frame->str = s;
 	frame->new_str = NULL;
 	frame->pos = 0;

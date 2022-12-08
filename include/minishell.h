@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/08 05:28:44 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/08 19:25:29 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ typedef struct s_token {
 typedef struct s_frame {
 	t_token *token;
 	char	**envp;
-	char	**var; //var=value
+	//char	**vars;
+	int	last_pid;
 	char	*str;
 	char	*new_str;
 	int	pos;

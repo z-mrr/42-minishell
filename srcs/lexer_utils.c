@@ -30,15 +30,17 @@ void	handleDollar(t_frame *f)
 	if (tmp)
 	{
 		if (ft_strlen(ft_substr(node->token_str, dollar, f->pos - dollar)) < 2)
-			{printf("siga\n");exit(-1);}
-		tmp2 = ft_strjoin(tmp, getenv("USER"/*ft_substr(node->token_str, dollar, f->pos - dollar)*/));
+			tmp2 = ft_strjoin(tmp, "$");
+		else
+			tmp2 = ft_strjoin(tmp, getenv("USER"/*ft_substr(node->token_str, dollar, f->pos - dollar)*/));
 		free(tmp);
 	}
 	else
 	{
 		if (ft_strlen(ft_substr(node->token_str, dollar, f->pos - dollar)) < 2)
-			{printf("siga\n");exit(-1);}
-		tmp2 = ft_strdup(getenv("USER")); //se n encontrar match, tmp2 = ""
+			tmp2 = ft_strdup("$");
+		else
+			tmp2 = ft_strdup(getenv("USER")); //se n encontrar match, tmp2 = ""
 	}
 	}
 	expand = ft_substr(node->token_str, f->pos, ft_strlen(node->token_str) - f->pos);

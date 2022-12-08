@@ -33,7 +33,7 @@ void	addType_ll(t_frame *f, char type)
 		head = head->next;
 	head->token_type = type;
 }
-
+/*
 void	insert_ll(t_token **head, char *s)
 {
 	t_token *new_node;
@@ -51,7 +51,7 @@ void	insert_ll(t_token **head, char *s)
 	node->prev = new_node;
 	
 }
-
+*/
 /* adiciona mais um node (do tipo neutro) a lista de tokens */
 void append_ll(t_frame *f, t_token **head, char *s)
 {

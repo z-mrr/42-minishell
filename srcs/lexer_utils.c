@@ -92,11 +92,37 @@ int	countPairs(char *s)
 void	rmvQuotes(t_frame *f)
 {
 	int	i;
+	int	j;
 	char c;
+	char	*new_str;
 
 	i = 0;
-	//contar pares de "; new_str = (char *)malloc(sizeof(char) * (ft_strlen(f->token->token_str) - nbrPairs + 1));
-	printf("pares: %i\n", countPairs(f->token->token_str));
+	j = 0;
+	new_str = (char *)malloc(sizeof(char) * ((ft_strlen(f->token->token_str) - (countPairs(f->token->token_str) * 2) + 1)));
+	while (f->token->token_str[i] != '\0')
+	{
+		if (f->token->token_str[i] == 34 || f->token->token_str[i] == 39)
+		{
+			c = f->token->token_str[i];
+			i++;
+			while (f->token->token_str[i] != c)
+			{
+				new_str[j] = f->token->token_str[i];
+				i++;
+				j++;
+			}
+			i++;
+		}
+		else
+		{
+			new_str[j] = f->token->token_str[i];
+			i++;
+			j++;
+		}
+	}
+	free(f->token->token_str);
+	new_str[j] = '\0';
+	f->token->token_str = new_str;
 }
 
 /* lida com '$' e '=' */

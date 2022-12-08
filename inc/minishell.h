@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/08 21:34:05 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/08 21:36:42 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-int	g_status;
+int	g_status;//exit status
 
 typedef struct	s_sh
 {

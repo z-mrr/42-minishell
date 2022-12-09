@@ -1,5 +1,14 @@
 #include "minishell.h"
 
+void	tests(t_sh *sh)
+{
+	t_pwd();
+	t_export_args(sh);
+	t_env(sh);
+	t_unset(sh);
+	t_export_noargs(sh);
+}
+
 void	t_export_args(t_sh *sh)
 {
 	char	**test;
@@ -53,13 +62,4 @@ void	t_unset(t_sh *sh)
 	ft_unset(sh, test);
 	printf("\n\tunset a\n\n");
 	mtr_free(test);
-}
-
-void	tests(t_sh *sh)
-{
-	t_pwd();
-	t_export_args(sh);
-	t_env(sh);
-	t_unset(sh);
-	t_export_noargs(sh);
 }

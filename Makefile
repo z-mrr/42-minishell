@@ -11,7 +11,7 @@ val:
 valtrack:
 	@valgrind --track-origins=yes ./minishell
 valleak:
-	@valgrind --leak-check=full --show-leak-kinds=all ./minishell
+	@valgrind --leak-check=full ./minishell
 gdb:
 	@valgrind --vgdb=yes --vgdb-error=0 ./minishell
 fsanitize:

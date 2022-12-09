@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/08 21:34:35 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/09 04:24:28 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,19 @@
 # define SYNTAX_ERR "-minishell: syntax error near unexpected token"
 
 typedef struct s_token {
-	int		token_id;
 	char		*token_str;
 	char		token_type;
 	struct	s_token	*next;
 	struct	s_token *prev;
 } t_token;
+
+typedef	struct	s_cmd {
+	char	**full_cmd; //cmd e args
+	char	*path; //cmd PATH; se builtin deixar so nome
+	int	in_fd;
+	int	out_fd;
+	struct s_cmd *next;
+} t_cmd;
 
 typedef struct s_frame {
 	t_token *token;
@@ -42,18 +49,17 @@ typedef struct s_frame {
 	int	pos;
 	int	wd_begin;
 	char	c;
+	t_cmd	*cmd;
 } t_frame;
 
 //ddl_utils.c 
 void	printList(t_token *head);
-void	free_ll(t_token *head);
+void	free_ll(t_frame *f);
 void	addType_ll(t_frame *f, char type);
 //void	insert_ll(t_token **head, char *s);
 void	append_ll(t_frame *f, t_token **head, char *s);
-
 //lexer_utils.c
 void	tokenizeWord(t_frame *f);
-void	twEqual(t_frame *f, t_token *head);
 int	checkqts(char *s);
 //tokenize_utlis.c
 int	findOperator(char c);

@@ -11,16 +11,16 @@ void	printList(t_token *head)
 }
 
 /* free lista de tokens - imcompleto */
-void	free_ll(t_token *head)
+void	free_ll(t_frame *f)
 {
-	t_token *tmp;
-
-	while (head != NULL)
+	while (f->token->next != NULL)
 	{
-		tmp = head;
-		head = head->next;
-		free(tmp);
+		f->token = f->token->next;
+		free(f->token->prev->token_str);
+		free(f->token->prev);
 	}
+	free(f->token->token_str);
+	free(f->token);
 }
 
 /* adiciona tipo de token */
@@ -33,25 +33,7 @@ void	addType_ll(t_frame *f, char type)
 		head = head->next;
 	head->token_type = type;
 }
-/*
-void	insert_ll(t_token **head, char *s)
-{
-	t_token *new_node;
-	t_token	*last;
-	t_token *node;
 
-	node = (t_token *)*head;
-	new_node = NULL;
-	new_node = (t_token *)malloc(sizeof(t_token));
-
-	new_node->token_str = ft_strdup(s);
-	new_node->token_type = 'N';
-	new_node->next = node;
-	new_node->prev = node->prev;
-	node->prev = new_node;
-	
-}
-*/
 /* adiciona mais um node (do tipo neutro) a lista de tokens */
 void append_ll(t_frame *f, t_token **head, char *s)
 {
@@ -61,7 +43,7 @@ void append_ll(t_frame *f, t_token **head, char *s)
 	new_node = NULL;
 	new_node = (t_token *)malloc(sizeof(t_token));
 
-	new_node->token_str = ft_strdup(s);
+	new_node->token_str = s;
 	new_node->token_type = 'N';
 	new_node->next = NULL;
 	if (*head == NULL)

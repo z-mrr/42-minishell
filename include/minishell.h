@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/09 04:24:28 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/09 05:29:58 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ typedef struct s_frame {
 void	printList(t_token *head);
 void	free_ll(t_frame *f);
 void	addType_ll(t_frame *f, char type);
-//void	insert_ll(t_token **head, char *s);
 void	append_ll(t_frame *f, t_token **head, char *s);
+//parser.c
+void	parseCmds(t_frame *f);
 //lexer_utils.c
 void	tokenizeWord(t_frame *f);
 int	checkqts(char *s);

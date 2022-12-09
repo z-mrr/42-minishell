@@ -54,6 +54,7 @@ void append_ll(t_frame *f, t_token **head, char *s)
 	if (*head == NULL)
 	{
 		new_node->prev = NULL;
+		new_node->next = NULL;
 		*head = new_node;
 		return ;
 	}

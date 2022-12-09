@@ -5,16 +5,17 @@ void	lexer(t_frame *f)
 	while (f->token->next != NULL)
 	{
 		tokenizeWord(f);
-		//ErrorOpSyntax(f);
 		printf("lex: %s\n", f->token->token_str);
 		f->token = f->token->next;
 	}
 	tokenizeWord(f);
-	printf("lex: %s\n", f->token->token_str);
 	//reset token to 1st
 	while (f->token->prev != NULL)
 		f->token = f->token->prev;
+	printList(f->token);
+	printf("vai parser\n");
 	//fill cmd struct
+	parseCmds(f);
 }
 
 /* tokenizer; separa dentro de aspas, operadores e palavras */
@@ -34,6 +35,7 @@ void	tokenizer(t_frame *f) //os operadores definem o resto dos tokens!!
 	if (f->pos - f->wd_begin)
 		append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //ultima palavra 
 	printf("current f->pos: %i - %c\n", f->pos, f->str[f->pos]);
+	printList(f->token);
 	lexer(f);
 	printList(f->token);
 	free_ll(f);

@@ -27,6 +27,7 @@ void	lexOp(t_frame *f)
 	}
 	else
 		f->pos++;
+	
 	append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //operator
 	f->wd_begin = f->pos;
 	addType_ll(f, 'O');

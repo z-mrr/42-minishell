@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/08 21:36:42 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/09 00:19:04 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,15 @@ typedef struct	s_cmd
 	int		out;//default se nao houver redirect/pipe
 }				t_cmd;
 
-//env_export.c
-int		ft_env(t_sh *sh);
-int		ft_export(t_sh *sh);
+//export.c
+int		ft_export(t_sh *sh, char **test);//testing
 int		print_export(t_sh *sh);
+char	**set_export(t_sh *sh);
 int		ft_strichr(char *str, char c);
+int		ft_strcmp(const char *s1, const char *s2);
 
 //env.c
+int		ft_env(t_sh *sh);
 char	*get_env(char *var, t_sh *sh);
 int		pos_env(char *var, char **envp);
 void	set_env(char *var, char *value, t_sh *sh);

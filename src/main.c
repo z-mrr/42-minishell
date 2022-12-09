@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/08 19:58:53 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/09 00:12:55 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,13 @@ void	test(t_sh *sh)
 	i = 0;
 	while ((sh->envp)[i])
 		printf("%s\n", (sh->envp)[i++]);*/
-	builtin_env(sh);
+	char	**test;
+	test = malloc(sizeof(char *) * 2);
+	test[0] = ft_strdup("export");
+	test[1] = NULL;
+	ft_export(sh, test);
+	mtr_free(test);
+//	mtr_free(sh->envp);
 }
 
 void	shlvl(t_sh *sh)

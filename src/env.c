@@ -5,12 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/06 13:34:21 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/08 15:50:32 by jdias-mo         ###   ########.fr       */
+/*   Created: 2022/12/08 15:51:07 by jdias-mo          #+#    #+#             */
+/*   Updated: 2022/12/08 23:18:29 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*env no options or arguments*/
+int	ft_env(t_sh *sh)
+{
+	int	i;
+
+	if (!*sh->envp)
+		return (0);//
+	i = -1;
+	while(sh->envp[++i])
+	{
+		ft_putstr_fd(sh->envp[i], 1);
+		ft_putchar_fd('\n', 1);
+	}
+	return (0);
+}
 
 /*return valor de env*/
 char	*get_env(char *var, t_sh *sh)

@@ -132,7 +132,7 @@ void	tokenizeWord(t_frame *f)
 			f->pos++;
 		}
 		//se dentro de aspas:
-			// '$' //pega na palavra a direita para com aspas ou final de palavra; retira a var e insere o value; se n der match delete_ll
+			// '$' //pega na palavra a direita para com aspas ou final de palavra; retira a var e insere o value; se n der match delete_dll
 		else if (node->token_str[f->pos] == 34)
 		{
 			f->pos++;

@@ -11,7 +11,7 @@ void	printList(t_token *head)
 }
 
 /* free lista de tokens - imcompleto */
-void	free_ll(t_frame *f)
+void	free_dll(t_frame *f)
 {
 	while (f->token->next != NULL)
 	{
@@ -40,7 +40,7 @@ void	addType_ll(t_frame *f, char type)
 }
 
 /* adiciona mais um node (do tipo neutro) a lista de tokens */
-void append_ll(t_frame *f, t_token **head, char *s)
+void append_dll(t_frame *f, t_token **head, char *s)
 {
 	t_token	*new_node;
 	t_token	*last;

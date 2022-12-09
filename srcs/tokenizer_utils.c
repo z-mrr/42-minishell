@@ -16,7 +16,7 @@ int	findOperator(char c)
 void	lexOp(t_frame *f)
 {
 	if (f->pos - f->wd_begin)
-		append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //palavra ate operator
+		append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //palavra ate operator
 	f->wd_begin = f->pos;
 	if (f->str[f->pos] == 60 || f->str[f->pos] == 62) /* << >> */
 	{
@@ -28,7 +28,7 @@ void	lexOp(t_frame *f)
 	else
 		f->pos++;
 	
-	append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //operator
+	append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //operator
 	f->wd_begin = f->pos;
 	addType_ll(f, 'O');
 }
@@ -37,7 +37,7 @@ void	lexOp(t_frame *f)
 void	lexWdend(t_frame *f)
 {
 	if (f->pos - f->wd_begin)
-		append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
+		append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
 	while (f->str[f->pos] == ' ')
 		f->pos++;
 	f->wd_begin = f->pos;
@@ -63,6 +63,6 @@ void	lexQuote(t_frame *f)
 	f->pos++;
 	while (f->str[f->pos] != ' ' && f->str[f->pos])
 		f->pos++;
-	append_ll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
+	append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
 	f->wd_begin = f->pos;
 }

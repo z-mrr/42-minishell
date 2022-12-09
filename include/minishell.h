@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/09 05:29:58 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/09 22:14:10 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ typedef	struct	s_cmd {
 	char	*path; //cmd PATH; se builtin deixar so nome
 	int	in_fd;
 	int	out_fd;
+	int	err_fd;
 	struct s_cmd *next;
+	struct s_cmd *prev;
 } t_cmd;
 
 typedef struct s_frame {
+	t_cmd	*cmds;
 	t_token *token;
 	char	**envp;
 	//char	**vars;
@@ -54,9 +57,9 @@ typedef struct s_frame {
 
 //ddl_utils.c 
 void	printList(t_token *head);
-void	free_ll(t_frame *f);
+void	free_dll(t_frame *f);
 void	addType_ll(t_frame *f, char type);
-void	append_ll(t_frame *f, t_token **head, char *s);
+void	append_dll(t_frame *f, t_token **head, char *s);
 //parser.c
 void	parseCmds(t_frame *f);
 //lexer_utils.c

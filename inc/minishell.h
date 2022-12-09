@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/09 03:12:57 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/09 03:34:35 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ typedef struct	s_cmd
 	int		in;//default se nao houver redirect/pipe
 	int		out;//default se nao houver redirect/pipe
 }				t_cmd;
+
+//test.c TESTS <========================================
+void	tests(t_sh *sh);
+void	t_unset(t_sh *sh);
+void	t_pwd();
+void	t_env(t_sh *sh);
+void	t_export_noargs(t_sh *sh);
+void	t_export_args(t_sh *sh);
 
 //builtins.c test args
 int		ft_pwd(void);
@@ -80,7 +88,5 @@ void	handle_sig(void);
 //main.c
 void	shlvl(t_sh *sh);
 void	init_sh(int argc, char **argv, char **envp, t_sh *sh);
-//tests
-void	test(char **argv, t_sh *sh);
 
 #endif

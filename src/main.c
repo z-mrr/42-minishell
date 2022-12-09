@@ -6,61 +6,11 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/09 03:08:49 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/09 03:34:27 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*tests*/
-void	test(char **argv, t_sh *sh)
-{
-	(void)argv;
-/*	int i = 0;
-	char *test;
-	while ((sh->envp)[i])
-		printf("%s\n", (sh->envp)[i++]);
-	printf("\n");
-	test = get_env("SHLL", sh);
-	if (test)
-		free(test);
-	rmv_env("_", sh);
-	set_env("SHELL", "done", sh);
-	set_env("Ricardo", "Maior", sh);
-	printf("\n");
-	i = 0;
-	while ((sh->envp)[i])
-		printf("%s\n", (sh->envp)[i++]);*/
-	char	**test;
-	test = malloc(sizeof(char *) * 3);
-	test[0] = ft_strdup("export");
-	test[1] = ft_strdup("a=5");
-	test[2] = NULL;
-	ft_export(sh, test);
-	printf("\n\texported a=5\n");
-	char	**test2;
-	test2 = malloc(sizeof(char *) * 3);
-	test2[0] = ft_strdup("export");
-	test2[1] = NULL;
-//	printf("\n\tENV\n\n");
-//	ft_env(sh);
-	printf("\n\tEXPORT\n\n");
-	ft_export(sh, test2);
-	char **test3;
-	test3=malloc(sizeof(char *) * 4);
-	test3[0]= ft_strdup("unset");
-	test3[1]= ft_strdup("b");
-	test3[2]= ft_strdup("a");
-	test3[3]= NULL;
-	ft_unset(sh, test3);
-	printf("\n\tunseted a\n");
-	ft_export(sh, test2);
-	printf("\n\tpwd\n");
-	ft_pwd();
-	mtr_free(test);
-	mtr_free(test2);
-	mtr_free(test3);
-}
 
 void	shlvl(t_sh *sh)
 {
@@ -95,8 +45,6 @@ void	init_sh(int argc, char **argv, char **envp, t_sh *sh)
 		return ;
 	}
 	shlvl(sh);
-	//test
-	test(argv, sh);
 }
 
 /*trata dos sinais, corta espaços no inicio e fim da string, adiciona à history,
@@ -107,6 +55,8 @@ int	main(int argc, char **argv, char **envp)
 	char	*str;
 
 	init_sh(argc, argv, envp, &sh);
+	//TESTS <================================================================
+	tests(&sh);
 	while(1)
 	{
 		handle_sig();

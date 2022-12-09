@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:51:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/08 23:18:29 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/09 03:38:29 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ int	ft_env(t_sh *sh)
 		return (0);//
 	i = -1;
 	while(sh->envp[++i])
-	{
-		ft_putstr_fd(sh->envp[i], 1);
-		ft_putchar_fd('\n', 1);
-	}
+		ft_putendl_fd(sh->envp[i], 1);
 	return (0);
 }
 

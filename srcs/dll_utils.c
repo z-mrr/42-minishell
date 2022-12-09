@@ -15,12 +15,17 @@ void	free_ll(t_frame *f)
 {
 	while (f->token->next != NULL)
 	{
+		printf("vou dar free a %s\n", f->token->token_str);
 		f->token = f->token->next;
 		free(f->token->prev->token_str);
+		f->token->prev->next = NULL;
 		free(f->token->prev);
+		f->token->prev = NULL;
 	}
+	printf("vou dar free a %s\n", f->token->token_str);
 	free(f->token->token_str);
 	free(f->token);
+	f->token = NULL;
 }
 
 /* adiciona tipo de token */

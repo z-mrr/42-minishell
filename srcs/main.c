@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/09 04:39:44 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/09 05:05:06 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_frame	*create_frame(t_frame *frame, char **envp, char *s)
 	frame->envp = envp;
 	frame->last_pid = 0;
 	frame->str = ft_strdup(s);
+	free(s);
 	frame->new_str = NULL;
 	frame->pos = 0;
 	frame->wd_begin = 0;
@@ -45,7 +46,7 @@ int	main(int argc, char **argv, char **envp)
 		str = get_str();
 		frame = create_frame(frame, envp, str);
 		tokenizer(frame);
-		free(str);
+		free(frame->str);
 		free(frame);
 	}
 	return (0);

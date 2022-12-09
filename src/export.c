@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:15:11 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/09 01:02:16 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/09 04:37:00 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,19 @@ int	ft_strichr(char *str, char c)
 /*compara strings*/
 int	ft_strcmp(const char *s1, const char *s2)
 {
-	size_t				i;
-	unsigned int		n;
+	int	i;
+	int	n;
+	int	len[2];
 
-	i = 0;
-	n = ft_strlen(s1) + ft_strlen(s2);
-	if (n == 0)
+	len[0] = ft_strlen(s1);
+	len[1] = ft_strlen(s2);
+	if (len[0] > len[1])
+		n = len[0];
+	else
+		n = len[1];
+	if (!n)
 		return (0);
+	i = 0;
 	while (s1[i] && s2[i] && s1[i] == s2[i] && i < n)
 		i++;
 	if (i == n)

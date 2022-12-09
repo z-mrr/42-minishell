@@ -4,9 +4,10 @@ void	tests(t_sh *sh)
 {
 	t_pwd();
 	t_export_args(sh);
-	t_env(sh);
-	t_unset(sh);
 	t_export_noargs(sh);
+	t_unset(sh);
+	t_env(sh);
+
 }
 
 void	t_export_args(t_sh *sh)
@@ -29,7 +30,7 @@ void	t_export_noargs(t_sh *sh)
 	test = malloc(sizeof(char *) * 3);
 	test[0] = ft_strdup("export");
 	test[1] = NULL;
-	printf("\n\tEXPORT\n\n");
+	printf("\n\texport\n\n");
 	ft_export(sh, test);
 	printf("\n");
 	mtr_free(test);
@@ -38,14 +39,14 @@ void	t_export_noargs(t_sh *sh)
 
 void	t_env(t_sh *sh)
 {
-	printf("\n\tENV\n\n");
+	printf("\n\tenv\n\n");
 	ft_env(sh);
 	printf("\n");
 }
 
 void	t_pwd()
 {
-	printf("\n\tPWD\n");
+	printf("\n\tpwd\n\n");
 	ft_pwd();
 	printf("\n");
 }

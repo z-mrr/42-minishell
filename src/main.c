@@ -6,15 +6,16 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/09 01:02:57 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/09 03:08:49 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*tests*/
-void	test(t_sh *sh)
+void	test(char **argv, t_sh *sh)
 {
+	(void)argv;
 /*	int i = 0;
 	char *test;
 	while ((sh->envp)[i])
@@ -41,12 +42,24 @@ void	test(t_sh *sh)
 	test2 = malloc(sizeof(char *) * 3);
 	test2[0] = ft_strdup("export");
 	test2[1] = NULL;
-	printf("\n\tENV\n\n");
-	ft_env(sh);
+//	printf("\n\tENV\n\n");
+//	ft_env(sh);
 	printf("\n\tEXPORT\n\n");
 	ft_export(sh, test2);
+	char **test3;
+	test3=malloc(sizeof(char *) * 4);
+	test3[0]= ft_strdup("unset");
+	test3[1]= ft_strdup("b");
+	test3[2]= ft_strdup("a");
+	test3[3]= NULL;
+	ft_unset(sh, test3);
+	printf("\n\tunseted a\n");
+	ft_export(sh, test2);
+	printf("\n\tpwd\n");
+	ft_pwd();
 	mtr_free(test);
 	mtr_free(test2);
+	mtr_free(test3);
 }
 
 void	shlvl(t_sh *sh)
@@ -83,7 +96,7 @@ void	init_sh(int argc, char **argv, char **envp, t_sh *sh)
 	}
 	shlvl(sh);
 	//test
-	test(sh);
+	test(argv, sh);
 }
 
 /*trata dos sinais, corta espaços no inicio e fim da string, adiciona à history,

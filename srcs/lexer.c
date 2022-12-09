@@ -15,7 +15,7 @@ void	lexer(t_frame *f)
 	printList(f->token);
 	printf("vai parser\n");
 	//fill cmd struct
-	parseCmds(f);
+	//parseCmds(f);
 }
 
 /* tokenizer; separa dentro de aspas, operadores e palavras */

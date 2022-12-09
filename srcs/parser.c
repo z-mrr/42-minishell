@@ -1,20 +1,12 @@
 #include "../include/minishell.h"
 
-/* criar cms struct, se for para child chama fork*/
-
-typedef struct s_node {
-	struct s_cmd *cmds;
-	struct s_node *next;  //separa por |
-} t_node;
-
-
 /* caso <<*/
-void	parseOpDsmaller(t_frame *f)
+/*void	parseOpDsmaller(t_frame *f)
 {
 	
-}
+*/
 
-
+/*
 void	parseCmds(t_frame *f)
 {
 	t_node
@@ -30,4 +22,4 @@ void	parseCmds(t_frame *f)
 	}	
 	while (f->token->prev != NULL)
 		f->token = f->token->prev;
-}
+}*/

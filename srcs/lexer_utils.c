@@ -101,6 +101,26 @@ void	rmvQuotes(t_frame *f)
 	f->token->token_str = new_str;
 }
 
+/* trata de "" */
+void	parseDoubleQuotes(t_frame *f)
+{
+	t_token *node;
+
+	node = f->token;
+	f->pos++;
+	while (node->token_str[f->pos] != 34 && node->token_str[f->pos])
+	{
+		if (node->token_str[f->pos] == '$')
+		{
+			handleDollar(f);
+			f->pos++;
+		}
+		else	
+			f->pos++;
+	}
+	f->pos++;
+}
+
 /* lida com '$' e '=' */
 void	tokenizeWord(t_frame *f)
 {
@@ -111,29 +131,15 @@ void	tokenizeWord(t_frame *f)
 	f->wd_begin = 0;
 	while (node->token_str[f->pos])
 	{
-		if (node->token_str[f->pos] == 39) /* dentro de '' passa so a frente; */
+		if (node->token_str[f->pos] == 39) /* '' */
 		{
 			f->pos++;
-			printf("dentro de \' \n");
 			while (node->token_str[f->pos] != 39)
 				f->pos++;
 			f->pos++;
 		}
-		else if (node->token_str[f->pos] == 34) /* SE DENTRO DE ASPAS E $; palavra a direita para com aspas ou final de palavra; expand p seu valor ou para nada */
-		{
-			f->pos++;
-			while (node->token_str[f->pos] != 34 && node->token_str[f->pos])
-			{
-				if (node->token_str[f->pos] == '$')
-				{
-					handleDollar(f);
-					f->pos++;
-				}
-				else
-					f->pos++;
-			}
-			f->pos++;
-		}
+		else if (node->token_str[f->pos] == 34) /* "" */
+			parseDoubleQuotes(f);
 		else if (node->token_str[f->pos] == '$') /* SE FORA DE ASPAS E $; palavra a direita para com aspas ou final de palavra */
 		{
 			handleDollar(f);
@@ -142,5 +148,5 @@ void	tokenizeWord(t_frame *f)
 		else
 			f->pos++;
 	}
-	rmvQuotes(f);
+	rmvQuotes(f); /* aspas so sao removidas no final*/
 }

@@ -23,7 +23,7 @@ void	parseCmds(t_frame *f)
 		else
 		{
 			addStrCmd(f);
-			printf("cmd~%i: %s\n",i, f->cmds->full_cmd[i]);i++;
+			printf("cmd/arg~%i: %s\n",i, f->cmds->full_cmd[i]);i++;
 		}
 	}
 	if (f->token->token_type == 'O' && ft_strcmp(f->token->token_str, "| "))
@@ -34,6 +34,6 @@ void	parseCmds(t_frame *f)
 	else
 	{
 		addStrCmd(f);
-		printf("cmd~%i: %s\n",i, f->cmds->full_cmd[i]);i++;
+		printf("cmd/arg~%i: %s\n",i, f->cmds->full_cmd[i]);i++;
 	}
 }

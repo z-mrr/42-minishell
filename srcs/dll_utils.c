@@ -32,6 +32,33 @@ void	free_dll(t_frame *f)
 	f->token = NULL;
 }
 
+/* adiciona node de cmd */
+void append_dll_cmd(t_frame *f, t_cmd **head)
+{
+	t_cmd	*new_node;
+	t_cmd	*last;
+
+	new_node = NULL;
+	new_node = (t_cmd *)malloc(sizeof(t_cmd));
+	new_node->full_cmd = NULL;
+	new_node->path = NULL;
+	new_node->in_fd = 0;
+	new_node->out_fd = 1;
+	new_node->err_fd = 2;
+	new_node->next = NULL;
+	if (*head == NULL)
+	{
+		new_node->prev = NULL;
+		*head = new_node;
+		return ;
+	}
+	last = *head;
+	while (last->next != NULL)
+		last = last->next;
+	last->next = new_node;
+	new_node->prev = last;
+}
+
 /* adiciona tipo de token */
 void	addType_ll(t_frame *f, char type)
 {

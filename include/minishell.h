@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/09 22:55:14 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/10 06:05:18 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,28 +57,40 @@ typedef struct s_frame {
 //ddl_utils.c 
 void	printList(t_token *head);
 void	free_dll(t_frame *f);
+void	append_dll_cmd(t_frame *f, t_cmd **head);
 void	addType_ll(t_frame *f, char type);
 void	append_dll(t_frame *f, t_token **head, char *s);
+
+//parser_utils.c
+int	charArrayLen(char **array);
+void	addStrCmd(t_frame *f);
+
 //parser.c
 void	parseCmds(t_frame *f);
+
 //lexer_utils.c
 void	tokenizeWord(t_frame *f);
 int	checkqts(char *s);
+
 //tokenize_utlis.c
 int	findOperator(char c);
 void	lexWdend(t_frame *f);
 void	lexOp(t_frame *f);
 void	lexQuote(t_frame *f);
+
 //tokenizer.c
 void	lexer(t_frame *f);
 void	tokenizer(t_frame *f);
+
 //readline.c
 char	*get_str(void);
 char	*resolve_str(char	*line);
 char	*get_prompt(void);
+
 //signal.c
 void sig_handler(int signal);
 void handle_sig();
+
 //main.c"
 void handle_sig();
 void sig_handler(int signal);

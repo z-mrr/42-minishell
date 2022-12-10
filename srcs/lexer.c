@@ -2,19 +2,28 @@
 
 void	remove_dll(t_frame *f)
 {
-	if (f->token->prev == NULL)
+	t_token **head;
+
+	head = &(f->token);
+	if ((*head)->prev == NULL && (*head)->next == NULL) /* se for o 1 */
 	{
-		free(f->token);
+		free(*head);
 		f->token = NULL;
+	}
+	else if ((*head)->next == NULL) /* se for o ultimo */
+	{
+		(*head)->prev->next = NULL;
+		free(*head);
 	}
 	else
 	{
-		
-		free(f->token);
-		f->token = NULL;
+		(*head)->prev->next = (*head)->next;
+		(*head)->next->prev = (*head)->prev;
+		free(*head);
 	}
 }
 
+/*  */
 void	lexer(t_frame *f)
 {
 	while (f->token->next != NULL)
@@ -34,12 +43,10 @@ void	lexer(t_frame *f)
 		f->token = f->token->prev;
 	//fill cmd struct
 	printf("\nBEFORE PARSER\n");
-	//printList(f->token);
-	//parseCmds(f);
 }
 
-/* tokenizer; separa dentro de aspas, operadores e palavras */
-void	tokenizer(t_frame *f) //os operadores definem o resto dos tokens!!
+/*  */
+void	createWords(t_frame *f) //os operadores definem o resto dos tokens!!
 {
 	while (f->str[f->pos] != '\0')
 	{
@@ -55,6 +62,12 @@ void	tokenizer(t_frame *f) //os operadores definem o resto dos tokens!!
 	if (f->pos - f->wd_begin)
 		append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //ultima palavra 
 	printf("current f->pos: %i - %c\n", f->pos, f->str[f->pos]);
+}
+
+void	sortInput(t_frame *f)
+{
+	createWords(f);
 	lexer(f);
-	//free_dll(f);
+	printList(f->token);
+	parseCmds(f);
 }

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/09 03:42:30 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/09 23:44:54 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	g_status;//exit status
 
 typedef struct	s_sh
 {
+	char	**test;
 	t_list	*cmds;//lista de nodes t_cmd, novo node a cada pipe
 	char	**envp;//duplicado de **envp
 }				t_sh;
@@ -49,13 +50,20 @@ void	t_pwd();
 void	t_env(t_sh *sh);
 void	t_export_noargs(t_sh *sh);
 void	t_export_args(t_sh *sh);
+void	t_echo(t_sh *sh);
+void	t_echo_n(t_sh *sh);
+void	t_cd(t_sh *sh);
+void	t_cd_noargs(t_sh *sh);
 
 //builtins.c test args
 int		ft_pwd(void);
-int		ft_unset(t_sh *sh, char **test);
+int		ft_unset(t_sh *sh);
+int		ft_echo(t_sh *sh);
+int		ft_cd(t_sh *sht);
+int		cd_home(t_sh *sh);
 
 //export.c test args
-int		ft_export(t_sh *sh, char **test);
+int		ft_export(t_sh *sh);
 int		print_export(t_sh *sh);
 char	**set_export(t_sh *sh);
 int		ft_strichr(char *str, char c);

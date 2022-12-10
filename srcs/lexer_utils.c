@@ -25,30 +25,30 @@ void	handleDollar(t_frame *f)
 	}
 	else
 	{
-	while (node->token_str[f->pos] != '\"' && node->token_str[f->pos] != ' ' && node->token_str[f->pos] != '$' && node->token_str[f->pos])
-		f->pos++;
-	if (tmp)
-	{
-		if (ft_strlen(ft_substr(node->token_str, dollar, f->pos - dollar)) < 2)
-			tmp2 = ft_strjoin(tmp, "$");
+		while (node->token_str[f->pos] != '\"' && node->token_str[f->pos] != ' ' && node->token_str[f->pos] != '$' && node->token_str[f->pos] != '\'' && node->token_str[f->pos])
+			f->pos++;
+		if (tmp)
+		{
+			if (ft_strlen(ft_substr(node->token_str, dollar, f->pos - dollar)) < 2)
+				tmp2 = ft_strjoin(tmp, "$");
+			else
+				tmp2 = ft_strjoin(tmp, getenv("USER"/*ft_substr(node->token_str, dollar, f->pos - dollar)*/));
+			free(tmp);
+		}
 		else
-			tmp2 = ft_strjoin(tmp, getenv("USER"/*ft_substr(node->token_str, dollar, f->pos - dollar)*/));
-		free(tmp);
-	}
-	else
-	{
-		if (ft_strlen(ft_substr(node->token_str, dollar, f->pos - dollar)) < 2)
-			tmp2 = ft_strdup("$");
-		else
-			tmp2 = ft_strdup(getenv("USER")); //se n encontrar match, tmp2 = ""
-	}
-	}
-	expand = ft_substr(node->token_str, f->pos, ft_strlen(node->token_str) - f->pos);
-	free(node->token_str);
-	node->token_str = ft_strjoin(tmp2, expand);
-	free(tmp2);
-	free(expand);
-	printf("expand$: %s\n", node->token_str);
+		{
+			if (ft_strlen(ft_substr(node->token_str, dollar, f->pos - dollar)) < 2)
+				tmp2 = ft_strdup("$");
+			else
+				tmp2 = ft_strdup(getenv("USER")); //se n encontrar match, tmp2 = ""
+		}
+		}
+		expand = ft_substr(node->token_str, f->pos, ft_strlen(node->token_str) - f->pos);
+		free(node->token_str);
+		node->token_str = ft_strjoin(tmp2, expand);
+		free(tmp2);
+		free(expand);
+		printf("expand$: %s\n", node->token_str);
 }
 
 int	countPairs(char *s)
@@ -88,22 +88,13 @@ void	rmvQuotes(t_frame *f)
 	{
 		if (f->token->token_str[i] == 34 || f->token->token_str[i] == 39)
 		{
-			c = f->token->token_str[i];
-			i++;
+			c = f->token->token_str[i++];
 			while (f->token->token_str[i] != c)
-			{
-				new_str[j] = f->token->token_str[i];
-				i++;
-				j++;
-			}
+				new_str[j++] = f->token->token_str[i++];
 			i++;
 		}
 		else
-		{
-			new_str[j] = f->token->token_str[i];
-			i++;
-			j++;
-		}
+			new_str[j++] = f->token->token_str[i++];
 	}
 	free(f->token->token_str);
 	new_str[j] = '\0';
@@ -118,12 +109,9 @@ void	tokenizeWord(t_frame *f)
 	node = f->token;
 	f->pos = 0;
 	f->wd_begin = 0;
-	/*if (ft_strlen(node->token_str) < 2 && node->token_str[0] == '$')
-		return ;*/
 	while (node->token_str[f->pos])
 	{
-		//dentro de '' passa so a frente;
-		if (node->token_str[f->pos] == 39)
+		if (node->token_str[f->pos] == 39) /* dentro de '' passa so a frente; */
 		{
 			f->pos++;
 			printf("dentro de \' \n");
@@ -131,12 +119,9 @@ void	tokenizeWord(t_frame *f)
 				f->pos++;
 			f->pos++;
 		}
-		//se dentro de aspas:
-			// '$' //pega na palavra a direita para com aspas ou final de palavra; retira a var e insere o value; se n der match delete_dll
-		else if (node->token_str[f->pos] == 34)
+		else if (node->token_str[f->pos] == 34) /* SE DENTRO DE ASPAS E $; palavra a direita para com aspas ou final de palavra; expand p seu valor ou para nada */
 		{
 			f->pos++;
-			printf("fora de \" \n");
 			while (node->token_str[f->pos] != 34 && node->token_str[f->pos])
 			{
 				if (node->token_str[f->pos] == '$')
@@ -149,16 +134,11 @@ void	tokenizeWord(t_frame *f)
 			}
 			f->pos++;
 		}
-		//se fora de aspas:
-			// '$' //palavra a direita para com aspas ou final de palavra;
-		else if (node->token_str[f->pos] == '$')
+		else if (node->token_str[f->pos] == '$') /* SE FORA DE ASPAS E $; palavra a direita para com aspas ou final de palavra */
 		{
 			handleDollar(f);
 			//f->pos++;
 		}
-		// '=' // se var nao tiver aspas: adiciona a var com valor value a uma **vars, remove token; se var tiver aspas, n faz nada
-		/*else if (node->token_str[f->pos] == '=' && node->prev == NULL)
-			handleEqual(f); */
 		else
 			f->pos++;
 	}

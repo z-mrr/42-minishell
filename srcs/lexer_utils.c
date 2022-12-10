@@ -1,6 +1,8 @@
 #include "../include/minishell.h"
 
-void	handleDollar(t_frame *f)
+
+
+void	parseDollar(t_frame *f)
 {
 	int	dollar;
 	t_token *node;
@@ -112,7 +114,7 @@ void	parseDoubleQuotes(t_frame *f)
 	{
 		if (node->token_str[f->pos] == '$')
 		{
-			handleDollar(f);
+			parseDollar(f);
 			f->pos++;
 		}
 		else	
@@ -140,11 +142,8 @@ void	tokenizeWord(t_frame *f)
 		}
 		else if (node->token_str[f->pos] == 34) /* "" */
 			parseDoubleQuotes(f);
-		else if (node->token_str[f->pos] == '$') /* SE FORA DE ASPAS E $; palavra a direita para com aspas ou final de palavra */
-		{
-			handleDollar(f);
-			//f->pos++;
-		}
+		else if (node->token_str[f->pos] == '$') /* input normal */
+			parseDollar(f);
 		else
 			f->pos++;
 	}

@@ -11,8 +11,13 @@ char	*expandDollar(t_frame *f, char *tmp, int dollar)
 		if (ft_strlen(ft_substr(node->token_str, dollar, f->pos - dollar)) < 2)
 			tmp2 = ft_strjoin(tmp, "$");
 		else
-			tmp2 = ft_strjoin(tmp, /*get_env*/ft_substr(node->token_str, dollar, f->pos - dollar));
-		printf("\nEXPAND DOLLAR... \nLido antes e depois de $: %s\n", tmp2);
+		{
+			if (0 /*get_env*/ )
+				tmp2 = ft_strjoin(tmp, /*get_env*/ ft_substr(node->token_str, dollar + 1, f->pos - dollar - 1));
+			else
+				tmp2 = tmp;
+		}
+		printf("\nEXPAND DOLLAR... \nLido antes e depois de $: %s\n", tmp2); exit(-1);
 		free(tmp);
 	}
 	else
@@ -21,7 +26,7 @@ char	*expandDollar(t_frame *f, char *tmp, int dollar)
 			tmp2 = ft_strdup("$");
 		else
 			tmp2 = NULL;;
-		printf("\nEXPAND DOLLAR... \nLido depois de $: %s\n", ft_substr(node->token_str, dollar, f->pos - dollar)); exit(-1);
+		printf("\nEXPAND DOLLAR... \nLido depois de $: %s\n", ft_substr(node->token_str, dollar + 1, f->pos - dollar - 1)); exit(-1);
 	}
 	return (tmp2);
 }

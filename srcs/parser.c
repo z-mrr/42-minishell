@@ -1,24 +1,12 @@
 #include "../include/minishell.h"
 
-/* caso <<*/
-/*void	parseOpDsmaller(t_frame *f)
+void	ptrExit(char *s)
 {
-	
-*/
-
-void	printListCMD(t_cmd *head)
-{
-	int	i;
-
-	i = 0;
-	while (head != NULL)
-	{
-		while (head->full_cmd[i] != 0)
-			printf("full cmd: %s, %i\n", head->full_cmd[i], i++);
-		head = head->next;
-	}
+	printf("%s\n", s);
+	exit(-1);
 }
 
+/* cria mais um node de cmd */
 void append_dll_cmd(t_frame *f, t_cmd **head)
 {
 	t_cmd	*new_node;
@@ -55,6 +43,8 @@ int	charArrayLen(char **array)
 	return (i);
 }
 
+
+/* da free aos **cmds/args */
 void	freeCmds(t_frame *f)
 {
 	int	i;
@@ -67,22 +57,20 @@ void	freeCmds(t_frame *f)
 	free(f->cmds->full_cmd);
 }
 
+/* adiciona mais uma palavra ao cmd/args */
 void	addStrCmd(t_frame *f)
 {
 	char	**new_cmd;
 	int	i;
 
 	i = 0;
-	exit(-1);
 	if (f->cmds->full_cmd == NULL)
 	{
-		exit(-1);
 		f->cmds->full_cmd = (char **)malloc(sizeof(char *) * 2);
 		f->cmds->full_cmd[0] = ft_strdup(f->token->token_str);
 		f->cmds->full_cmd[1] = 0;
 		return ;
 	}
-	exit(-1);
 	new_cmd = (char **)malloc(sizeof(char *) * (charArrayLen(f->cmds->full_cmd) + 1));
 	while (f->cmds->full_cmd[i])
 	{
@@ -95,32 +83,8 @@ void	addStrCmd(t_frame *f)
 	f->cmds->full_cmd = new_cmd;
 }
 
+/* se N adiciona ao cmd/args ate ao prox OP ou fim */
 void	parseCmds(t_frame *f)
 {
-	f->cmds = NULL;
 	append_dll_cmd(f, &(f->cmds));
-	printf("wtf");
-	exit(-1);
-	while (f->token->next != NULL)
-	{
-		//case str
-		exit(-1);
-		while (f->token->token_type == 'N')
-		{
-			addStrCmd(f);
-			f->token = f->token->next;
-		}
-		exit(-1);
-		if (ft_strcmp(f->token->token_str, "|")) //case |
-		{
-			append_dll_cmd(f, &(f->cmds));
-			f->cmds = f->cmds->next;
-			f->token = f->token->next;
-		}
-	}	
-	while (f->token->prev != NULL)
-		f->token = f->token->prev;
-	while (f->cmds->prev != NULL)
-		f->cmds = f->cmds->prev;
-	printListCMD(f->cmds);
 }

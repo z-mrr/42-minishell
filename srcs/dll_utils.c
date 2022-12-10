@@ -4,8 +4,9 @@ void	printList(t_token *head)
 {
 	while (head != NULL)
 	{
-		printf("token_str:%s; | ", head->token_str);
-		printf("token_type:%c;\n", head->token_type);
+		printf("token:ADRESS: %p; | ", &(head));
+		printf("token_str:%s; ADRESS:%p; | ", head->token_str, &(head->token_str));
+		printf("token_type:%c; ADRESS %p: \n", head->token_type, &(head->token_type));
 		head = head->next;
 	}
 }

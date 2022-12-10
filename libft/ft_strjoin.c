@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 13:35:05 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/10 07:48:38 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/10 08:23:54 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char
 	size_t	i;
 	size_t	j;
 
+	if (!(s1))
+		return (NULL);
 	str = (char*)malloc(
 		sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)

@@ -1,20 +1,41 @@
 #include "../include/minishell.h"
 
+void	remove_dll(t_frame *f)
+{
+	if (f->token->prev == NULL)
+	{
+		free(f->token);
+		f->token = NULL;
+	}
+	else
+	{
+		
+		free(f->token);
+		f->token = NULL;
+	}
+}
+
 void	lexer(t_frame *f)
 {
 	while (f->token->next != NULL)
 	{
-		tokenizeWord(f);
-		printf("lex: %s\n", f->token->token_str);
+		if (tokenizeWord(f))
+			remove_dll(f);
 		f->token = f->token->next;
 	}
-	tokenizeWord(f);
+	if (tokenizeWord(f))
+		remove_dll(f);
+	if (f->token == NULL)
+	{	
+		printf("nada para lexar\n");
+		exit(-1);
+	}
 	while (f->token->prev != NULL) /*man de dll*/
 		f->token = f->token->prev;
 	//fill cmd struct
 	printf("\nBEFORE PARSER\n");
-	printList(f->token);
-	parseCmds(f);
+	//printList(f->token);
+	//parseCmds(f);
 }
 
 /* tokenizer; separa dentro de aspas, operadores e palavras */

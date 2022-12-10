@@ -17,21 +17,29 @@ char	*expandDollar(t_frame *f, char *tmp, int dollar)
 			else
 				tmp2 = tmp;
 		}
-		printf("\nEXPAND DOLLAR... \nLido antes e depois de $: %s\n", tmp2); exit(-1);
-		free(tmp);
+		printf("\nEXPAND DOLLAR... \nLido antes e depois de $: %s\n", tmp2); //exit(-1);
+		if (tmp2 != tmp)
+			free(tmp);
 	}
 	else
 	{
 		if (ft_strlen(ft_substr(node->token_str, dollar, f->pos - dollar)) < 2)
 			tmp2 = ft_strdup("$");
 		else
-			tmp2 = NULL;;
-		printf("\nEXPAND DOLLAR... \nLido depois de $: %s\n", ft_substr(node->token_str, dollar + 1, f->pos - dollar - 1)); exit(-1);
+		{
+			if (0 /* get_env */)
+				tmp2 = /*get_env*/ ft_substr(node->token_str, dollar + 1, f->pos - dollar - 1);
+			else
+				return (NULL);
+		}
+		//printf("\nEXPAND DOLLAR... \nLido depois de $: %s\n", ft_substr(node->token_str, dollar + 1, f->pos - dollar - 1)); exit(-1);
 	}
 	return (tmp2);
 }
 
-void	parseDollar(t_frame *f)
+
+/* da return positivo em caso de erro: $var igual a nada */
+int	parseDollar(t_frame *f)
 {
 	int	dollar;
 	t_token *node;
@@ -60,12 +68,15 @@ void	parseDollar(t_frame *f)
 			f->pos++;
 		tmp2 = expandDollar(f, tmp, dollar);
 	}
-		expand = ft_substr(node->token_str, f->pos, ft_strlen(node->token_str) - f->pos);
-		free(node->token_str);
-		node->token_str = ft_strjoin(tmp2, expand);
-		free(tmp2);
-		free(expand);
-		printf("expand$: %s\n", node->token_str);
+	expand = ft_substr(node->token_str, f->pos, ft_strlen(node->token_str) - f->pos);
+	free(node->token_str);
+	if (!(tmp2))
+		return (1);
+	node->token_str = ft_strjoin(tmp2, expand);
+	free(tmp2);
+	free(expand);
+	printf("expand$: %s\n", node->token_str);
+	return (0);
 }
 
 int	countPairs(char *s)
@@ -118,8 +129,8 @@ void	rmvQuotes(t_frame *f)
 	f->token->token_str = new_str;
 }
 
-/* trata de "" */
-void	parseDoubleQuotes(t_frame *f)
+/* trata de "" return positivo em caso de erro; */
+int	parseDoubleQuotes(t_frame *f)
 {
 	t_token *node;
 
@@ -129,21 +140,25 @@ void	parseDoubleQuotes(t_frame *f)
 	{
 		if (node->token_str[f->pos] == '$')
 		{
-			parseDollar(f);
+			if (parseDollar(f))
+				return (1);
 			f->pos++;
 		}
 		else	
 			f->pos++;
 	}
 	f->pos++;
+	return (0);
 }
 
-/* lida com '$' e '=' */
-void	tokenizeWord(t_frame *f)
+/* lida com '$' e '=' ; 1 = erro $var = null*/
+int	tokenizeWord(t_frame *f)
 {
 	t_token *node;
 
 	node = f->token;
+	if (!(f->token))
+		return (1);
 	f->pos = 0;
 	f->wd_begin = 0;
 	while (node->token_str[f->pos])
@@ -158,9 +173,13 @@ void	tokenizeWord(t_frame *f)
 		else if (node->token_str[f->pos] == 34) /* "" */
 			parseDoubleQuotes(f);
 		else if (node->token_str[f->pos] == '$') /* input normal */
-			parseDollar(f);
+		{
+			if (parseDollar(f))
+				return (1);
+		}
 		else
 			f->pos++;
 	}
 	rmvQuotes(f); /* aspas so sao removidas no final*/
+	return (0);
 }

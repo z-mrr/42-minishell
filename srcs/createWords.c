@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer_utils.c                                  :+:      :+:    :+:   */
+/*   createWords.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:46 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/10 18:16:51 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/10 23:47:52 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,24 @@ void	lexQuote(t_frame *f)
 	if (f->str[f->pos] == 34)
 	{
 		f->pos++;
-		while (f->str[f->pos] != 34 && f->str[f->pos])
-				f->pos++;
+		while (f->str[f->pos] != 34)
+		{
+			if (f->str[f->pos] == '\0')
+				{printf("err quotes");exit(-1);}	
+			f->pos++;
+		}
 	}
 	else
 	{
 		f->pos++;
-		while (f->str[f->pos] != 39 && f->str[f->pos])
+		while (f->str[f->pos] != 39)
+		{
+			if (f->str[f->pos] == '\0')
+				{printf("err quotes");exit(-1);}	
 			f->pos++;
+		}
 	}
-	if (f->str[f->pos] == '\0')
-		{printf("err quotes");exit(-1);}
 	f->pos++;
-	while (f->str[f->pos] != ' ' && f->str[f->pos])
-		f->pos++;
 	append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
 	f->wd_begin = f->pos;
 }

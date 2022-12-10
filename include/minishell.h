@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/10 09:56:52 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/10 20:29:09 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	lexOp(t_frame *f);
 void	lexQuote(t_frame *f);
 
 //tokenizer.c
-void	lexer(t_frame *f);
+int	lexer(t_frame *f);
 void	createWords(t_frame *f);
 void	sortInput(t_frame *f);
 

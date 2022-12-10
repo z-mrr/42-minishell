@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:06 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/10 18:16:09 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/10 20:19:38 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	printList(t_token *head)
 {
-	printf("\n                     ###########################################################\n");
 	printf("\n                                          Mem                                    \n");
 	while (head != NULL)
 	{
@@ -23,7 +22,6 @@ void	printList(t_token *head)
 		printf("token_type: %c ; ADRESS %p: \n", head->token_type, &(head->token_type));
 		head = head->next;
 	}
-	printf("\n                     ###########################################################\n");
 }
 
 /* free lista de tokens - imcompleto */

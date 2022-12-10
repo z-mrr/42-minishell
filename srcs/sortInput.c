@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/10 20:12:31 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/10 20:41:35 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	remove_dll(t_frame *f)
 	{
 		tmp = *head;
 		*head = (*head)->next;
-			printf("[2]REMOVE NODE - NEW 1st NODE: %p\n", *head);
 			printf("[2]REMOVE NODE: %p\n", tmp);
 		free(tmp);
 		(*head)->prev = NULL;
@@ -39,26 +38,27 @@ void	remove_dll(t_frame *f)
 	{
 		tmp = *head;
 		*head = (*head)->prev;
-			printf("[3]REMOVE NODE - NEW last NODE: %p\n", *head);
 			printf("[3]REMOVE NODE: %p\n", tmp);
-	exit(-1);
-		(*head)->prev->next = NULL;
-		free(*head);
-	exit(-1);
-		//printList(f->token);
+		free(tmp);
+		(*head)->next = NULL;
+			printf("[3]REMOVE NODE - NEW last NODE: %p\n", *head);
+		printList(f->token);
 	}
 	else /* qq outro */
 	{
-		printf("[4]REMOVE NODE: %p\n", *head);exit(-1);
+		tmp = *head;
+		*head = (*head)->next;
+			printf("[4]REMOVE NODE: %p\n", tmp);
 		(*head)->prev->next = (*head)->next;
 		(*head)->next->prev = (*head)->prev;
-		free(*head);
+		free(tmp);
+		//exit(-1);
 		//printList(f->token);
 	}
 }
 
-/*  */
-void	lexer(t_frame *f)
+/* return em caso de !str */
+int	lexer(t_frame *f)
 {
 	printf("..lexer..\n");
 	printList(f->token);
@@ -73,11 +73,12 @@ void	lexer(t_frame *f)
 		remove_dll(f);
 	if (f->token == NULL)
 	{	
-		printf("nada para lexar\n");
-		exit(-1);
+		printf("\nNo match found\n");
+		return (1);
 	}
 	while (f->token->prev != NULL) /*man de dll*/
 		f->token = f->token->prev;
+	return (0);
 }
 
 /*  */
@@ -99,12 +100,18 @@ void	createWords(t_frame *f) //os operadores definem o resto dos tokens!!
 	printf("current f->pos: %i - %c\n", f->pos, f->str[f->pos]);
 }
 
+/* return se input acabar por ser nulo */
 void	sortInput(t_frame *f)
 {
 	createWords(f);
-	lexer(f);
+	printf("\n##########################################################\n");
+	if (lexer(f))
+		return ;
+	printf("\n##########################################################\n");
 	printf("\nBEFORE PARSER\n");
 	printList(f->token);
-	printf("\nBEFORE PARSER\n");
+	free(f->str); // DAR FREE A STR DO READLINE!
+	printf("\n##########################################################\n");
 	parseCmds(f);
+	printf("\n##########################################################\n");
 }

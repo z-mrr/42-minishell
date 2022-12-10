@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/10 18:16:33 by gde-alme          #+#    #+#             */
+/*   Updated: 2022/12/10 20:07:13 by gde-alme         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 char	*expandDollar(t_frame *f, char *tmp, int dollar)
@@ -17,7 +29,7 @@ char	*expandDollar(t_frame *f, char *tmp, int dollar)
 			else
 				tmp2 = tmp;
 		}
-		printf("\nEXPAND DOLLAR... \nLido antes e depois de $: %s\n", tmp2); //exit(-1);
+		printf("\nEXPAND DOLLAR... \nLido antes e depois de $: %s\n", tmp2);
 		if (tmp2 != tmp)
 			free(tmp);
 	}

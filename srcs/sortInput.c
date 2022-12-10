@@ -1,42 +1,72 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sortInput.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
+/*   Updated: 2022/12/10 20:12:31 by gde-alme         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 void	remove_dll(t_frame *f)
 {
 	t_token **head;
+	t_token *tmp;
 
 	head = &(f->token);
-	if ((*head)->prev == NULL && (*head)->next == NULL) /* se for o 1 */
+	if ((*head)->prev == NULL && (*head)->next == NULL) /* unico*/
 	{
+		printf("[1]REMOVE NODE: %p\n", *head);
 		free(*head);
 		f->token = NULL;
 	}
-	else if ((*head)->prev == NULL) /* se for o 1 e noa unico*/
+	else if ((*head)->prev == NULL && (*head)->next != NULL) /* se for o 1 */
 	{
-		f->token = f->token->next;
-		free(f->token->prev);
-		f->token->prev = NULL;
+		tmp = *head;
+		*head = (*head)->next;
+			printf("[2]REMOVE NODE - NEW 1st NODE: %p\n", *head);
+			printf("[2]REMOVE NODE: %p\n", tmp);
+		free(tmp);
+		(*head)->prev = NULL;
+			printf("[2]REMOVE NODE - NEW 1st NODE: %p\n", f->token);
+		printList(f->token);
 	}
-	else if ((*head)->next == NULL) /* se for o ultimo */
+	else if ((*head)->next == NULL && (*head)->prev != NULL) /* se for o ultimo */
 	{
+		tmp = *head;
+		*head = (*head)->prev;
+			printf("[3]REMOVE NODE - NEW last NODE: %p\n", *head);
+			printf("[3]REMOVE NODE: %p\n", tmp);
+	exit(-1);
 		(*head)->prev->next = NULL;
 		free(*head);
+	exit(-1);
+		//printList(f->token);
 	}
-	else
+	else /* qq outro */
 	{
+		printf("[4]REMOVE NODE: %p\n", *head);exit(-1);
 		(*head)->prev->next = (*head)->next;
 		(*head)->next->prev = (*head)->prev;
 		free(*head);
+		//printList(f->token);
 	}
 }
 
 /*  */
 void	lexer(t_frame *f)
 {
+	printf("..lexer..\n");
+	printList(f->token);
 	while (f->token->next != NULL)
 	{
 		if (tokenizeWord(f))
 			remove_dll(f);
-		if (f->token->next != NULL)
+		else
 			f->token = f->token->next;
 	}
 	if (tokenizeWord(f))
@@ -48,8 +78,6 @@ void	lexer(t_frame *f)
 	}
 	while (f->token->prev != NULL) /*man de dll*/
 		f->token = f->token->prev;
-	//fill cmd struct
-	printf("\nBEFORE PARSER\n");
 }
 
 /*  */
@@ -75,6 +103,8 @@ void	sortInput(t_frame *f)
 {
 	createWords(f);
 	lexer(f);
+	printf("\nBEFORE PARSER\n");
 	printList(f->token);
+	printf("\nBEFORE PARSER\n");
 	parseCmds(f);
 }

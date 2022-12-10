@@ -10,6 +10,12 @@ void	remove_dll(t_frame *f)
 		free(*head);
 		f->token = NULL;
 	}
+	else if ((*head)->prev == NULL) /* se for o 1 e noa unico*/
+	{
+		f->token = f->token->next;
+		free(f->token->prev);
+		f->token->prev = NULL;
+	}
 	else if ((*head)->next == NULL) /* se for o ultimo */
 	{
 		(*head)->prev->next = NULL;
@@ -30,7 +36,8 @@ void	lexer(t_frame *f)
 	{
 		if (tokenizeWord(f))
 			remove_dll(f);
-		f->token = f->token->next;
+		if (f->token->next != NULL)
+			f->token = f->token->next;
 	}
 	if (tokenizeWord(f))
 		remove_dll(f);

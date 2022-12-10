@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:33 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/10 20:07:13 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/10 22:08:13 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,20 @@ int	parseDollar(t_frame *f)
 	}
 	else
 	{
-		while (node->token_str[f->pos] != '\"' && node->token_str[f->pos] != ' ' && node->token_str[f->pos] != '$' && node->token_str[f->pos] != '\'' && node->token_str[f->pos])
+		while (node->token_str[f->pos] != '\"' && node->token_str[f->pos] != ' ' && node->token_str[f->pos] != '\'' && node->token_str[f->pos])
 			f->pos++;
 		tmp2 = expandDollar(f, tmp, dollar);
 	}
 	expand = ft_substr(node->token_str, f->pos, ft_strlen(node->token_str) - f->pos);
 	free(node->token_str);
-	if (!(tmp2))
+	if (!(tmp2) && !(expand))
 		return (1);
-	node->token_str = ft_strjoin(tmp2, expand);
-	free(tmp2);
-	free(expand);
+	if (tmp2)
+		node->token_str = ft_strjoin(tmp2, expand);
+	else
+		node->token_str = expand;
+	if (tmp2)
+		free(tmp2);
 	printf("expand$: %s\n", node->token_str);
 	return (0);
 }

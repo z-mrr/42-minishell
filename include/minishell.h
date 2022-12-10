@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/10 20:29:09 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/10 23:14:21 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_frame {
 	t_cmd	*cmds;
 	t_token *token;
 	char	**envp;
-	//char	**vars;
 	int	last_pid;
 	char	*str;
 	char	*new_str;
@@ -54,34 +53,21 @@ typedef struct s_frame {
 	char	c;
 } t_frame;
 
-//ddl_utils.c 
-void	printList(t_token *head);
-void	free_dll(t_frame *f);
-void	append_dll_cmd(t_frame *f, t_cmd **head);
-void	addType_ll(t_frame *f, char type);
-void	append_dll(t_frame *f, t_token **head, char *s);
+//sortInput.c
+void	sortInput(t_frame *f);
+void	createWords(t_frame *f);
+void	lexer(t_frame *f);
+void	parser(t_frame *f);
 
-//parser_utils.c
-int	charArrayLen(char **array);
-void	addStrCmd(t_frame *f);
-
-//parser.c
-void	parseCmds(t_frame *f);
-
-//lexer_utils.c
-int	tokenizeWord(t_frame *f);
-int	checkqts(char *s);
-
-//tokenize_utlis.c
-int	findOperator(char c);
+//createWords.c //tokenizes the words
+void	lexQuote(t_frame *f);
 void	lexWdend(t_frame *f);
 void	lexOp(t_frame *f);
-void	lexQuote(t_frame *f);
+int	findOperator(char c);
 
-//tokenizer.c
-int	lexer(t_frame *f);
-void	createWords(t_frame *f);
-void	sortInput(t_frame *f);
+//lexer.c
+
+
 
 //readline.c
 char	*get_str(void);

@@ -6,56 +6,11 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/10 20:41:35 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/10 23:10:39 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	remove_dll(t_frame *f)
-{
-	t_token **head;
-	t_token *tmp;
-
-	head = &(f->token);
-	if ((*head)->prev == NULL && (*head)->next == NULL) /* unico*/
-	{
-		printf("[1]REMOVE NODE: %p\n", *head);
-		free(*head);
-		f->token = NULL;
-	}
-	else if ((*head)->prev == NULL && (*head)->next != NULL) /* se for o 1 */
-	{
-		tmp = *head;
-		*head = (*head)->next;
-			printf("[2]REMOVE NODE: %p\n", tmp);
-		free(tmp);
-		(*head)->prev = NULL;
-			printf("[2]REMOVE NODE - NEW 1st NODE: %p\n", f->token);
-		printList(f->token);
-	}
-	else if ((*head)->next == NULL && (*head)->prev != NULL) /* se for o ultimo */
-	{
-		tmp = *head;
-		*head = (*head)->prev;
-			printf("[3]REMOVE NODE: %p\n", tmp);
-		free(tmp);
-		(*head)->next = NULL;
-			printf("[3]REMOVE NODE - NEW last NODE: %p\n", *head);
-		printList(f->token);
-	}
-	else /* qq outro */
-	{
-		tmp = *head;
-		*head = (*head)->next;
-			printf("[4]REMOVE NODE: %p\n", tmp);
-		(*head)->prev->next = (*head)->next;
-		(*head)->next->prev = (*head)->prev;
-		free(tmp);
-		//exit(-1);
-		//printList(f->token);
-	}
-}
 
 /* return em caso de !str */
 int	lexer(t_frame *f)

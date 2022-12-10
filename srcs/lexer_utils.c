@@ -1,6 +1,30 @@
 #include "../include/minishell.h"
 
+char	*expandDollar(t_frame *f, char *tmp, int dollar)
+{
+	char	*tmp2;
+	t_token	*node;
 
+	node = f->token;
+	if (tmp)
+	{
+		if (ft_strlen(ft_substr(node->token_str, dollar, f->pos - dollar)) < 2)
+			tmp2 = ft_strjoin(tmp, "$");
+		else
+			tmp2 = ft_strjoin(tmp, /*get_env*/ft_substr(node->token_str, dollar, f->pos - dollar));
+		printf("\nEXPAND DOLLAR... \nLido antes e depois de $: %s\n", tmp2);
+		free(tmp);
+	}
+	else
+	{
+		if (ft_strlen(ft_substr(node->token_str, dollar, f->pos - dollar)) < 2)
+			tmp2 = ft_strdup("$");
+		else
+			tmp2 = NULL;;
+		printf("\nEXPAND DOLLAR... \nLido depois de $: %s\n", ft_substr(node->token_str, dollar, f->pos - dollar)); exit(-1);
+	}
+	return (tmp2);
+}
 
 void	parseDollar(t_frame *f)
 {
@@ -29,22 +53,8 @@ void	parseDollar(t_frame *f)
 	{
 		while (node->token_str[f->pos] != '\"' && node->token_str[f->pos] != ' ' && node->token_str[f->pos] != '$' && node->token_str[f->pos] != '\'' && node->token_str[f->pos])
 			f->pos++;
-		if (tmp)
-		{
-			if (ft_strlen(ft_substr(node->token_str, dollar, f->pos - dollar)) < 2)
-				tmp2 = ft_strjoin(tmp, "$");
-			else
-				tmp2 = ft_strjoin(tmp, getenv("USER"/*ft_substr(node->token_str, dollar, f->pos - dollar)*/));
-			free(tmp);
-		}
-		else
-		{
-			if (ft_strlen(ft_substr(node->token_str, dollar, f->pos - dollar)) < 2)
-				tmp2 = ft_strdup("$");
-			else
-				tmp2 = ft_strdup(getenv("USER")); //se n encontrar match, tmp2 = ""
-		}
-		}
+		tmp2 = expandDollar(f, tmp, dollar);
+	}
 		expand = ft_substr(node->token_str, f->pos, ft_strlen(node->token_str) - f->pos);
 		free(node->token_str);
 		node->token_str = ft_strjoin(tmp2, expand);

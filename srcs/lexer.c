@@ -9,12 +9,11 @@ void	lexer(t_frame *f)
 		f->token = f->token->next;
 	}
 	tokenizeWord(f);
-	//reset token to 1st
-	while (f->token->prev != NULL)
+	while (f->token->prev != NULL) /*man de dll*/
 		f->token = f->token->prev;
-	printf("vai parser\n");
-	printList(f->token);
 	//fill cmd struct
+	printf("\nBEFORE PARSER\n");
+	printList(f->token);
 	parseCmds(f);
 }
 
@@ -35,7 +34,6 @@ void	tokenizer(t_frame *f) //os operadores definem o resto dos tokens!!
 	if (f->pos - f->wd_begin)
 		append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //ultima palavra 
 	printf("current f->pos: %i - %c\n", f->pos, f->str[f->pos]);
-	printList(f->token);
 	lexer(f);
-	free_dll(f);
+	//free_dll(f);
 }

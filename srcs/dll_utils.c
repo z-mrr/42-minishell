@@ -2,13 +2,16 @@
 
 void	printList(t_token *head)
 {
+	printf("\n                     ###########################################################\n");
+	printf("\n                                          Mem                                    \n");
 	while (head != NULL)
 	{
-		printf("token:ADRESS: %p; | ", &(head));
-		printf("token_str:%s; ADRESS:%p; | ", head->token_str, &(head->token_str));
-		printf("token_type:%c; ADRESS %p: \n", head->token_type, &(head->token_type));
+		printf("\nIS TOKEN! ; ADRESS: %p; | ", &(head));
+		printf("token_str: %s ; ADRESS: %p; | ", head->token_str, &(head->token_str));
+		printf("token_type: %c ; ADRESS %p: \n", head->token_type, &(head->token_type));
 		head = head->next;
 	}
+	printf("\n                     ###########################################################\n");
 }
 
 /* free lista de tokens - imcompleto */

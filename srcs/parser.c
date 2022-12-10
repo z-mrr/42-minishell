@@ -76,6 +76,14 @@ void	addStrCmd(t_frame *f)
 	f->cmds->full_cmd = new_cmd;
 }
 
+void	parsePipes(t_frame *f)
+{
+	append_dll_cmd(f, &(f->cmds));
+	f->cmds = f->cmds->next;
+	f->token = f->token->next;
+	printf("fazer pipe\n");
+}
+
 /* se N adiciona ao cmd/args ate ao prox OP ou fim */
 void	parseCmds(t_frame *f)
 {
@@ -85,19 +93,18 @@ void	parseCmds(t_frame *f)
 	{
 		if (f->token->token_type == 'O' && ft_strcmp(f->token->token_str, "| "))
 		{
-			append_dll_cmd(f, &(f->cmds));
-			f->cmds = f->cmds->next;
+			parsePipes(f);	
 			i = 0;
-			f->token = f->token->next;
-			printf("fazer pipe\n");
 		}
 		else
 		{
-		addStrCmd(f);
-		printf("cmd: %s\n", f->cmds->full_cmd[i]);i++;
-		f->token = f->token->next;
+			addStrCmd(f);
+			f->token = f->token->next;
+			printf("cmd~%i: %s\n",i, f->cmds->full_cmd[i]);i++;
 		}
 	}
+	if (f->token->prev == NULL)
+		i = 0;
 	addStrCmd(f);
-	printf("cmd: %s\n", f->cmds->full_cmd[i]);
+	printf("cmd~%i: %s\n", i, f->cmds->full_cmd[i]);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/10 18:16:19 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/10 20:22:04 by gde-alme         ###   ########.fr       */
+/*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
+/*   Updated: 2022/12/10 23:23:34 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,40 @@ void	parsePipes(t_frame *f)
 	printf("fazer pipe\n");
 }
 
-/* se N adiciona ao cmd/args ate ao prox OP ou fim */
-void	parseCmds(t_frame *f)
+int	charArrayLen(char **array)
 {
-	printf("...Parser...\n");
-	append_dll_cmd(f, &(f->cmds));
-	int	i = 0;
-	while (f->token->next != NULL)
+	int	i;
+
+	i = 0;
+	while (array[i] != 0)
+		i++;
+	return (i);
+}
+
+/* adiciona mais uma palavra ao cmd/args faz ja update do f->token */
+void	addStrCmd(t_frame *f)
+{
+	char	**new_cmd;
+	int	i;
+
+	i = 0;
+	if (f->cmds->full_cmd == NULL)
 	{
-		if (f->token->token_type == 'O' && ft_strcmp(f->token->token_str, "| "))
-		{
-			parsePipes(f);	
-			i = 0;
-		}
-		else
-		{
-			addStrCmd(f);
-			printf("cmd/arg~%i: %s\n",i, f->cmds->full_cmd[i]);i++;
-		}
+		f->cmds->full_cmd = (char **)malloc(sizeof(char *) * 2);
+		f->cmds->full_cmd[0] = ft_strdup(f->token->token_str);
+		f->cmds->full_cmd[1] = 0;
+		f->token = f->token->next;
+		return ;
 	}
-	if (f->token->token_type == 'O' && ft_strcmp(f->token->token_str, "| "))
+	new_cmd = (char **)malloc(sizeof(char *) * ((charArrayLen(f->cmds->full_cmd) + 2)));
+	while (f->cmds->full_cmd[i])
 	{
-		parsePipes(f);	
-		i = 0;
+		new_cmd[i] = ft_strdup(f->cmds->full_cmd[i]);
+		i++;
 	}
-	else
-	{
-		addStrCmd(f);
-		printf("cmd/arg~%i: %s\n",i, f->cmds->full_cmd[i]);i++;
-	}
+	new_cmd[i] = ft_strdup(f->token->token_str);
+	new_cmd[++i] = 0;
+	free(f->cmds->full_cmd);
+	f->cmds->full_cmd = new_cmd;
+	f->token = f->token->next;
 }

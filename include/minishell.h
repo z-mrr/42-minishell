@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/10 23:14:21 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/10 23:26:25 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_frame {
 //sortInput.c
 void	sortInput(t_frame *f);
 void	createWords(t_frame *f);
-void	lexer(t_frame *f);
+int	lexer(t_frame *f);
 void	parser(t_frame *f);
 
 //createWords.c //tokenizes the words
@@ -66,8 +66,25 @@ void	lexOp(t_frame *f);
 int	findOperator(char c);
 
 //lexer.c
+int	lexWord(t_frame *f);
+int	parseDoubleQuotes(t_frame *f);
+void	rmvQuotes(t_frame *f);
+int	countPairs(char *s);
+int	parseDollar(t_frame *f);
+char	*expandDollar(t_frame *f, char *tmp, int dollar);
 
+//parser.c
+void	parsePipes(t_frame *f);
+void	addStrCmd(t_frame *f);
+int	charArrayLen(char **array);
 
+//ddl_utils.c
+void append_dll(t_frame *f, t_token **head, char *s);
+void	addType_ll(t_frame *f, char type);
+void append_dll_cmd(t_frame *f, t_cmd **head);
+void	free_dll(t_frame *f);
+void	printList(t_token *head);
+void	remove_dll(t_frame *f);
 
 //readline.c
 char	*get_str(void);

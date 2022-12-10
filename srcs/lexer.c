@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:33 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/10 22:08:13 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/10 23:28:57 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ int	parseDoubleQuotes(t_frame *f)
 }
 
 /* lida com '$' e '=' ; 1 = erro $var = null*/
-int	tokenizeWord(t_frame *f)
+int	lexWord(t_frame *f)
 {
 	t_token *node;
 
@@ -187,11 +187,11 @@ int	tokenizeWord(t_frame *f)
 		}
 		else if (node->token_str[f->pos] == 34) /* "" */
 			parseDoubleQuotes(f);
-		else if (node->token_str[f->pos] == '$') /* input normal */
+		/*else if (node->token_str[f->pos] == '$')  input normal 
 		{
 			if (parseDollar(f))
 				return (1);
-		}
+		}*/
 		else
 			f->pos++;
 	}

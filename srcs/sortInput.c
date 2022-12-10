@@ -6,11 +6,41 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/10 23:10:39 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/10 23:27:05 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	parseCmds(t_frame *f)
+{
+	printf("...Parser...\n");
+	append_dll_cmd(f, &(f->cmds));
+	int	i = 0;
+	while (f->token->next != NULL)
+	{
+		if (f->token->token_type == 'O' && ft_strcmp(f->token->token_str, "| "))
+		{
+			parsePipes(f);	
+			i = 0;
+		}
+		else
+		{
+			addStrCmd(f);
+			printf("cmd/arg~%i: %s\n",i, f->cmds->full_cmd[i]);i++;
+		}
+	}
+	if (f->token->token_type == 'O' && ft_strcmp(f->token->token_str, "| "))
+	{
+		parsePipes(f);	
+		i = 0;
+	}
+	else
+	{
+		addStrCmd(f);
+		printf("cmd/arg~%i: %s\n",i, f->cmds->full_cmd[i]);i++;
+	}
+}
 
 /* return em caso de !str */
 int	lexer(t_frame *f)
@@ -19,12 +49,12 @@ int	lexer(t_frame *f)
 	printList(f->token);
 	while (f->token->next != NULL)
 	{
-		if (tokenizeWord(f))
+		if (lexWord(f))
 			remove_dll(f);
 		else
 			f->token = f->token->next;
 	}
-	if (tokenizeWord(f))
+	if (lexWord(f))
 		remove_dll(f);
 	if (f->token == NULL)
 	{	

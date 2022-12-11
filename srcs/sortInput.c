@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 05:53:28 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 06:11:46 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,18 @@ void	parseCmds(t_frame *f)
 	}
 }
 
-/*  */
-void	createWords(t_frame *f) //os operadores definem o resto dos tokens!!
+/* separa input por palaras; se algum par de quotes não fechar da erro */
+void	createWords(t_frame *f)
 {
 	while (f->str[f->pos] != '\0')
 	{
-		if (f->str[f->pos] == '\'' || f->str[f->pos] == '\"') //dentro de quotes 
+		if (f->str[f->pos] == '\'' || f->str[f->pos] == '\"') /* errno */
 			lexQuote(f);
-		else if (findOperator(f->str[f->pos])) //operador
+		else if (findOperator(f->str[f->pos]))
 			lexOp(f);
-		else if (f->str[f->pos] == ' ') //final de word
+		else if (f->str[f->pos] == ' ')
 			lexWdend(f);
-		else //args
+		else
 			f->pos++;
 	}
 	if (f->pos - f->wd_begin)
@@ -66,11 +66,7 @@ void	sortInput(t_frame *f)
 {
 	createWords(f);
 	printf("\n##########################################################\n");
-
-	
-	lexer2(f);
-
-
+	lexer(f);
 	printf("\n##########################################################\n");
 	printf("\nBEFORE PARSER\n");
 	printList(f->token);

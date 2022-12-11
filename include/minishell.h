@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/11 06:00:58 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 06:07:32 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_frame {
 //sortInput.c
 void	sortInput(t_frame *f);
 void	createWords(t_frame *f);
-int	lexer(t_frame *f);
+void	lexer(t_frame *f);
 void	lexer2(t_frame *f);
 void	parser(t_frame *f);
 

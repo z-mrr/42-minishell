@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+/*  */
 int	expandSingle(t_frame *f) //falta adicionar excepcoes $? $$
 {
 	char	*left; //o que ja foi lido
@@ -58,6 +59,7 @@ int	expandSingle(t_frame *f) //falta adicionar excepcoes $? $$
 	return (0);
 }
 
+/* tenta expandir $ , caso str fique vazia apaga node */
 void	expandStr(t_frame *f)
 {
 	printf("\nnew_str= %s\n", f->token->token_str);
@@ -87,7 +89,7 @@ void	expandStr(t_frame *f)
 }
 
 /* token a token expande $, caso token_str fique vazio, apaga token */
-void	lexer2(t_frame *f)
+void	lexer(t_frame *f)
 {
 	while (f->token->next != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:46 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 03:32:28 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 06:11:56 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,4 @@ void	lexQuote(t_frame *f)
 		}
 	}
 	f->pos++;
-	//append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
-	//f->wd_begin = f->pos;
 }

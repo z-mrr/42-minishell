@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:06 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 00:01:51 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 05:59:44 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	remove_dll(t_frame *f)
 	t_token **head;
 	t_token *tmp;
 
+	printf("\n#############   REMOVING NODE   ##################\n\n");
 	head = &(f->token);
 	if ((*head)->prev == NULL && (*head)->next == NULL) /* unico*/
 	{
@@ -53,6 +54,7 @@ void	remove_dll(t_frame *f)
 		//exit(-1);
 		//printList(f->token);
 	}
+	printf("\n#############   NODE REMOVED   ##################\n");
 }
 
 void	printList(t_token *head)

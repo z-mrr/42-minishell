@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/11 00:01:26 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 06:00:58 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,11 @@ void	lexWdend(t_frame *f);
 void	lexOp(t_frame *f);
 int	findOperator(char c);
 
-//lexer.c
-int	lexWord(t_frame *f);
-int	parseDoubleQuotes(t_frame *f);
+//lexel.c
+
+//lexer_utils.c
 void	rmvQuotes(t_frame *f);
 int	countPairs(char *s);
-int	parseDollar(t_frame *f);
-char	*expandDollar(t_frame *f, char *tmp, int dollar);
 
 //parser.c
 void	parsePipes(t_frame *f);

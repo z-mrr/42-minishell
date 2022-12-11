@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 00:03:13 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 05:53:28 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,6 @@ void	parseCmds(t_frame *f)
 		addStrCmd(f);
 		printf("cmd/arg~%i: %s\n",i, f->cmds->full_cmd[i]);i++;
 	}
-}
-
-/* return em caso de !str */
-int	lexer(t_frame *f)
-{
-	printf("..lexer..\n");
-	printList(f->token);
-	while (f->token->next != NULL)
-	{
-		if (lexWord(f))
-			remove_dll(f);
-		else
-			f->token = f->token->next;
-	}
-	if (lexWord(f))
-		remove_dll(f);
-	if (f->token == NULL)
-	{	
-		printf("\nNo match found\n");
-		return (1);
-	}
-	while (f->token->prev != NULL) /*man de dll*/
-		f->token = f->token->prev;
-	return (0);
 }
 
 /*  */

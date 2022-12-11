@@ -1,200 +1,102 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/10 18:16:33 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/10 23:28:57 by gde-alme         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../include/minishell.h"
 
-char	*expandDollar(t_frame *f, char *tmp, int dollar)
+int	expandSingle(t_frame *f) //falta adicionar excepcoes $? $$
 {
-	char	*tmp2;
-	t_token	*node;
-
-	node = f->token;
-	if (tmp)
-	{
-		if (ft_strlen(ft_substr(node->token_str, dollar, f->pos - dollar)) < 2)
-			tmp2 = ft_strjoin(tmp, "$");
-		else
-		{
-			if (0 /*get_env*/ )
-				tmp2 = ft_strjoin(tmp, /*get_env*/ ft_substr(node->token_str, dollar + 1, f->pos - dollar - 1));
-			else
-				tmp2 = tmp;
-		}
-		printf("\nEXPAND DOLLAR... \nLido antes e depois de $: %s\n", tmp2);
-		if (tmp2 != tmp)
-			free(tmp);
-	}
-	else
-	{
-		if (ft_strlen(ft_substr(node->token_str, dollar, f->pos - dollar)) < 2)
-			tmp2 = ft_strdup("$");
-		else
-		{
-			if (0 /* get_env */)
-				tmp2 = /*get_env*/ ft_substr(node->token_str, dollar + 1, f->pos - dollar - 1);
-			else
-				return (NULL);
-		}
-		//printf("\nEXPAND DOLLAR... \nLido depois de $: %s\n", ft_substr(node->token_str, dollar + 1, f->pos - dollar - 1)); exit(-1);
-	}
-	return (tmp2);
-}
-
-
-/* da return positivo em caso de erro: $var igual a nada */
-int	parseDollar(t_frame *f)
-{
-	int	dollar;
-	t_token *node;
+	char	*left; //o que ja foi lido
+	char	*expansion; // o que vai tentar ser expandido
+	char	*right; //o que falta ler
 	char	*tmp;
-	char	*expand;
-	char	*tmp2;
+	char	*new_line;
 
-	node = f->token;
-	dollar = f->pos;
+	new_line = NULL;
+	left = NULL;
+	expansion = NULL;
+	right = NULL;
 	tmp = NULL;
-	if (f->pos - f->wd_begin)
-		tmp = ft_substr(node->token_str, f->wd_begin, (f->pos) - f->wd_begin);
-	printf("pos: %i - char: %c\n", f->pos, node->token_str[f->pos]);
+
+	if (f->pos >= 1)
+		left = ft_substr(f->token->token_str, 0, f->pos); // ise existir le tudo para tras
+	f->wd_begin = f->pos;
 	f->pos++;
-	if (node->token_str[f->pos] == '?')
-	{
+	while (f->token->token_str[f->pos] != '$' && f->token->token_str[f->pos] != ' ' && f->token->token_str[f->pos] != 34 && f->token->token_str[f->pos] != 39 && f->token->token_str[f->pos])
 		f->pos++;
-		if (tmp)
-			tmp2 = ft_strjoin(tmp, ft_itoa(f->last_pid));
-		else
-			tmp2 = ft_strdup(ft_itoa(f->last_pid));
-	}
-	else
-	{
-		while (node->token_str[f->pos] != '\"' && node->token_str[f->pos] != ' ' && node->token_str[f->pos] != '\'' && node->token_str[f->pos])
-			f->pos++;
-		tmp2 = expandDollar(f, tmp, dollar);
-	}
-	expand = ft_substr(node->token_str, f->pos, ft_strlen(node->token_str) - f->pos);
-	free(node->token_str);
-	if (!(tmp2) && !(expand))
-		return (1);
-	if (tmp2)
-		node->token_str = ft_strjoin(tmp2, expand);
-	else
-		node->token_str = expand;
-	if (tmp2)
-		free(tmp2);
-	printf("expand$: %s\n", node->token_str);
-	return (0);
-}
+	expansion = NULL; /* expansion = get_env ft_substr(f->token->token_str, f->wd_begin, f->pos - f->wd_begin); */
+	if (f->token->token_str[f->pos] != '\0')
+		right = ft_substr(f->token->token_str, f->pos, ft_strlen(f->token->token_str) - f->pos);
 
-int	countPairs(char *s)
-{
-	int	i;
-	int	pairs;
-	char	c;
+	printf("\nleft= %s\n", left);
+	printf("\nexpan= %s\n", expansion);
+	printf("\nright= %s\n", right);
 
-	i = 0;
-	pairs = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == 34 || s[i] == 39)
-		{
-			c = s[i];
-			i++;
-			pairs++;
-			while (s[i] != c)
-				i++;
-		}
-		i++;
-	}
-	return (pairs);
-}
+	tmp = ft_strjoin(left, expansion);
+	if (left)
+		free(left);
+	if (expansion);
+		free(expansion);
 
-void	rmvQuotes(t_frame *f)
-{
-	int	i;
-	int	j;
-	char c;
-	char	*new_str;
+	printf("\ntmp= %s\n", tmp);
 
-	i = 0;
-	j = 0;
-	new_str = (char *)malloc(sizeof(char) * ((ft_strlen(f->token->token_str) - (countPairs(f->token->token_str) * 2) + 1)));
-	while (f->token->token_str[i] != '\0')
-	{
-		if (f->token->token_str[i] == 34 || f->token->token_str[i] == 39)
-		{
-			c = f->token->token_str[i++];
-			while (f->token->token_str[i] != c)
-				new_str[j++] = f->token->token_str[i++];
-			i++;
-		}
-		else
-			new_str[j++] = f->token->token_str[i++];
-	}
+	new_line = ft_strjoin(tmp, right);
+
+	if (right)
+		free(right);
+
+	printf("\nnew_line= %s\n", new_line);
+	
 	free(f->token->token_str);
-	new_str[j] = '\0';
-	f->token->token_str = new_str;
-}
-
-/* trata de "" return positivo em caso de erro; */
-int	parseDoubleQuotes(t_frame *f)
-{
-	t_token *node;
-
-	node = f->token;
-	f->pos++;
-	while (node->token_str[f->pos] != 34 && node->token_str[f->pos])
+	if (new_line)
 	{
-		if (node->token_str[f->pos] == '$')
-		{
-			if (parseDollar(f))
-				return (1);
-			f->pos++;
-		}
-		else	
-			f->pos++;
+		f->token->token_str = ft_strdup(new_line);
+		free(new_line);
 	}
-	f->pos++;
+	else
+		return (1);
+	if (tmp)
+		f->pos = ft_strlen(tmp) - 1;
+	else
+		f->pos = 0;
 	return (0);
 }
 
-/* lida com '$' e '=' ; 1 = erro $var = null*/
-int	lexWord(t_frame *f)
+void	expandStr(t_frame *f)
 {
-	t_token *node;
-
-	node = f->token;
-	if (!(f->token))
-		return (1);
+	printf("\nnew_str= %s\n", f->token->token_str);
 	f->pos = 0;
-	f->wd_begin = 0;
-	while (node->token_str[f->pos])
+	while (f->token->token_str[f->pos] != '\0') //expande todas as instancias de $var
 	{
-		if (node->token_str[f->pos] == 39) /* '' */
+		if (f->token->token_str[f->pos] == 39) //dentro de ' vai ate prox '
 		{
 			f->pos++;
-			while (node->token_str[f->pos] != 39)
+			while (f->token->token_str[f->pos] != 39)
 				f->pos++;
 			f->pos++;
 		}
-		else if (node->token_str[f->pos] == 34) /* "" */
-			parseDoubleQuotes(f);
-		/*else if (node->token_str[f->pos] == '$')  input normal 
+		else if (f->token->token_str[f->pos] == '$')
 		{
-			if (parseDollar(f))
-				return (1);
-		}*/
+			if (expandSingle(f)) //muda apenas 1 palavra
+			{
+				remove_dll(f);
+				return ;
+			}
+		}
 		else
 			f->pos++;
+		printf("fpos%i fchar: %c\n", f->pos, f->token->token_str[f->pos]);
 	}
-	rmvQuotes(f); /* aspas so sao removidas no final*/
-	return (0);
+	rmvQuotes(f);
+}
+
+/* token a token expande $, caso token_str fique vazio, apaga token */
+void	lexer2(t_frame *f)
+{
+	while (f->token->next != NULL)
+	{
+		expandStr(f);
+		f->token = f->token->next;
+	}
+	expandStr(f);
+	if (f->token == NULL)
+		{printf("Nada para lexar- error handling\n"); exit(-1);}
+	while (f->token->prev != NULL) /*man de dll*/
+		f->token = f->token->prev;
 }

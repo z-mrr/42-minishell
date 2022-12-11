@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 19:09:43 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 20:05:02 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,28 @@ void	addStrCmd(t_cmd *node, char *s)
 	new_cmd[++i] = 0;
 	free(node->full_cmd);
 	node->full_cmd = new_cmd;
+}
+
+void	initCmd(t_cmd *node)
+{
+	node->full_cmd = NULL;
+	node->path = NULL;
+	node->in_fd = 0;
+	node->out_fd = 1;
+	node->err_fd = 2;
+	node->next = NULL;
+	node->prev = NULL;
+}
+
+void	ddl_append(t_cmd *last)
+{
+	t_cmd	*new_node;
+
+	new_node = NULL;
+	new_node = (t_cmd *)malloc(sizeof(t_cmd));
+
+	new_node->next = NULL;
+	new_node->prev = last;
+	last->next = new_node;
+	printf("new_node adress: %p\n", new_node);
 }

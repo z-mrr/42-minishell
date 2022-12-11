@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:46 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 06:11:56 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 20:03:52 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,23 @@ void	lexQuote(t_frame *f)
 		}
 	}
 	f->pos++;
+}
+
+/* separa input por palaras; se algum par de quotes não fechar da erro */
+void	createWords(t_frame *f)
+{
+	while (f->str[f->pos] != '\0')
+	{
+		if (f->str[f->pos] == '\'' || f->str[f->pos] == '\"') /* errno */
+			lexQuote(f);
+		else if (findOperator(f->str[f->pos]))
+			lexOp(f);
+		else if (f->str[f->pos] == ' ')
+			lexWdend(f);
+		else
+			f->pos++;
+	}
+	if (f->pos - f->wd_begin)
+		append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //ultima palavra 
+	printf("current f->pos: %i - %c\n", f->pos, f->str[f->pos]);
 }

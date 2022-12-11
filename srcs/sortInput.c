@@ -6,38 +6,11 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 19:57:19 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 20:05:12 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void    printListCmd(t_cmd *head);
-
-void	initCmd(t_cmd *node)
-{
-	node->full_cmd = NULL;
-	node->path = NULL;
-	node->in_fd = 0;
-	node->out_fd = 1;
-	node->err_fd = 2;
-	node->next = NULL;
-	node->prev = NULL;
-}
-
-void	ddl_append(t_cmd *last)
-{
-	t_cmd	*new_node;
-
-	new_node = NULL;
-	new_node = (t_cmd *)malloc(sizeof(t_cmd));
-
-	new_node->next = NULL;
-	new_node->prev = last;
-	last->next = new_node;
-	printf("new_node adress: %p\n", new_node);
-}
-
 
 /* adiciona token a cmd struct, se OP cria novo node da cmd struct*/
 void	parseCmds(t_frame *f)
@@ -69,26 +42,6 @@ void	parseCmds(t_frame *f)
 				addStrCmd(head, token->token_str);
 		token = token->next;
 	}	
-}
-
-
-/* separa input por palaras; se algum par de quotes não fechar da erro */
-void	createWords(t_frame *f)
-{
-	while (f->str[f->pos] != '\0')
-	{
-		if (f->str[f->pos] == '\'' || f->str[f->pos] == '\"') /* errno */
-			lexQuote(f);
-		else if (findOperator(f->str[f->pos]))
-			lexOp(f);
-		else if (f->str[f->pos] == ' ')
-			lexWdend(f);
-		else
-			f->pos++;
-	}
-	if (f->pos - f->wd_begin)
-		append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //ultima palavra 
-	printf("current f->pos: %i - %c\n", f->pos, f->str[f->pos]);
 }
 
 /* return se input acabar por ser nulo */

@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 06:11:46 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 06:33:41 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,15 @@ void	createWords(t_frame *f)
 /* return se input acabar por ser nulo */
 void	sortInput(t_frame *f)
 {
+	printf("\n### WORDS ###\n");
 	createWords(f);
-	printf("\n##########################################################\n");
+
+	printf("\n### LEXER ###\n");
 	lexer(f);
-	printf("\n##########################################################\n");
+
 	printf("\nBEFORE PARSER\n");
 	printList(f->token);
-	free(f->str); // DAR FREE A STR DO READLINE!
-	printf("\n##########################################################\n");
+	
+	printf("### PARSER ###");
 	parseCmds(f);
-	printf("\n##########################################################\n");
 }

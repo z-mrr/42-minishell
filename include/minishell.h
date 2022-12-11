@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/11 06:07:32 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 06:40:09 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ typedef struct s_frame {
 	char	**envp;
 	int	last_pid;
 	char	*str;
-	char	*new_str;
 	int	pos;
 	int	wd_begin;
-	char	c;
 } t_frame;
 
 //sortInput.c

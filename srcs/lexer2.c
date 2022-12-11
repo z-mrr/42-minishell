@@ -96,7 +96,7 @@ void	lexer2(t_frame *f)
 	}
 	expandStr(f);
 	if (f->token == NULL)
-		{printf("botacralho\n"); exit(-1);}
+		{printf("Nada para lexar- error handling\n"); exit(-1);}
 	while (f->token->prev != NULL) /*man de dll*/
 		f->token = f->token->prev;
 }

@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 08:01:42 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 08:39:31 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	parseCmds(t_frame *f)
 		else
 		{
 			addStrCmd(f);
+			f->token = f->token->next;
 			printf("cmd/arg~%i: %s\n",i, f->cmds->full_cmd[i]);i++;
 		}
 	}
@@ -38,10 +39,12 @@ void	parseCmds(t_frame *f)
 	else
 	{
 		addStrCmd(f);
+		if (f->token->next != NULL)
+			f->token = f->token->next;
 		printf("cmd/arg~%i: %s\n",i, f->cmds->full_cmd[i]);i++;
 	}
-	/*while (f->token->prev != NULL)
-		f->token = f->token->prev;*/
+	while (f->token->prev != NULL)
+		f->token = f->token->prev;
 }
 
 /* separa input por palaras; se algum par de quotes não fechar da erro */
@@ -72,12 +75,9 @@ void	sortInput(t_frame *f)
 	printf("\n### LEXER ###\n");
 	lexer(f);
 
-	printf("\nBEFORE PARSER\n");
+	printf("\n### BEFORE PARSER ###\n");
 	printList(f->token);
-	printList(f->token);
-	printList(f->token);
+	printf("\n### PARSER ###\n");
+	parseCmds(f);
 	freeTokens(f);
-	//printf("### PARSER ###");
-	//parseCmds(f);
-	//printList(f->token);
 }

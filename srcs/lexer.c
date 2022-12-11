@@ -60,7 +60,7 @@ int	expandSingle(t_frame *f) //falta adicionar excepcoes $? $$
 }
 
 /* tenta expandir $ , caso str fique vazia apaga node */
-void	expandStr(t_frame *f)
+int	expandStr(t_frame *f)
 {
 	printf("\nnew_str= %s\n", f->token->token_str);
 	f->pos = 0;
@@ -78,7 +78,7 @@ void	expandStr(t_frame *f)
 			if (expandSingle(f)) //muda apenas 1 palavra
 			{
 				remove_dll(f);
-				return ;
+				return (0);
 			}
 		}
 		else
@@ -86,6 +86,7 @@ void	expandStr(t_frame *f)
 		printf("fpos%i fchar: %c\n", f->pos, f->token->token_str[f->pos]);
 	}
 	rmvQuotes(f);
+	return (1);
 }
 
 /* token a token expande $, caso token_str fique vazio, apaga token */
@@ -93,12 +94,12 @@ void	lexer(t_frame *f)
 {
 	while (f->token->next != NULL)
 	{
-		expandStr(f);
-		f->token = f->token->next;
+		if (expandStr(f))
+			f->token = f->token->next;
 	}
 	expandStr(f);
 	if (f->token == NULL)
-		{printf("Nada para lexar- error handling\n"); exit(-1);}
+		{printf("\nNada para lexar- error handling\n"); exit(-1);}
 	while (f->token->prev != NULL) /*man de dll*/
 		f->token = f->token->prev;
 }

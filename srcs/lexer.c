@@ -53,7 +53,7 @@ int	expandSingle(t_frame *f) //falta adicionar excepcoes $? $$
 	else
 		return (1);
 	if (tmp)
-		f->pos = ft_strlen(tmp) - 1;
+		{f->pos = ft_strlen(tmp) - 1; free(tmp);}
 	else
 		f->pos = 0;
 	return (0);

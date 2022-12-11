@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:06 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 05:59:44 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 06:46:20 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,24 +67,6 @@ void	printList(t_token *head)
 		printf("token_type: %c ; ADRESS %p: \n", head->token_type, &(head->token_type));
 		head = head->next;
 	}
-}
-
-/* free lista de tokens - imcompleto */
-void	free_dll(t_frame *f)
-{
-	while (f->token->next != NULL)
-	{
-		printf("vou dar free a %s\n", f->token->token_str);
-		f->token = f->token->next;
-		free(f->token->prev->token_str);
-		f->token->prev->next = NULL;
-		free(f->token->prev);
-		f->token->prev = NULL;
-	}
-	printf("vou dar free a %s\n", f->token->token_str);
-	free(f->token->token_str);
-	free(f->token);
-	f->token = NULL;
 }
 
 /* adiciona node de cmd */

@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 06:33:41 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 07:28:34 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	parseCmds(t_frame *f)
 		addStrCmd(f);
 		printf("cmd/arg~%i: %s\n",i, f->cmds->full_cmd[i]);i++;
 	}
+	/*while (f->token->prev != NULL)
+		f->token = f->token->prev;*/
 }
 
 /* separa input por palaras; se algum par de quotes não fechar da erro */
@@ -72,7 +74,8 @@ void	sortInput(t_frame *f)
 
 	printf("\nBEFORE PARSER\n");
 	printList(f->token);
-	
-	printf("### PARSER ###");
-	parseCmds(f);
+	freeTokens(f);
+	//printf("### PARSER ###");
+	//parseCmds(f);
+	//printList(f->token);
 }

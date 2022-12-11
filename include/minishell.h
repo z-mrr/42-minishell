@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/11 06:40:09 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 07:00:38 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,11 @@ int	charArrayLen(char **array);
 void append_dll(t_frame *f, t_token **head, char *s);
 void	addType_ll(t_frame *f, char type);
 void append_dll_cmd(t_frame *f, t_cmd **head);
-void	free_dll(t_frame *f);
 void	printList(t_token *head);
 void	remove_dll(t_frame *f);
+
+//free.c
+void	freeTokens(t_frame *f);
 
 //readline.c
 char	*get_str(void);

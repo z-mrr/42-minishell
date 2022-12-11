@@ -6,13 +6,13 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/11 06:38:59 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 07:31:04 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_frame	*create_frame(t_frame *frame, char **envp, char *s)
+t_frame	*create_frame(t_frame *frame, char **envp)
 {
 	frame = (t_frame *)malloc(sizeof(t_frame));
 	if (!(frame))
@@ -21,8 +21,7 @@ t_frame	*create_frame(t_frame *frame, char **envp, char *s)
 	frame->token = NULL;
 	frame->envp = envp;
 	frame->last_pid = 0;
-	frame->str = ft_strdup(s);
-	free(s);
+	frame->str = NULL;
 	frame->pos = 0;
 	frame->wd_begin = 0;
 	return (frame);
@@ -40,22 +39,23 @@ int	main(int argc, char **argv, char **envp)
 	(void)envp;
 	//init envs
 
-	if (argc > 1)
-	{
-		str = ft_strdup(argv[1]);
-		frame = create_frame(frame, envp, str);
-		sortInput(frame);
-		free(frame->str);
-		free(frame);
-		exit(-1);
-	}
 	while(1)
 	{
 		handle_sig();
-		str = get_str();
-		frame = create_frame(frame, envp, str);
+		if (argc > 1)
+			str = ft_strdup(argv[1]);
+		else
+			str = get_str();
+		frame = create_frame(frame, envp);
+		if (str[0] == ' ')
+			return (1);
+		frame->str = ft_strdup(str);
+		free(str);
 		sortInput(frame);
+		free(frame->str);
 		free(frame);
+		if (argc > 1)
+			exit(-1);
 	}
 	return (0);
 }

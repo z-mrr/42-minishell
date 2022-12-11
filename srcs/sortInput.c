@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 19:31:13 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 19:57:19 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ void	ddl_append(t_cmd *last)
 	new_node = (t_cmd *)malloc(sizeof(t_cmd));
 
 	new_node->next = NULL;
-	new_node->prev = last->prev;
-	last->prev->next = new_node;
+	new_node->prev = last;
+	last->next = new_node;
+	printf("new_node adress: %p\n", new_node);
 }
 
 
-/* adiciona token a cmd struct, se | cria novo node da cmd struct*/
+/* adiciona token a cmd struct, se OP cria novo node da cmd struct*/
 void	parseCmds(t_frame *f)
 {
 
@@ -48,27 +49,26 @@ void	parseCmds(t_frame *f)
 	token = f->token;
 	head = NULL;
 	head = (t_cmd *)malloc(sizeof(t_cmd));
+	f->cmds = head;
 	initCmd(head);
 	while (token != NULL)
 	{
-		if (token->token_type == 'O')
+		if (token->token_type == 'O') /* op */
 		{
+			if (token->next == NULL)
+				break ;	
 			if (ft_strcmp(token->token_str, "|"))
 			{
 				ddl_append(head);
 				head = head->next;
 				initCmd(head);
+				//printf("gdb");exit(-1);
 			}
 		}
-		else
-			addStrCmd(head, token->token_str);
-		if (token->next == NULL)
-			break ;
+			else
+				addStrCmd(head, token->token_str);
 		token = token->next;
 	}	
-	while (head->prev != NULL)
-		head = head->prev;
-	f->cmds = head;
 }
 
 

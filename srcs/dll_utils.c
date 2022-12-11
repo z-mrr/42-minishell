@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:06 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 19:19:29 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 19:59:51 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,13 @@ void	printListCmd(t_cmd *head)
 	printf("\n                                          Mem                                    \n");
 	while (head != NULL)
 	{
-		printf("ADRESS: %p\n", head);
 		i = 0;
 		while (head->full_cmd[i])
 		{
 			if (i == 0)
-				printf("Command: %s\n", head->full_cmd[i]);
+				printf("Command: %s | ADRESS: %p\n", head->full_cmd[i], head);
 			else
-				printf("Arg[%i]: %s\n", i, head->full_cmd[i]);
+				printf("Arg[%i]: %s\n", i - 1, head->full_cmd[i]);
 			i++;
 		}
 		head = head->next;

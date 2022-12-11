@@ -6,23 +6,26 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 13:35:05 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/10 08:23:54 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 03:45:11 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 char
-	*ft_strjoin(char const *s1, char const *s2)
+	*ft_strjoin(char *s1, char *s2)
 {
 	char	*str;
 	size_t	i;
 	size_t	j;
 
-	if (!(s1))
+	if (!(s1) && !(s2)) 
 		return (NULL);
-	str = (char*)malloc(
-		sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!(s1))
+		return (ft_strdup(s2));
+	if (!(s2))
+		return (ft_strdup(s1));
+	str = (char*)malloc(sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)
 		return (NULL);
 	i = 0;
@@ -33,11 +36,7 @@ char
 		i++;
 	}
 	i = 0;
-	if (!(s2))
-	{
-		str[j] = 0;
-		return (str);
-	}
+	str[j] = 0;
 	while (s2[i])
 	{
 		str[j++] = s2[i];

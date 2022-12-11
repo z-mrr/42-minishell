@@ -16,3 +16,5 @@ gdb:
 	@valgrind --vgdb=yes --vgdb-error=0 ./minishell
 fsanitize:
 	@gcc -ggdb -fsanitize=address -g include/minishell.h libft/*.h libft/*.c srcs/*.c -lreadline -o minishell
+argv:
+	@valgrind ./minishell "fs f$se$<<|<\f<<|<< <<<wefwef $wefwef wf ew"

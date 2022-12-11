@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/10 20:27:57 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 05:42:22 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ int	main(int argc, char **argv, char **envp)
 	(void)envp;
 	//init envs
 
+	if (argc > 1)
+	{
+		str = ft_strdup(argv[1]);
+		frame = create_frame(frame, envp, str);
+		sortInput(frame);
+		free(frame);
+		exit(-1);
+	}
 	while(1)
 	{
 		handle_sig();

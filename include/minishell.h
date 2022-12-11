@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/11 07:00:38 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 19:08:33 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ int	countPairs(char *s);
 
 //parser.c
 void	parsePipes(t_frame *f);
-void	addStrCmd(t_frame *f);
+void	addStrCmd(t_cmd *node, char *s);
 int	charArrayLen(char **array);
 
 //ddl_utils.c
-void append_dll(t_frame *f, t_token **head, char *s);
+void	append_dll(t_frame *f, t_token **head, char *s);
 void	addType_ll(t_frame *f, char type);
-void append_dll_cmd(t_frame *f, t_cmd **head);
+void 	append_dll_cmd(t_frame *f, t_cmd **head);
 void	printList(t_token *head);
 void	remove_dll(t_frame *f);
 

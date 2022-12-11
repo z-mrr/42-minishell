@@ -85,7 +85,7 @@ int	expandStr(t_frame *f)
 			f->pos++;
 		printf("fpos%i fchar: %c\n", f->pos, f->token->token_str[f->pos]);
 	}
-	rmvQuotes(f);
+	rmvQuotes(f); //arranjar "" (da return de ' ')
 	return (1);
 }
 

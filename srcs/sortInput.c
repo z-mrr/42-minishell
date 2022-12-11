@@ -6,46 +6,71 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 08:39:31 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 19:31:13 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+void    printListCmd(t_cmd *head);
+
+void	initCmd(t_cmd *node)
+{
+	node->full_cmd = NULL;
+	node->path = NULL;
+	node->in_fd = 0;
+	node->out_fd = 1;
+	node->err_fd = 2;
+	node->next = NULL;
+	node->prev = NULL;
+}
+
+void	ddl_append(t_cmd *last)
+{
+	t_cmd	*new_node;
+
+	new_node = NULL;
+	new_node = (t_cmd *)malloc(sizeof(t_cmd));
+
+	new_node->next = NULL;
+	new_node->prev = last->prev;
+	last->prev->next = new_node;
+}
+
+
+/* adiciona token a cmd struct, se | cria novo node da cmd struct*/
 void	parseCmds(t_frame *f)
 {
-	printf("...Parser...\n");
-	append_dll_cmd(f, &(f->cmds));
-	int	i = 0;
-	while (f->token->next != NULL)
+
+	t_token *token;
+	t_cmd *head;
+
+	token = f->token;
+	head = NULL;
+	head = (t_cmd *)malloc(sizeof(t_cmd));
+	initCmd(head);
+	while (token != NULL)
 	{
-		if (f->token->token_type == 'O' && ft_strcmp(f->token->token_str, "| "))
+		if (token->token_type == 'O')
 		{
-			parsePipes(f);	
-			i = 0;
+			if (ft_strcmp(token->token_str, "|"))
+			{
+				ddl_append(head);
+				head = head->next;
+				initCmd(head);
+			}
 		}
 		else
-		{
-			addStrCmd(f);
-			f->token = f->token->next;
-			printf("cmd/arg~%i: %s\n",i, f->cmds->full_cmd[i]);i++;
-		}
-	}
-	if (f->token->token_type == 'O' && ft_strcmp(f->token->token_str, "| "))
-	{
-		parsePipes(f);	
-		i = 0;
-	}
-	else
-	{
-		addStrCmd(f);
-		if (f->token->next != NULL)
-			f->token = f->token->next;
-		printf("cmd/arg~%i: %s\n",i, f->cmds->full_cmd[i]);i++;
-	}
-	while (f->token->prev != NULL)
-		f->token = f->token->prev;
+			addStrCmd(head, token->token_str);
+		if (token->next == NULL)
+			break ;
+		token = token->next;
+	}	
+	while (head->prev != NULL)
+		head = head->prev;
+	f->cmds = head;
 }
+
 
 /* separa input por palaras; se algum par de quotes não fechar da erro */
 void	createWords(t_frame *f)
@@ -69,15 +94,17 @@ void	createWords(t_frame *f)
 /* return se input acabar por ser nulo */
 void	sortInput(t_frame *f)
 {
-	printf("\n### WORDS ###\n");
+	printf("\n\n                                       ### WORDS ###                         \n\n");
 	createWords(f);
-
-	printf("\n### LEXER ###\n");
-	lexer(f);
-
-	printf("\n### BEFORE PARSER ###\n");
 	printList(f->token);
-	printf("\n### PARSER ###\n");
+	printf("\n\n                                       ### LEXER ###                         \n\n");
+	lexer(f);
+	printList(f->token);
+	printf("\n\n                                       ### PARSER ###                        \n\n");
 	parseCmds(f);
+	printf("\n\n                                       ### NO FINAL ###                      \n\n");
+	printList(f->token);
+	printListCmd(f->cmds);
+	printf("\n                                        ...free...                              \n");
 	freeTokens(f);
 }

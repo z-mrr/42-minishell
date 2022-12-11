@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:06 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 08:16:21 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/11 19:19:29 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,33 +67,30 @@ void	printList(t_token *head)
 		printf("token_type: %c ; ADRESS %p: \n", head->token_type, &(head->token_type));
 		head = head->next;
 	}
+	printf("\n                                      Mem END                                    \n");
 }
 
-/* adiciona node de cmd */
-void append_dll_cmd(t_frame *f, t_cmd **head)
+void	printListCmd(t_cmd *head)
 {
-	t_cmd	*new_node;
-	t_cmd	*last;
+	int	i;
 
-	new_node = NULL;
-	new_node = (t_cmd *)malloc(sizeof(t_cmd));
-	new_node->full_cmd = NULL;
-	new_node->path = NULL;
-	new_node->in_fd = 0;
-	new_node->out_fd = 1;
-	new_node->err_fd = 2;
-	new_node->next = NULL;
-	if (*head == NULL)
+	
+	printf("\n                                          Mem                                    \n");
+	while (head != NULL)
 	{
-		new_node->prev = NULL;
-		*head = new_node;
-		return ;
+		printf("ADRESS: %p\n", head);
+		i = 0;
+		while (head->full_cmd[i])
+		{
+			if (i == 0)
+				printf("Command: %s\n", head->full_cmd[i]);
+			else
+				printf("Arg[%i]: %s\n", i, head->full_cmd[i]);
+			i++;
+		}
+		head = head->next;
 	}
-	last = *head;
-	while (last->next != NULL)
-		last = last->next;
-	last->next = new_node;
-	new_node->prev = last;
+	printf("\n                                      Mem END                                    \n");
 }
 
 /* adiciona tipo de token */

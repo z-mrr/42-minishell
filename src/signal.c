@@ -6,11 +6,11 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 23:32:06 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/12 17:07:09 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/12 23:01:39 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../inc/minishell.h"
 
 /*CTRL+C quebra de nova linha limpa*/
 void sig_handler(int signal)

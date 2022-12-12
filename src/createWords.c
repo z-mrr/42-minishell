@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   createWords.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:46 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/12 16:43:05 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/12 23:01:39 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../inc/minishell.h"
 
 /* check for operators */
 int	findOperator(char c)
@@ -39,7 +39,7 @@ void	lexOp(t_sh *f)
 	}
 	else
 		f->pos++;
-	
+
 	append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //operator
 	f->wd_begin = f->pos;
 	addType_ll(f, 'O');
@@ -64,7 +64,7 @@ void	lexQuote(t_sh *f)
 		while (f->str[f->pos] != 34)
 		{
 			if (f->str[f->pos] == '\0')
-				{printf("err quotes");exit(-1);}	
+				{printf("err quotes");exit(-1);}
 			f->pos++;
 		}
 	}
@@ -74,7 +74,7 @@ void	lexQuote(t_sh *f)
 		while (f->str[f->pos] != 39)
 		{
 			if (f->str[f->pos] == '\0')
-				{printf("err quotes");exit(-1);}	
+				{printf("err quotes");exit(-1);}
 			f->pos++;
 		}
 	}
@@ -96,6 +96,6 @@ void	createWords(t_sh *f)
 			f->pos++;
 	}
 	if (f->pos - f->wd_begin)
-		append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //ultima palavra 
+		append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //ultima palavra
 	printf("current f->pos: %i - %c\n", f->pos, f->str[f->pos]);
 }

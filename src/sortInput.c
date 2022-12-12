@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sortInput.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/12 16:43:54 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/12 23:01:39 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../inc/minishell.h"
 
 /* adiciona token a cmd struct, se OP cria novo node da cmd struct*/
 void	parseCmds(t_sh *f)
@@ -29,7 +29,7 @@ void	parseCmds(t_sh *f)
 		if (token->token_type == 'O') /* op */
 		{
 			if (token->next == NULL)
-				break ;	
+				break ;
 			if (ft_strcmp(token->token_str, "|"))
 			{
 				ddl_append(head);
@@ -41,7 +41,7 @@ void	parseCmds(t_sh *f)
 			else
 				addStrCmd(head, token->token_str);
 		token = token->next;
-	}	
+	}
 }
 
 /* return se input acabar por ser nulo */

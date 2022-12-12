@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../inc/minishell.h"
 
 int	countPairs(char *s)
 {

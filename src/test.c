@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../inc/minishell.h"
 
 void	tests(t_sh *sh);
 void	t_unset(t_sh *sh);

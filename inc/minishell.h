@@ -6,14 +6,14 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/12 17:47:41 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/12 23:12:48 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../include/color.h"
+# include "../inc/color.h"
 # include "../libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -23,9 +23,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-extern int	g_status;//exit status
+int	g_status;//exit status
+//When a script ends with an exit that has no parameter, the exit status of the script is the exit status of the last command executed in the script (previous to the exit). expand $?
 
-typedef struct s_token {
+typedef struct	s_token {
 	char		*token_str;
 	char		token_type;
 	struct	s_token	*next;
@@ -33,25 +34,25 @@ typedef struct s_token {
 } t_token;
 
 typedef	struct	s_cmd {
-	char	**full_cmd; //cmd e args
-	char	*path; //cmd PATH; se builtin deixar so nome
-	int	in_fd;
-	int	out_fd;
-	int	err_fd;
-	struct s_cmd *next;
-	struct s_cmd *prev;
-} t_cmd;
+	char			**full_cmd; //cmd e args
+	char			*path; //cmd PATH; se builtin deixar so nome
+	int				in_fd;
+	int				out_fd;
+	int				err_fd;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;//Nao pode ser simples?
+}				t_cmd;
 
-typedef struct s_sh {
+typedef struct	s_sh {
 	t_cmd	*cmds;
-	t_token *token;
+	t_token	*token;
 	char	**test;
 	char	**envp;
-	int	last_pid;
+	int		last_pid;//pq?
 	char	*str;
-	int	pos;
-	int	wd_begin;
-} t_sh;
+	int		pos;
+	int		wd_begin;
+}				t_sh;
 
 void	tests(t_sh *sh);
 //sortInput.c
@@ -109,6 +110,7 @@ void	rmv_env(char *var, t_sh *sh);
 
 //utils.c
 int		ft_strichr(char *str, char c);
+int		ft_strcmp(char *s1, char *s2);
 
 //mtr_utils.c
 int		mtr_len(char **m);

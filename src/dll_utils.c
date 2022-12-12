@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dll_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:06 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/12 17:43:07 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/12 23:03:57 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../inc/minishell.h"
 
 void	printList(t_token *head)
 {
@@ -29,7 +29,7 @@ void	printListCmd(t_cmd *head)
 {
 	int	i;
 
-	
+
 	printf("\n                                          Mem                                    \n");
 	while (head != NULL)
 	{
@@ -64,6 +64,7 @@ void append_dll(t_sh *f, t_token **head, char *s)
 	t_token	*new_node;
 	t_token	*last;
 
+	(void)f;
 	new_node = NULL;
 	new_node = (t_token *)malloc(sizeof(t_token));
 

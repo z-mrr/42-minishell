@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../inc/minishell.h"
 
 void	ddl_removeToken(t_token **head, t_token *node)
 {
@@ -86,7 +86,7 @@ void	rmvLeft(char **old_str, char *var, int pos)
 		free(*old_str);
 		*old_str = left;
 	}
-		
+
 }
 
 /* remove var da palavra */
@@ -157,7 +157,7 @@ void insertValue(char **old_str, char *value, int pos, char *var)
 	{
 		if (pos)
 			doLeft(old_str, value, pos, var);
-		
+
 		else
 		{
 			right = ft_strjoin(value, *old_str);
@@ -174,6 +174,7 @@ int	expandSingle(t_sh *f, t_token *node)
 	char	*tmp;
 	char	*value;
 
+	(void)tmp;
 	var = NULL;
 	tmp = NULL;
 	value = NULL;

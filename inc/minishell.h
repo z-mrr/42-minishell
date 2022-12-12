@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/09 23:44:54 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:17:59 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	g_status;//exit status
 
 typedef struct	s_sh
 {
-	char	**test;
+	char	**test;//tests=================
 	t_list	*cmds;//lista de nodes t_cmd, novo node a cada pipe
 	char	**envp;//duplicado de **envp
 }				t_sh;
@@ -54,20 +54,23 @@ void	t_echo(t_sh *sh);
 void	t_echo_n(t_sh *sh);
 void	t_cd(t_sh *sh);
 void	t_cd_noargs(t_sh *sh);
+void	t_exit(t_sh *sh);
+void	t_exit_arg(t_sh *sh);
+void	t_exit_bad(t_sh *sh);
 
-//builtins.c test args
+//pwd_unset_echo_cd.c test args
 int		ft_pwd(void);
 int		ft_unset(t_sh *sh);
 int		ft_echo(t_sh *sh);
 int		ft_cd(t_sh *sht);
 int		cd_home(t_sh *sh);
 
-//export.c test args
+//export_exit.c test args
 int		ft_export(t_sh *sh);
 int		print_export(t_sh *sh);
 char	**set_export(t_sh *sh);
-int		ft_strichr(char *str, char c);
-int		ft_strcmp(const char *s1, const char *s2);
+int		ft_exit(t_sh *sh);
+void	exit_check(char **str);
 
 //env.c
 int		ft_env(t_sh *sh);
@@ -76,7 +79,11 @@ int		pos_env(char *var, char **envp);
 void	set_env(char *var, char *value, t_sh *sh);
 void	rmv_env(char *var, t_sh *sh);
 
-//mtr.c
+//utils.c
+int		ft_strichr(char *str, char c);
+int		ft_strcmp(const char *s1, const char *s2);
+
+//mtr_utils.c
 int		mtr_len(char **m);
 void	mtr_free(char **m);
 char	**mtr_dup(char **m);

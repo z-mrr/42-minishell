@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   export_exit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:15:11 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/09 23:43:50 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:17:28 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,43 +98,49 @@ char	**set_export(t_sh *sh)
 	return (env);
 }
 
-/*returna primeiro index de char na string*/
-int	ft_strichr(char *str, char c)
+/*exit with no options*/
+int	ft_exit(t_sh *sh)
 {
-	int	i;
+	int	status;
+	int	n;
 
-	if (!str)
-		return (-1);
-	i = -1;
-	while(str[++i])
+	n = mtr_len(sh->test);
+	if (n > 2)
 	{
-		if (str[i] == c)
-			return (i);
+		mtr_free(sh->test);
+		ft_putendl_fd("minishell: exit: too many arguments", 1);
+		return (1);
 	}
-	if (c == '\0')
-		return (i);
-	return (-1);
+	status = 0;
+	if (n == 2)
+	{
+		exit_check(sh->test);
+		status = ft_atoi(sh->test[1]);
+	}
+	mtr_free(sh->test);
+	exit(status);
 }
 
-/*compara strings*/
-int	ft_strcmp(const char *s1, const char *s2)
+/*exit -1 if argument isnt valid*/
+void	exit_check(char **str)
 {
 	int	i;
-	int	n;
-	int	len[2];
 
-	len[0] = ft_strlen(s1);
-	len[1] = ft_strlen(s2);
-	if (len[0] > len[1])
-		n = len[0];
-	else
-		n = len[1];
-	if (!n)
-		return (0);
 	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i] && i < n)
+	while (str[1][i] == ' ' || str[1][i] == '\t')
 		i++;
-	if (i == n)
-		i--;
-	return (s1[i] - s2[i]);
+	if (str[1][i] == '+' || str[1][i] == '-')
+		i++;
+	while(str[1][i])
+	{
+		if (!ft_isdigit(str[1][i]) || i >= 20)
+		{
+			ft_putstr_fd("minishell: exit: ", 1);
+			ft_putstr_fd(str[1], 1);
+			ft_putendl_fd(": numeric argument required", 1);
+			mtr_free(str);
+			exit(-1);
+		}
+		i++;
+	}
 }

@@ -13,6 +13,39 @@ void	tests(t_sh *sh)
 	t_env(sh);
 	t_echo(sh);
 	t_echo_n(sh);
+	t_exit_bad(sh);
+}
+
+void	t_exit(t_sh *sh)
+{
+	sh->test = malloc(sizeof(char *) * 2);
+	sh->test[0] = ft_strdup("exit");
+	sh->test[1] = NULL;
+	ft_exit(sh);
+	printf("\n___________________exit no args___________________\n");
+	mtr_free(sh->test);
+}
+
+void	t_exit_arg(t_sh *sh)
+{
+	sh->test = malloc(sizeof(char *) * 3);
+	sh->test[0] = ft_strdup("exit");
+	sh->test[1] = ft_strdup("      -20");
+	sh->test[2] = NULL;
+	ft_exit(sh);
+	printf("\n___________________exit args___________________\n");
+	mtr_free(sh->test);
+}
+
+void	t_exit_bad(t_sh *sh)
+{
+	sh->test = malloc(sizeof(char *) * 3);
+	sh->test[0] = ft_strdup("exit");
+	sh->test[1] = ft_strdup("      --20");
+	sh->test[2] = NULL;
+	ft_exit(sh);
+	printf("\n___________________exit invalid args___________________\n");
+	mtr_free(sh->test);
 }
 
 void	t_cd_noargs(t_sh *sh)

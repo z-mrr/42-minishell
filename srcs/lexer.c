@@ -99,9 +99,14 @@ void	removeVar(char **old_str, char *var, int pos)
 		rmvLeft(old_str, var, pos);
 	else
 	{
-		right = ft_substr(*old_str, 0, pos);
 		free(*old_str);
-		*old_str = right;
+		if (ft_strcmp(*old_str, var)) 
+		{
+			right = ft_substr(*old_str, ft_strlen(var), ft_strlen(*old_str) - ft_strlen(var));
+			*old_str = right;
+		}
+		else
+			*old_str = NULL;
 	}
 }
 
@@ -174,15 +179,15 @@ int	expandSingle(t_frame *f, t_token *node)
 	removeVar(&(node->token_str), var, f->pos); /* remove var from word */
 	printf("\n\nnew s2: %s\n", node->token_str);
 
-	printf("\n\ninserting: %s\n", node->token_str);
-	insertValue(&(node->token_str), value, f->pos, var); //insere value na palavra (ou palavra toda);
+	if (!(value) && !(node->token_str))
+		insertValue(&(node->token_str), value, f->pos, var); //insere value na palavra (ou palavra toda);
 	printf("\n\nnew s3: %s\n", node->token_str);
 
 	f->pos = f->pos + ft_strlen(value);
-	printf("\nf->pos: %i\n", f->pos);
-	//exit(-1);
+	printf("\nf->pos: %p\n", node->token_str);
 	if (!(node->token_str))
 		return (1); //  se vazia apagar node
+	exit(-1);
 	return (0);
 }
 
@@ -218,7 +223,7 @@ int	expandStr(t_frame *f, t_token *node)
 void	lexer(t_frame *f)
 {
 	t_token *node;
-	t_token *tmp;
+	t_token **tmp;
 
 	node = NULL;
 	node = f->token;
@@ -227,10 +232,11 @@ void	lexer(t_frame *f)
 	{
 		if (expandStr(f, node))
 		{
-			//exit(-1);
-			tmp = node->next;
+			*tmp = node->next;
+			exit(-1);
 			ddl_removeToken(&(f->token), node);
-			node = tmp;
+			exit(-1);
+			node = *tmp;
 		}
 		else
 			node = node->next;

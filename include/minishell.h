@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/12 17:28:45 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/12 17:47:41 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@ typedef struct s_sh {
 void	tests(t_sh *sh);
 //sortInput.c
 void	sortInput(t_sh *f);
-void	lexer(t_sh *f);
-void	lexer2(t_sh *f);
-void	parser(t_sh *f);
 
 //createWords.c //tokenizes the words
 void	createWords(t_sh *f);
@@ -68,6 +65,7 @@ void	lexOp(t_sh *f);
 int	findOperator(char c);
 
 //lexer.c
+void	lexer(t_sh *f);
 
 //lexer_utils.c
 void	rmvQuotes(t_sh *f);
@@ -85,7 +83,6 @@ void	addType_ll(t_sh *f, char type);
 void 	append_dll_cmd(t_sh *f, t_cmd **head);
 void	printList(t_token *head);
 void	printListCmd(t_cmd *head);
-void	remove_dll(t_sh *f);
 
 //free.c
 void	freeTokens(t_sh *f);

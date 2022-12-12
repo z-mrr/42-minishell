@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 23:32:06 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/02 23:32:32 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/12 17:07:09 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void sig_handler(int signal)
 }
 /*interceta sinais CTRL+C e CTRL+\, ignorando o último.
 não precisa de intercetar CTRL+D, pois o seu comportamento é o esperado*/
-void handle_sig()
+void handle_sig(void)
 {
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);

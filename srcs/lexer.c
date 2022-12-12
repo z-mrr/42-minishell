@@ -99,14 +99,18 @@ void	removeVar(char **old_str, char *var, int pos)
 		rmvLeft(old_str, var, pos);
 	else
 	{
-		free(*old_str);
-		if (ft_strcmp(*old_str, var)) 
+		if (!(ft_strcmp(*old_str, var)))
 		{
+			exit(-1);
 			right = ft_substr(*old_str, ft_strlen(var), ft_strlen(*old_str) - ft_strlen(var));
+			free(*old_str);
 			*old_str = right;
 		}
 		else
+		{
+			free(*old_str);
 			*old_str = NULL;
+		}
 	}
 }
 
@@ -129,9 +133,14 @@ void	doLeft(char **old_str, char *value, int pos, char *var)
 		left = ft_strjoin(tmp_left, right);
 		free(tmp_left);
 		free(right);
+		free(*old_str);
+		*old_str = left;
 	}
-	free(*old_str);
-	*old_str = left;
+	else
+	{
+		free(*old_str);
+		*old_str = tmp_left;
+	}
 }
 
 /* insere value na palavra */
@@ -179,7 +188,7 @@ int	expandSingle(t_frame *f, t_token *node)
 	removeVar(&(node->token_str), var, f->pos); /* remove var from word */
 	printf("\n\nnew s2: %s\n", node->token_str);
 
-	if (!(value) && !(node->token_str))
+	if (value)
 		insertValue(&(node->token_str), value, f->pos, var); //insere value na palavra (ou palavra toda);
 	printf("\n\nnew s3: %s\n", node->token_str);
 
@@ -187,7 +196,6 @@ int	expandSingle(t_frame *f, t_token *node)
 	printf("\nf->pos: %p\n", node->token_str);
 	if (!(node->token_str))
 		return (1); //  se vazia apagar node
-	exit(-1);
 	return (0);
 }
 
@@ -215,6 +223,7 @@ int	expandStr(t_frame *f, t_token *node)
 			f->pos++;
 		printf("fpos%i fchar: %c\n", f->pos, node->token_str[f->pos]);
 	}
+	f->pos = 0;
 	rmvQuotes(f);
 	return (0);
 }

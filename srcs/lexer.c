@@ -64,45 +64,45 @@ char	*expandVar(char	*var)
 		/*get env*/
 }
 
-
-/* remove var da palavra */
-void	removeVar(char **old_str, char *var, int pos)
+void	rmvLeft(char **old_str, char *var, int pos)
 {
-	char	*new_str;
 	char	*left;
 	char	*right;
 
-	new_str = NULL;
 	left = NULL;
 	right = NULL;
-	if (pos)
-		left = ft_substr(*old_str, 0, pos);
+
+	left = ft_substr(*old_str, 0, pos);
 	if (pos + ft_strlen(var) != '\0')
-		right = ft_substr(*old_str, pos + ft_strlen(var), ft_strlen(*old_str) - pos);
-	if (left && right)
 	{
-		new_str = ft_strjoin(left, right);
+		right = ft_substr(*old_str, pos + ft_strlen(var), ft_strlen(*old_str) - pos);
+		free(*old_str);
+		*old_str = ft_strjoin(left, right);
 		free(left);
 		free(right);
 	}
 	else
 	{
-		if (left)
-		{
-			new_str = ft_strdup(left);
-			free(left);
-		}
-		else if (right)
-		{
-			new_str = ft_strdup(right);
-			free(right);
-		}
+		free(*old_str);
+		*old_str = left;
 	}
-	free(*old_str);
-	if (new_str == NULL)
-		*old_str = NULL;
+		
+}
+
+/* remove var da palavra */
+void	removeVar(char **old_str, char *var, int pos)
+{
+	char	*right;
+
+	right = NULL;
+	if (pos)
+		rmvLeft(old_str, var, pos);
 	else
-		*old_str = new_str;
+	{
+		right = ft_substr(*old_str, 0, pos);
+		free(*old_str);
+		*old_str = right;
+	}
 }
 
 /* se texto antes de $ */

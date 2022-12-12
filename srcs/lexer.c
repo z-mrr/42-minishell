@@ -1,103 +1,210 @@
 #include "../include/minishell.h"
 
-/*  */
-int	expandSingle(t_frame *f) //falta adicionar excepcoes $? $$
+void	ddl_removeToken(t_token **head, t_token *node)
 {
-	char	*left; //o que ja foi lido
-	char	*expansion; // o que vai tentar ser expandido
-	char	*right; //o que falta ler
-	char	*tmp;
-	char	*new_line;
+	if (*head == NULL || node == NULL)
+		return ;
+	if (*head == node)
+		*head = node->next;
+	if (node->next != NULL)
+		node->next->prev = node->prev;
+	if (node->prev != NULL)
+		node->prev->next = node->next;
+	free(node);
+}
 
-	new_line = NULL;
-	left = NULL;
-	expansion = NULL;
-	right = NULL;
-	tmp = NULL;
+/* lê a var */
+char	*getVar(t_token *node, int pos)
+{
+	int	start;
+	char	*s;
 
-	if (f->pos >= 1)
-		left = ft_substr(f->token->token_str, 0, f->pos); // ise existir le tudo para tras
-	f->wd_begin = f->pos;
-	f->pos++;
-	while (f->token->token_str[f->pos] != '$' && f->token->token_str[f->pos] != ' ' && f->token->token_str[f->pos] != 34 && f->token->token_str[f->pos] != 39 && f->token->token_str[f->pos])
-		f->pos++;
-	expansion = NULL; /* expansion = get_env ft_substr(f->token->token_str, f->wd_begin, f->pos - f->wd_begin); */
-	if (f->token->token_str[f->pos] != '\0')
-		right = ft_substr(f->token->token_str, f->pos, ft_strlen(f->token->token_str) - f->pos);
-
-	printf("\nleft= %s\n", left);
-	printf("\nexpan= %s\n", expansion);
-	printf("\nright= %s\n", right);
-
-	tmp = ft_strjoin(left, expansion);
-	if (left)
-		free(left);
-	if (expansion);
-		free(expansion);
-
-	printf("\ntmp= %s\n", tmp);
-
-	new_line = ft_strjoin(tmp, right);
-
-	if (right)
-		free(right);
-
-	printf("\nnew_line= %s\n", new_line);
-	
-	free(f->token->token_str);
-	if (new_line)
+	s = node->token_str;
+	start = pos;
+	pos++;
+	//exceptions $? , $$
+	while (s[pos] != '\0')
 	{
-		f->token->token_str = ft_strdup(new_line);
-		free(new_line);
+		if (s[pos] == '$' || s[pos] == '?' || s[pos] == 34 || s[pos] == 39 || s[pos] == ' ')
+		{
+			if (pos - 1 == start && s[pos] == '?')
+				return (ft_substr(s, start, pos + 1 - start));
+			if (pos - 1 == start && s[pos] == '$')
+				return (ft_substr(s, start, pos + 1 - start));
+			return (ft_substr(s, start, pos - start));
+		}
+		pos++;
+	}
+	return (ft_substr(s, start , pos - start));
+}
+
+/* expande a var; null se nada */
+char	*expandVar(char	*var)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if (ft_strcmp(var, "$?"))
+	{
+		tmp = ft_strdup(var); //adicionar ultimo pid
+		return (tmp);
+	}
+	if (ft_strcmp(var, "$$"))
+	{
+		tmp = ft_strdup(var); //adicionar current pid (n necessario secalhar)
+		return (tmp);
+	}
+	if (ft_strcmp(var, "$"))
+	{
+		tmp = ft_strdup(var); //bc
+		return (tmp);
+	}
+	if (1)
+		return (NULL);
+		/*get env*/
+}
+
+
+/* remove var da palavra */
+void	removeVar(char **old_str, char *var, int pos)
+{
+	char	*new_str;
+	char	*left;
+	char	*right;
+
+	new_str = NULL;
+	left = NULL;
+	right = NULL;
+	if (pos)
+		left = ft_substr(*old_str, 0, pos);
+	if (pos + ft_strlen(var) != '\0')
+		right = ft_substr(*old_str, pos + ft_strlen(var), ft_strlen(*old_str) - pos);
+	if (left && right)
+	{
+		new_str = ft_strjoin(left, right);
+		free(left);
+		free(right);
 	}
 	else
-		return (1);
-	if (tmp)
-		{f->pos = ft_strlen(tmp) - 1; free(tmp);}
+	{
+		if (left)
+		{
+			new_str = ft_strdup(left);
+			free(left);
+		}
+		else if (right)
+		{
+			new_str = ft_strdup(right);
+			free(right);
+		}
+	}
+	free(*old_str);
+	if (new_str == NULL)
+		*old_str = NULL;
 	else
-		f->pos = 0;
+		*old_str = new_str;
+}
+
+/* insere value na palavra */
+void insertValue(char **old_str, char *value, int pos)
+{
+	char	*new_str;
+
+	new_str = NULL;
+	if (value == NULL)
+		return ;
+	if (!(*old_str[0]))
+		*old_str = ft_strdup(value);
+	else
+		
+	/*if ()*/
+	/*	
+		
+	free(old_str);
+	return (new_str);*/
+}
+
+/* expande 1 instancia de $ */
+int	expandSingle(t_frame *f, t_token *node)
+{
+	char	*var;
+	char	*tmp;
+	char	*value;
+
+	var = NULL;
+	tmp = NULL;
+	value = NULL;
+
+	var = getVar(node, f->pos); /* get var*/ //por dar free
+	printf("\n\n\n\n\nvar :%s\n\n", var);
+
+	value = expandVar(var); /* expand var para value */ //por dar free
+	printf("\n\n\n\n\nvalue1 :%s\n\n", value);
+
+	printf("\n\nold s: %s\n", node->token_str);
+	removeVar(&(node->token_str), var, f->pos); /* remove var from word */
+	printf("\n\nnew s2: %s\n", node->token_str);
+
+	insertValue(&(node->token_str), value, f->pos); //insere value na palavra (ou palavra toda);
+	printf("\n\nnew s3: %s\n", node->token_str);
+
+	f->pos = f->pos + ft_strlen(value);
+	printf("\nf->pos: %i\n", f->pos);
+	//exit(-1);
+	if (!(node->token_str))
+		return (1); //  se vazia apagar node
 	return (0);
 }
 
+
 /* tenta expandir $ , caso str fique vazia apaga node */
-int	expandStr(t_frame *f)
+int	expandStr(t_frame *f, t_token *node)
 {
-	printf("\nnew_str= %s\n", f->token->token_str);
 	f->pos = 0;
-	while (f->token->token_str[f->pos] != '\0') //expande todas as instancias de $var
+	while (node->token_str[f->pos] != '\0') //expande todas as instancias de $var
 	{
-		if (f->token->token_str[f->pos] == 39) //dentro de ' vai ate prox '
+		if (node->token_str[f->pos] == 39) //dentro de ' vai ate prox '
 		{
 			f->pos++;
-			while (f->token->token_str[f->pos] != 39)
+			while (node->token_str[f->pos] != 39)
 				f->pos++;
 			f->pos++;
 		}
-		else if (f->token->token_str[f->pos] == '$')
+		else if (node->token_str[f->pos] == '$')
 		{
-			if (expandSingle(f)) //muda apenas 1 palavra
-			{
-				remove_dll(f);
-				return (0);
-			}
+			if (expandSingle(f, node)) //expande cada '$' ; return null em caso de limpar a str
+				return (1);
+		//exit(-1);
 		}
 		else
 			f->pos++;
-		printf("fpos%i fchar: %c\n", f->pos, f->token->token_str[f->pos]);
+		printf("fpos%i fchar: %c\n", f->pos, node->token_str[f->pos]);
 	}
-	rmvQuotes(f); //arranjar "" (da return de ' ')
-	return (1);
+	rmvQuotes(f);
+	return (0);
 }
 
 /* token a token expande $, caso token_str fique vazio, apaga token */
 void	lexer(t_frame *f)
 {
-	while (f->token->next != NULL)
+	t_token *node;
+	t_token *tmp;
+
+	node = NULL;
+	node = f->token;
+	tmp = NULL;
+	while (node != NULL)
 	{
-		if (expandStr(f))
-			f->token = f->token->next;
+		if (expandStr(f, node))
+		{
+			//exit(-1);
+			tmp = node->next;
+			ddl_removeToken(&(f->token), node);
+			node = tmp;
+		}
+		else
+			node = node->next;
 	}
-	expandStr(f);
 	if (f->token == NULL)
 		{printf("\nNada para lexar- error handling\n"); exit(-1);}
 	while (f->token->prev != NULL) /*man de dll*/

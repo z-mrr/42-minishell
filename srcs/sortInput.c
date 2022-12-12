@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 20:05:12 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/12 04:07:07 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	sortInput(t_frame *f)
 	printf("\n\n                                       ### LEXER ###                         \n\n");
 	lexer(f);
 	printList(f->token);
+	exit(-1);
 	printf("\n\n                                       ### PARSER ###                        \n\n");
 	parseCmds(f);
 	printf("\n\n                                       ### NO FINAL ###                      \n\n");

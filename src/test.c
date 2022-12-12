@@ -1,5 +1,19 @@
 #include "minishell.h"
 
+void	tests(t_sh *sh);
+void	t_unset(t_sh *sh);
+void	t_pwd();
+void	t_env(t_sh *sh);
+void	t_export_noargs(t_sh *sh);
+void	t_export_args(t_sh *sh);
+void	t_echo(t_sh *sh);
+void	t_echo_n(t_sh *sh);
+void	t_cd(t_sh *sh);
+void	t_cd_noargs(t_sh *sh);
+void	t_exit(t_sh *sh);
+void	t_exit_arg(t_sh *sh);
+void	t_exit_bad(t_sh *sh);
+
 void	tests(t_sh *sh)
 {
 	t_pwd();
@@ -14,6 +28,8 @@ void	tests(t_sh *sh)
 	t_echo(sh);
 	t_echo_n(sh);
 	t_exit_bad(sh);
+//	t_exit_arg(sh);
+//	t_exit(sh);
 }
 
 void	t_exit(t_sh *sh)

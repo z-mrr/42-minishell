@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/12 13:17:59 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/12 14:56:16 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,6 @@ typedef struct	s_cmd
 
 //test.c TESTS <========================================
 void	tests(t_sh *sh);
-void	t_unset(t_sh *sh);
-void	t_pwd();
-void	t_env(t_sh *sh);
-void	t_export_noargs(t_sh *sh);
-void	t_export_args(t_sh *sh);
-void	t_echo(t_sh *sh);
-void	t_echo_n(t_sh *sh);
-void	t_cd(t_sh *sh);
-void	t_cd_noargs(t_sh *sh);
-void	t_exit(t_sh *sh);
-void	t_exit_arg(t_sh *sh);
-void	t_exit_bad(t_sh *sh);
 
 //pwd_unset_echo_cd.c test args
 int		ft_pwd(void);

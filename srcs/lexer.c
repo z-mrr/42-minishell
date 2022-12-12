@@ -105,23 +105,52 @@ void	removeVar(char **old_str, char *var, int pos)
 		*old_str = new_str;
 }
 
-/* insere value na palavra */
-void insertValue(char **old_str, char *value, int pos)
+/* se texto antes de $ */
+void	doLeft(char **old_str, char *value, int pos, char *var)
 {
-	char	*new_str;
+	char	*left;
+	char	*right;
+	char	*tmp_left;
 
-	new_str = NULL;
+	left = NULL;
+	right = NULL;
+	tmp_left = NULL;
+	left = ft_substr(*old_str, 0, pos);
+	tmp_left = ft_strjoin(left, value);
+	free(left);
+	if (pos + ft_strlen(var) != '\0')
+	{
+		right = ft_substr(*old_str, pos + ft_strlen(var), ft_strlen(*old_str) - pos);
+		left = ft_strjoin(tmp_left, right);
+		free(tmp_left);
+		free(right);
+	}
+	free(*old_str);
+	*old_str = left;
+}
+
+/* insere value na palavra */
+void insertValue(char **old_str, char *value, int pos, char *var)
+{
+	char	*right;
+
+	right = NULL;
 	if (value == NULL)
 		return ;
 	if (!(*old_str[0]))
 		*old_str = ft_strdup(value);
 	else
+	{
+		if (pos)
+			doLeft(old_str, value, pos, var);
 		
-	/*if ()*/
-	/*	
-		
-	free(old_str);
-	return (new_str);*/
+		else
+		{
+			right = ft_strjoin(value, *old_str);
+			free(*old_str);
+			*old_str = right;
+		}
+	}
 }
 
 /* expande 1 instancia de $ */
@@ -145,7 +174,8 @@ int	expandSingle(t_frame *f, t_token *node)
 	removeVar(&(node->token_str), var, f->pos); /* remove var from word */
 	printf("\n\nnew s2: %s\n", node->token_str);
 
-	insertValue(&(node->token_str), value, f->pos); //insere value na palavra (ou palavra toda);
+	printf("\n\ninserting: %s\n", node->token_str);
+	insertValue(&(node->token_str), value, f->pos, var); //insere value na palavra (ou palavra toda);
 	printf("\n\nnew s3: %s\n", node->token_str);
 
 	f->pos = f->pos + ft_strlen(value);

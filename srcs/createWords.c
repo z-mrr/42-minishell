@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:46 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 20:03:52 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:43:05 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	findOperator(char c)
 }
 
 /* separa palavra antes de operador e o operador */
-void	lexOp(t_frame *f)
+void	lexOp(t_sh *f)
 {
 	if (f->pos - f->wd_begin)
 		append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //palavra ate operator
@@ -46,7 +46,7 @@ void	lexOp(t_frame *f)
 }
 
 /* separa palavra normal + espacos entre palavras */
-void	lexWdend(t_frame *f)
+void	lexWdend(t_sh *f)
 {
 	if (f->pos - f->wd_begin)
 		append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
@@ -56,7 +56,7 @@ void	lexWdend(t_frame *f)
 }
 
 /* separa desde 1a aspa ate proxima aspa*/
-void	lexQuote(t_frame *f)
+void	lexQuote(t_sh *f)
 {
 	if (f->str[f->pos] == 34)
 	{
@@ -82,7 +82,7 @@ void	lexQuote(t_frame *f)
 }
 
 /* separa input por palaras; se algum par de quotes não fechar da erro */
-void	createWords(t_frame *f)
+void	createWords(t_sh *f)
 {
 	while (f->str[f->pos] != '\0')
 	{

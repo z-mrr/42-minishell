@@ -25,7 +25,7 @@ int	countPairs(char *s)
 
 
 /* remove pares de quotes */
-void	rmvQuotes(t_frame *f)
+void	rmvQuotes(t_sh *f)
 {
 	int	i;
 	int	j;

@@ -168,7 +168,7 @@ void insertValue(char **old_str, char *value, int pos, char *var)
 }
 
 /* expande 1 instancia de $ */
-int	expandSingle(t_frame *f, t_token *node)
+int	expandSingle(t_sh *f, t_token *node)
 {
 	char	*var;
 	char	*tmp;
@@ -201,7 +201,7 @@ int	expandSingle(t_frame *f, t_token *node)
 
 
 /* tenta expandir $ , caso str fique vazia apaga node */
-int	expandStr(t_frame *f, t_token *node)
+int	expandStr(t_sh *f, t_token *node)
 {
 	f->pos = 0;
 	while (node->token_str[f->pos] != '\0') //expande todas as instancias de $var
@@ -229,7 +229,7 @@ int	expandStr(t_frame *f, t_token *node)
 }
 
 /* token a token expande $, caso token_str fique vazio, apaga token */
-void	lexer(t_frame *f)
+void	lexer(t_sh *f)
 {
 	t_token *node;
 	t_token **tmp;

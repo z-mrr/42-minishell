@@ -6,14 +6,14 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/12 04:07:07 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:43:54 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 /* adiciona token a cmd struct, se OP cria novo node da cmd struct*/
-void	parseCmds(t_frame *f)
+void	parseCmds(t_sh *f)
 {
 
 	t_token *token;
@@ -45,7 +45,7 @@ void	parseCmds(t_frame *f)
 }
 
 /* return se input acabar por ser nulo */
-void	sortInput(t_frame *f)
+void	sortInput(t_sh *f)
 {
 	printf("\n\n                                       ### WORDS ###                         \n\n");
 	createWords(f);
@@ -53,7 +53,6 @@ void	sortInput(t_frame *f)
 	printf("\n\n                                       ### LEXER ###                         \n\n");
 	lexer(f);
 	printList(f->token);
-	exit(-1);
 	printf("\n\n                                       ### PARSER ###                        \n\n");
 	parseCmds(f);
 	printf("\n\n                                       ### NO FINAL ###                      \n\n");

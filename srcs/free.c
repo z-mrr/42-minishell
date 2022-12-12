@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-void	freeTokens(t_frame *f)
+void	freeTokens(t_sh *f)
 {
 	while (f->token->next != NULL)
 	{

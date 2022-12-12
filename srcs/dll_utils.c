@@ -6,13 +6,13 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:06 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/11 20:45:16 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:40:45 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	remove_dll(t_frame *f)
+void	remove_dll(t_sh *f)
 {
 	t_token **head;
 	t_token *tmp;
@@ -93,7 +93,7 @@ void	printListCmd(t_cmd *head)
 }
 
 /* adiciona tipo de token */
-void	addType_ll(t_frame *f, char type)
+void	addType_ll(t_sh *f, char type)
 {
 	t_token	*head;
 
@@ -104,7 +104,7 @@ void	addType_ll(t_frame *f, char type)
 }
 
 /* adiciona mais um node (do tipo neutro) a lista de tokens */
-void append_dll(t_frame *f, t_token **head, char *s)
+void append_dll(t_sh *f, t_token **head, char *s)
 {
 	t_token	*new_node;
 	t_token	*last;

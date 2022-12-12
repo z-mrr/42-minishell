@@ -6,15 +6,15 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/11 07:31:04 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:42:26 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_frame	*create_frame(t_frame *frame, char **envp)
+t_sh	*create_frame(t_sh *frame, char **envp)
 {
-	frame = (t_frame *)malloc(sizeof(t_frame));
+	frame = (t_sh *)malloc(sizeof(t_sh));
 	if (!(frame))
 		exit(1);
 	frame->cmds = NULL;
@@ -32,7 +32,7 @@ dá erro se for ;, prompt personalizado com user e dir*/
 int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
-	t_frame	*frame;
+	t_sh	*frame;
 
 	(void)argc;
 	(void)argv;

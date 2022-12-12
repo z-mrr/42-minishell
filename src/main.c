@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/12 23:36:02 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/12 23:52:28 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	main(int argc, char **argv, char **envp)
 	{
 		handle_sig();
 		sh.str = get_str(&sh);
+		if (!sh.str)//isto pq lexer n tava a lidar com \0 after strtrim
+			continue ;
 		sortInput(&sh);
 		free(sh.str);
 	}

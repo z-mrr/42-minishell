@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:15:11 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/12 13:17:28 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:23:26 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,11 @@ int	ft_exit(t_sh *sh)
 	int	n;
 
 	n = mtr_len(sh->test);
+	ft_putendl_fd("exit", STDOUT_FILENO);
 	if (n > 2)
 	{
 		mtr_free(sh->test);
-		ft_putendl_fd("minishell: exit: too many arguments", 1);
+		ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
 		return (1);
 	}
 	status = 0;
@@ -135,9 +136,9 @@ void	exit_check(char **str)
 	{
 		if (!ft_isdigit(str[1][i]) || i >= 20)
 		{
-			ft_putstr_fd("minishell: exit: ", 1);
-			ft_putstr_fd(str[1], 1);
-			ft_putendl_fd(": numeric argument required", 1);
+			ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+			ft_putstr_fd(str[1], STDERR_FILENO);
+			ft_putendl_fd(": numeric argument required", STDERR_FILENO);
 			mtr_free(str);
 			exit(-1);
 		}

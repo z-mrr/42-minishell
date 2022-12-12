@@ -3,36 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 13:35:28 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/04 13:35:29 by gde-alme         ###   ########.fr       */
+/*   Created: 2021/10/21 12:39:45 by jdias-mo          #+#    #+#             */
+/*   Updated: 2021/10/21 12:40:37 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int
-	cmp_char(char c1, char c2)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	if ((unsigned char)c1 != (unsigned char)c2)
-		return ((unsigned char)c1 - (unsigned char)c2);
-	return (0);
-}
-
-int
-	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t			i;
+	size_t	i;
 
 	i = 0;
-	while (s1[i] && s2[i] && i < n)
-	{
-		if (cmp_char(s1[i], s2[i]))
-			return (s1[i] - s2[i]);
+	if (n == 0)
+		return (0);
+	while (s1[i] && s2[i] && s1[i] == s2[i] && i < n)
 		i++;
-	}
-	if (i < n)
-		return (cmp_char(s1[i], s2[i]));
-	return (0);
+	if (i == n)
+		i--;
+	return (s1[i] - s2[i]);
 }

@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 13:35:51 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/04 13:35:52 by gde-alme         ###   ########.fr       */
+/*   Created: 2021/10/20 12:24:23 by jdias-mo          #+#    #+#             */
+/*   Updated: 2021/10/21 13:06:25 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int
-	ft_toupper(int c)
+int	ft_toupper(int c)
 {
 	if (c >= 'a' && c <= 'z')
-		c -= 32;
+		c -= 'a' - 'A';
 	return (c);
 }

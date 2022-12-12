@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 13:34:38 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/04 13:34:40 by gde-alme         ###   ########.fr       */
+/*   Created: 2021/10/26 13:23:07 by jdias-mo          #+#    #+#             */
+/*   Updated: 2021/10/26 13:41:34 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void
-	ft_putchar_fd(char c, int fd)
+void	ft_putchar_fd(char c, int fd)
 {
+	if (fd < 0)
+		return ;
 	write(fd, &c, 1);
 }

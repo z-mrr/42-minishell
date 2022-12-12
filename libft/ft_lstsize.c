@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 13:34:08 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/04 13:34:10 by gde-alme         ###   ########.fr       */
+/*   Created: 2021/10/27 11:54:45 by jdias-mo          #+#    #+#             */
+/*   Updated: 2021/10/27 12:16:26 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int
-	ft_lstsize(t_list *lst)
+int	ft_lstsize(t_list *lst)
 {
-	size_t	i;
+	unsigned int	i;
 
 	i = 0;
 	while (lst)

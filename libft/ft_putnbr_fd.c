@@ -3,42 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 13:34:43 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/04 13:34:44 by gde-alme         ###   ########.fr       */
+/*   Created: 2021/10/26 13:44:28 by jdias-mo          #+#    #+#             */
+/*   Updated: 2021/10/26 14:51:07 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int
-	ft_abs(int nbr)
+static void	xception(int n, int fd)
 {
-	return ((nbr < 0) ? -nbr : nbr);
+	if (n == -2147483648)
+		write(fd, "-2147483648", 11);
+	else if (n == 0)
+		ft_putchar_fd('0', fd);
 }
 
-void
-	ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char	str[13];
-	int		is_neg;
-	int		length;
+	int	i;
+	int	nbr[9];
 
-	is_neg = (n < 0);
-	ft_bzero(str, 13);
-	if (n == 0)
-		str[0] = '0';
-	length = 0;
-	while (n != 0)
+	if (fd < 0)
+		return ;
+	if (n == -2147483648 || n == 0)
 	{
-		str[length++] = '0' + ft_abs(n % 10);
-		n = (n / 10);
+		xception(n, fd);
+		return ;
 	}
-	if (is_neg)
-		str[length] = '-';
-	else if (length > 0)
-		length--;
-	while (length >= 0)
-		write(fd, &str[length--], 1);
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		n = -n;
+	}
+	i = 0;
+	while (n > 0)
+	{
+		nbr[i] = n % 10;
+		n = n / 10;
+		i++;
+	}
+	while (--i >= 0)
+		ft_putchar_fd(nbr[i] + '0', fd);
 }

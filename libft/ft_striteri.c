@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memccpy.c                                       :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 13:34:12 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/04 13:34:15 by gde-alme         ###   ########.fr       */
+/*   Created: 2021/10/26 13:17:33 by jdias-mo          #+#    #+#             */
+/*   Updated: 2021/10/26 14:20:23 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void
-	*ft_memccpy(void *dst, const void *src, int c, size_t n)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	size_t	i;
+	unsigned int	i;
 
-	if (!dst || !src)
-		return (NULL);
+	if (!s || !f)
+		return ;
 	i = 0;
-	while (i < n)
+	while (s[i] != '\0')
 	{
-		*(unsigned char*)(dst + i) = *(unsigned char*)(src + i);
-		if (*(unsigned char*)(src + i) == (unsigned char)c)
-			return (dst + i + 1);
+		(*f)(i, s + i);
 		i++;
 	}
-	return (NULL);
 }

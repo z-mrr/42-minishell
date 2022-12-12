@@ -3,95 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 13:34:47 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/04 13:34:49 by gde-alme         ###   ########.fr       */
+/*   Created: 2021/10/25 15:24:53 by jdias-mo          #+#    #+#             */
+/*   Updated: 2021/10/26 18:55:59 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	**ft_alloc_split(char *s, char c)
+static unsigned int	strn(char const *s, char c)
 {
-	size_t	i;
-	char	**split;
-	size_t	total;
+	unsigned int	i;
+	unsigned int	n;
 
 	i = 0;
-	total = 0;
+	n = 0;
 	while (s[i])
 	{
-		if (s[i] == c)
-			total++;
+		if ((s[i + 1] == c && s[i] != c) || (s[i + 1] == '\0' && s[i] != c))
+			n++;
 		i++;
 	}
-	split = (char**)malloc(sizeof(s) * (total + 2));
-	if (!split)
-		return (NULL);
-	return (split);
+	return (n);
 }
 
-void	*ft_free_all_split_alloc(char **split, size_t elts)
+char	**ft_split(char const *s, char c)
 {
-	size_t	i;
+	unsigned int		i;
+	unsigned int		j;
+	unsigned int		n;
+	char				**tab;
 
+	n = 0;
 	i = 0;
-	while (i < elts)
+	j = 0;
+	tab = malloc(sizeof(char *) * (strn(s, c) + 1));
+	if (!tab)
+		return (NULL);
+	while (n < strn(s, c))
 	{
-		free(split[i]);
-		i++;
+		while (s[i] == c && s[i])
+			i++;
+		j = i;
+		while (s[i] != c && s[i])
+			i++;
+		tab[n] = ft_substr(s, j, i - j);
+		if (!tab[n])
+			return (NULL);
+		n++;
 	}
-	free(split);
-	return (NULL);
-}
-
-static void	*ft_split_range(char **split, char *s,
-		t_split_next *st, t_split_next *lt)
-{
-	split[lt->length] = ft_substr(s, st->start, st->length);
-	if (!split[lt->length])
-		return (ft_free_all_split_alloc(split, lt->length));
-	lt->length++;
-	return (split);
-}
-
-static void	*ft_split_by_char(char **split, char *s, char c)
-{
-	size_t			i;
-	t_split_next	st;
-	t_split_next	lt;
-
-	i = 0;
-	lt.length = 0;
-	lt.start = 0;
-	while (s[i])
-	{
-		if (s[i] == c)
-		{
-			st.start = lt.start;
-			st.length = (i - lt.start);
-			if (i > lt.start && !ft_split_range(split, s, &st, &lt))
-				return (NULL);
-			lt.start = i + 1;
-		}
-		i++;
-	}
-	st.start = lt.start;
-	st.length = (i - lt.start);
-	if (i > lt.start && i > 0 && !ft_split_range(split, s, &st, &lt))
-		return (NULL);
-	split[lt.length] = 0;
-	return (split);
-}
-
-char	**ft_split(char *s, char c)
-{
-	char	**split;
-
-	if (!(split = ft_alloc_split(s, c)))
-		return (NULL);
-	if (!ft_split_by_char(split, s, c))
-		return (NULL);
-	return (split);
+	tab[n] = 0;
+	return (tab);
 }

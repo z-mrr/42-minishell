@@ -3,39 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 13:35:47 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/05 17:51:03 by gde-alme         ###   ########.fr       */
+/*   Created: 2021/10/25 11:53:23 by jdias-mo          #+#    #+#             */
+/*   Updated: 2021/10/26 17:52:45 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
+	char			*str;
 	unsigned int	i;
-	unsigned int	s_len;
-	char			*substr;
 
 	if (!s)
 		return (NULL);
-	s_len = ft_strlen(s);
-	if (s_len < start)
+	if (!len || ft_strlen(s) < start)
 	{
-		if (!(substr = malloc(sizeof(char) * 1)))
+		str = malloc(sizeof(char) * 1);
+		if (!str)
 			return (NULL);
-		substr[0] = '\0';
-		return (substr);
+		str[0] = '\0';
+		return (str);
 	}
-	if (!(substr = malloc(sizeof(char) * (len + 1))))
+	if (start + len > ft_strlen(s))
+		str = malloc(sizeof(char) * (ft_strlen(s) - start + 1));
+	else
+		str = malloc(sizeof(char) * (len + 1));
+	if (!str)
 		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		substr[i] = s[start + i];
-		i++;
-	}
-	substr[i] = '\0';
-	return (substr);
+	i = -1;
+	while (++i < len && s[start + i])
+		str[i] = s[start + i];
+	str[i] = '\0';
+	return (str);
 }

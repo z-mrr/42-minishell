@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/13 15:11:36 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/13 16:23:13 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ void	builtin(t_sh *sh)
 
 void	execInput(t_sh *sh)
 {
-	while (sh->cmd)
+	t_cmd	*node;
+
+	node = sh->cmd;
+	while (node)
 	{
 		if (is_builtin(sh))
 			builtin(sh);
-		sh->cmd = sh->cmd->next;
+		node = node->next;
 	}
-//	free(sh);
-//	free(sh->cmd);
-//	mtr_free(sh->cmd->full_cmd);
-	//free sh, cmd
+	free_list(sh);
 }

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:46 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/13 11:09:09 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/13 16:06:36 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	lexQuote(t_sh *f)
 /* separa input por palaras; se algum par de quotes não fechar da erro */
 void	createWords(t_sh *f)
 {
+	f->parser->pos = 0;
+	f->parser->wd_begin = 0;
 	while (f->parser->str[f->parser->pos] != '\0')
 	{
 		if (f->parser->str[f->parser->pos] == '\'' || f->parser->str[f->parser->pos] == '\"') /* errno */

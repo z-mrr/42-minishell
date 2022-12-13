@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/12 23:54:07 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/13 11:37:29 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	init_sh(int argc, char **argv, char **envp, t_sh *sh)
 	(void)argc;
 	(void)argv;
 	g_status = 0;
-	sh->cmds = NULL;
+	sh->parser = malloc(sizeof(t_parser));
 	sh->envp = mtr_dup(envp);
 	if (!(sh->envp))
 	{
@@ -47,19 +47,28 @@ void	init_sh(int argc, char **argv, char **envp, t_sh *sh)
 	shlvl(sh);
 	sh->cmds = NULL;
 	sh->token = NULL;
-//	sh->envp = envp;//que é isto?
-	sh->last_pid = 0;
-	sh->str = NULL;
-	sh->pos = 0;
-	sh->wd_begin = 0;
+	sh->parser->str = NULL;
+	sh->parser->pos = 0;
+	sh->parser->wd_begin = 0;
 }
-
+/*
+void	test(t_sh *sh)
+{
+	if (sh->cmds->full_cmd[0] )
+	pwd();
+	cd(sh);
+	export(sh);
+	unset(sh);
+	env(sh);
+	echo(sh);
+	exit(sh);
+}*/
 
 /*trata dos sinais, corta espaços no inicio e fim da string, adiciona à history,
 dá erro se for ;, prompt personalizado com user e dir*/
 int	main(int argc, char **argv, char **envp)
 {
-	t_sh	sh;
+	t_sh		sh;
 
 	init_sh(argc, argv, envp, &sh);
 	//TESTS <================================================================
@@ -67,12 +76,16 @@ int	main(int argc, char **argv, char **envp)
 	while(1)
 	{
 		handle_sig();
-		sh.str = get_str(&sh);
-		if (!sh.str)//isto pq lexer n tava a lidar com \0 after strtrim
+		sh.parser->str = get_str(&sh);
+		if (!sh.parser->str)//isto pq lexer n tava a lidar com \0 after strtrim. nao passam string nulas ou vazias
 			continue ;
 		sortInput(&sh);
-		free(sh.str);
+		free(sh.parser->str);
+		free(sh.parser);
+		//falta f free lista t_cmd;
 	}
 	mtr_free(sh.envp);
 	exit(g_status);//
 }
+
+

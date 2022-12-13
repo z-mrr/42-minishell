@@ -171,30 +171,27 @@ void insertValue(char **old_str, char *value, int pos, char *var)
 int	expandSingle(t_sh *f, t_token *node)
 {
 	char	*var;
-	char	*tmp;
 	char	*value;
 
-	(void)tmp;
 	var = NULL;
-	tmp = NULL;
 	value = NULL;
 
-	var = getVar(node, f->pos); /* get var*/ //por dar free
+	var = getVar(node, f->parser->pos); /* get var*/ //por dar free
 	printf("\n\n\n\n\nvar :%s\n\n", var);
 
 	value = expandVar(var); /* expand var para value */ //por dar free
 	printf("\n\n\n\n\nvalue1 :%s\n\n", value);
 
 	printf("\n\nold s: %s\n", node->token_str);
-	removeVar(&(node->token_str), var, f->pos); /* remove var from word */
+	removeVar(&(node->token_str), var, f->parser->pos); /* remove var from word */
 	printf("\n\nnew s2: %s\n", node->token_str);
 
 	if (value)
-		insertValue(&(node->token_str), value, f->pos, var); //insere value na palavra (ou palavra toda);
+		insertValue(&(node->token_str), value, f->parser->pos, var); //insere value na palavra (ou palavra toda);
 	printf("\n\nnew s3: %s\n", node->token_str);
 
-	f->pos = f->pos + ft_strlen(value);
-	printf("\nf->pos: %p\n", node->token_str);
+	f->parser->pos = f->parser->pos + ft_strlen(value);
+	printf("\nf->parser->pos: %p\n", node->token_str);
 	if (!(node->token_str))
 		return (1); //  se vazia apagar node
 	return (0);
@@ -204,27 +201,27 @@ int	expandSingle(t_sh *f, t_token *node)
 /* tenta expandir $ , caso str fique vazia apaga node */
 int	expandStr(t_sh *f, t_token *node)
 {
-	f->pos = 0;
-	while (node->token_str[f->pos] != '\0') //expande todas as instancias de $var
+	f->parser->pos = 0;
+	while (node->token_str[f->parser->pos] != '\0') //expande todas as instancias de $var
 	{
-		if (node->token_str[f->pos] == 39) //dentro de ' vai ate prox '
+		if (node->token_str[f->parser->pos] == 39) //dentro de ' vai ate prox '
 		{
-			f->pos++;
-			while (node->token_str[f->pos] != 39)
-				f->pos++;
-			f->pos++;
+			f->parser->pos++;
+			while (node->token_str[f->parser->pos] != 39)
+				f->parser->pos++;
+			f->parser->pos++;
 		}
-		else if (node->token_str[f->pos] == '$')
+		else if (node->token_str[f->parser->pos] == '$')
 		{
 			if (expandSingle(f, node)) //expande cada '$' ; return null em caso de limpar a str
 				return (1);
 		//exit(-1);
 		}
 		else
-			f->pos++;
-		printf("fpos%i fchar: %c\n", f->pos, node->token_str[f->pos]);
+			f->parser->pos++;
+		printf("fpos%i fchar: %c\n", f->parser->pos, node->token_str[f->parser->pos]);
 	}
-	f->pos = 0;
+	f->parser->pos = 0;
 	rmvQuotes(f);
 	return (0);
 }

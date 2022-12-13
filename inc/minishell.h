@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/12 23:12:48 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/13 11:18:41 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,35 +26,46 @@
 int	g_status;//exit status
 //When a script ends with an exit that has no parameter, the exit status of the script is the exit status of the last command executed in the script (previous to the exit). expand $?
 
-typedef struct	s_token {
-	char		*token_str;
-	char		token_type;
+typedef struct	s_token
+{
+	char			*token_str;
+	char			token_type;
 	struct	s_token	*next;
-	struct	s_token *prev;
+	struct	s_token	*prev;
 } t_token;
 
-typedef	struct	s_cmd {
+typedef	struct	s_cmd
+{
 	char			**full_cmd; //cmd e args
 	char			*path; //cmd PATH; se builtin deixar so nome
-	int				in_fd;
-	int				out_fd;
-	int				err_fd;
+	int				in_file;
+	int				out_file;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;//Nao pode ser simples?
 }				t_cmd;
 
-typedef struct	s_sh {
-	t_cmd	*cmds;
-	t_token	*token;
-	char	**test;
-	char	**envp;
-	int		last_pid;//pq?
+typedef struct	s_parser
+{
 	char	*str;
 	int		pos;
 	int		wd_begin;
+}				t_parser;
+
+typedef struct	s_sh
+{
+	t_cmd		*cmds;
+	t_token		*token;
+	t_parser	*parser;
+	char		**envp;
+//	char	*str;
+//	int		pos;
+//	int		wd_begin;
+//	char	**test;
 }				t_sh;
 
-void	tests(t_sh *sh);
+
+
+//void	tests(t_sh *sh);
 //sortInput.c
 void	sortInput(t_sh *f);
 
@@ -63,14 +74,14 @@ void	createWords(t_sh *f);
 void	lexQuote(t_sh *f);
 void	lexWdend(t_sh *f);
 void	lexOp(t_sh *f);
-int	findOperator(char c);
+int		findOperator(char c);
 
 //lexer.c
 void	lexer(t_sh *f);
 
 //lexer_utils.c
 void	rmvQuotes(t_sh *f);
-int	countPairs(char *s);
+int		countPairs(char *s);
 
 //parser.c
 int     charArrayLen(char **array);

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:46 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/12 23:01:39 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/13 11:09:09 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,75 +27,75 @@ int	findOperator(char c)
 /* separa palavra antes de operador e o operador */
 void	lexOp(t_sh *f)
 {
-	if (f->pos - f->wd_begin)
-		append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //palavra ate operator
-	f->wd_begin = f->pos;
-	if (f->str[f->pos] == 60 || f->str[f->pos] == 62) /* << >> */
+	if (f->parser->pos - f->parser->wd_begin)
+		append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_begin, f->parser->pos - f->parser->wd_begin)); //palavra ate operator
+	f->parser->wd_begin = f->parser->pos;
+	if (f->parser->str[f->parser->pos] == 60 || f->parser->str[f->parser->pos] == 62) /* << >> */
 	{
-		if (f->str[f->pos + 1] == f->str[f->pos])
-			f->pos += 2;
+		if (f->parser->str[f->parser->pos + 1] == f->parser->str[f->parser->pos])
+			f->parser->pos += 2;
 		else
-			f->pos++;
+			f->parser->pos++;
 	}
 	else
-		f->pos++;
+		f->parser->pos++;
 
-	append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //operator
-	f->wd_begin = f->pos;
+	append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_begin, f->parser->pos - f->parser->wd_begin)); //operator
+	f->parser->wd_begin = f->parser->pos;
 	addType_ll(f, 'O');
 }
 
 /* separa palavra normal + espacos entre palavras */
 void	lexWdend(t_sh *f)
 {
-	if (f->pos - f->wd_begin)
-		append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin));
-	while (f->str[f->pos] == ' ')
-		f->pos++;
-	f->wd_begin = f->pos;
+	if (f->parser->pos - f->parser->wd_begin)
+		append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_begin, f->parser->pos - f->parser->wd_begin));
+	while (f->parser->str[f->parser->pos] == ' ')
+		f->parser->pos++;
+	f->parser->wd_begin = f->parser->pos;
 }
 
 /* separa desde 1a aspa ate proxima aspa*/
 void	lexQuote(t_sh *f)
 {
-	if (f->str[f->pos] == 34)
+	if (f->parser->str[f->parser->pos] == 34)
 	{
-		f->pos++;
-		while (f->str[f->pos] != 34)
+		f->parser->pos++;
+		while (f->parser->str[f->parser->pos] != 34)
 		{
-			if (f->str[f->pos] == '\0')
+			if (f->parser->str[f->parser->pos] == '\0')
 				{printf("err quotes");exit(-1);}
-			f->pos++;
+			f->parser->pos++;
 		}
 	}
-	else if (f->str[f->pos] == 39)
+	else if (f->parser->str[f->parser->pos] == 39)
 	{
-		f->pos++;
-		while (f->str[f->pos] != 39)
+		f->parser->pos++;
+		while (f->parser->str[f->parser->pos] != 39)
 		{
-			if (f->str[f->pos] == '\0')
+			if (f->parser->str[f->parser->pos] == '\0')
 				{printf("err quotes");exit(-1);}
-			f->pos++;
+			f->parser->pos++;
 		}
 	}
-	f->pos++;
+	f->parser->pos++;
 }
 
 /* separa input por palaras; se algum par de quotes não fechar da erro */
 void	createWords(t_sh *f)
 {
-	while (f->str[f->pos] != '\0')
+	while (f->parser->str[f->parser->pos] != '\0')
 	{
-		if (f->str[f->pos] == '\'' || f->str[f->pos] == '\"') /* errno */
+		if (f->parser->str[f->parser->pos] == '\'' || f->parser->str[f->parser->pos] == '\"') /* errno */
 			lexQuote(f);
-		else if (findOperator(f->str[f->pos]))
+		else if (findOperator(f->parser->str[f->parser->pos]))
 			lexOp(f);
-		else if (f->str[f->pos] == ' ')
+		else if (f->parser->str[f->parser->pos] == ' ')
 			lexWdend(f);
 		else
-			f->pos++;
+			f->parser->pos++;
 	}
-	if (f->pos - f->wd_begin)
-		append_dll(f, &(f->token), ft_substr(f->str, f->wd_begin, f->pos - f->wd_begin)); //ultima palavra
-	printf("current f->pos: %i - %c\n", f->pos, f->str[f->pos]);
+	if (f->parser->pos - f->parser->wd_begin)
+		append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_begin, f->parser->pos - f->parser->wd_begin)); //ultima palavra
+	printf("current f->parser->pos: %i - %c\n", f->parser->pos, f->parser->str[f->parser->pos]);
 }

@@ -44,17 +44,17 @@ char	*expandVar(char	*var)
 	char	*tmp;
 
 	tmp = NULL;
-	if (ft_strcmp(var, "$?"))
+	if (!(ft_strcmp(var, "$?")))
 	{
 		tmp = ft_strdup(var); //adicionar ultimo pid
 		return (tmp);
 	}
-	if (ft_strcmp(var, "$$"))
+	if (!(ft_strcmp(var, "$$")))
 	{
 		tmp = ft_strdup(var); //adicionar current pid (n necessario secalhar)
 		return (tmp);
 	}
-	if (ft_strcmp(var, "$"))
+	if (!(ft_strcmp(var, "$")))
 	{
 		tmp = ft_strdup(var); //bc
 		return (tmp);
@@ -101,7 +101,6 @@ void	removeVar(char **old_str, char *var, int pos)
 	{
 		if (!(ft_strcmp(*old_str, var)))
 		{
-			exit(-1);
 			right = ft_substr(*old_str, ft_strlen(var), ft_strlen(*old_str) - ft_strlen(var));
 			free(*old_str);
 			*old_str = right;
@@ -167,15 +166,17 @@ void insertValue(char **old_str, char *value, int pos, char *var)
 	}
 }
 
+void	_insertValue(char **old_str, char **)
+{
+}
+
 /* expande 1 instancia de $ */
 int	expandSingle(t_sh *f, t_token *node)
 {
 	char	*var;
-	char	*tmp;
 	char	*value;
 
 	var = NULL;
-	tmp = NULL;
 	value = NULL;
 
 	var = getVar(node, f->pos); /* get var*/ //por dar free
@@ -183,6 +184,8 @@ int	expandSingle(t_sh *f, t_token *node)
 
 	value = expandVar(var); /* expand var para value */ //por dar free
 	printf("\n\n\n\n\nvalue1 :%s\n\n", value);
+
+//	_insertValue(&(node->token_str), &tmp, value);
 
 	printf("\n\nold s: %s\n", node->token_str);
 	removeVar(&(node->token_str), var, f->pos); /* remove var from word */
@@ -242,9 +245,7 @@ void	lexer(t_sh *f)
 		if (expandStr(f, node))
 		{
 			*tmp = node->next;
-			exit(-1);
 			ddl_removeToken(&(f->token), node);
-			exit(-1);
 			node = *tmp;
 		}
 		else
@@ -252,6 +253,4 @@ void	lexer(t_sh *f)
 	}
 	if (f->token == NULL)
 		{printf("\nNada para lexar- error handling\n"); exit(-1);}
-	while (f->token->prev != NULL) /*man de dll*/
-		f->token = f->token->prev;
 }

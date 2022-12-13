@@ -6,12 +6,10 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:46 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/12 16:43:05 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:14:33 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../include/minishell.h"
-
 /* check for operators */
 int	findOperator(char c)
 {
@@ -84,6 +82,8 @@ void	lexQuote(t_sh *f)
 /* separa input por palaras; se algum par de quotes não fechar da erro */
 void	createWords(t_sh *f)
 {
+	f->pos = 0;
+	f->wd_begin = 0;
 	while (f->str[f->pos] != '\0')
 	{
 		if (f->str[f->pos] == '\'' || f->str[f->pos] == '\"') /* errno */

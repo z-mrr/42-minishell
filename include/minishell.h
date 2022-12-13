@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/12 17:47:41 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:19:53 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void	printListCmd(t_cmd *head);
 
 //free.c
 void	freeTokens(t_sh *f);
+void	free_f(t_sh *f);
+
 //pwd_unset_echo_cd.c test args
 int		ft_pwd(void);
 int		ft_unset(t_sh *sh);

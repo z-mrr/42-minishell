@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/12 17:37:40 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:18:50 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	init_sh(int argc, char **argv, char **envp, t_sh *sh)
 	sh->wd_begin = 0;
 }
 
-
 /*trata dos sinais, corta espaços no inicio e fim da string, adiciona à history,
 dá erro se for ;, prompt personalizado com user e dir*/
 int	main(int argc, char **argv, char **envp)
@@ -73,6 +72,7 @@ int	main(int argc, char **argv, char **envp)
 		str = get_str(&sh);
 		sh.str = ft_strdup(str);
 		sortInput(&sh);
+		free_f(&sh);
 		free(str);
 	}
 	mtr_free(sh.envp);

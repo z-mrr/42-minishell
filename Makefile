@@ -1,5 +1,5 @@
 all:
-	@gcc -ggdb -g include/minishell.h libft/*.h libft/*.c srcs/*.c -lreadline -o minishell
+	@gcc -ggdb -g -Wall include/minishell.h libft/*.h libft/*.c srcs/*.c -lreadline -o minishell
 	@echo "Compiled"
 fclean:
 	@rm -rf minishell

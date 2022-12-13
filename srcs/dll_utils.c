@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:06 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/12 17:43:07 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:06:50 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void append_dll(t_sh *f, t_token **head, char *s)
 	new_node = NULL;
 	new_node = (t_token *)malloc(sizeof(t_token));
 
-	new_node->token_str = s;
+	new_node->token_str = ft_strdup(s);
+	free(s);
 	new_node->token_type = 'N';
 	new_node->next = NULL;
 	if (*head == NULL)

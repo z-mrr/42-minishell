@@ -26,78 +26,48 @@ int	_endVarPos(char *s, int pos)
 }
 
 /* devolve expansao ou null */
-char	*getExpansion(char *s)
-{
-	printf("var: %s\n\n", s);
-	if (!(ft_strcmp(s, "$?")))
-		return (s);
-	else if (!(ft_strcmp(s, "$$")))
-		return (s);
-	else if (!(ft_strcmp(s, "$")))
-		return (s);
-	else
-	{
-		free(s);
-		/* get_env */ return (NULL);
-	}
-
-}
-
-char	*_newStr(char *old_str, int pos, char *new_str)
+char	*_getExpansion(char *old_str, int pos)
 {
 	char	*expansion;
-	char	*tmp;
 
 	expansion = NULL;
-	tmp = NULL;
 	printf("pos: %i, str: %s\n", pos, old_str);
-	printf("expan: %s\n", expansion = getExpansion(ft_substr(old_str, pos,  _endVarPos(old_str, pos + 1) - pos))); /* devolve respectiva expansao; */
-	if (new_str) /* se ja foi lido alguma coisa, adiciona expansao*/
-	{
-		if (expansion != NULL)
-		{
-			tmp = ft_strdup(new_str);
-			free(new_str);
-			new_str = ft_strjoin(tmp, expansion);
-		}
-	}
-	else /*se ainda n foi nada lido */
-	{
-		if (expansion != NULL)
-		{
-			tmp = ft_substr(old_str, 0, pos);
-			new_str = ft_strjoin(tmp, expansion);
-		}
-		else
-			new_str = ft_substr(old_str, 0, pos);
-	}
+
+	printf("var: %s\n", expansion = ft_substr(old_str, pos,  _endVarPos(old_str, pos + 1) - pos)); /* devolve respectiva expansao; */
+
+	/*get env*/
 	free(expansion);
-	free(tmp);
-	return (new_str);
+
+	return (NULL);
+}
+
+char	*_getRest(char *old_str, int pos)
+{
+	int	start;
+	char	*left;
+
+	left = NULL;
+	start = pos;
+	while (old_str[pos] != '$' && old_str[pos] != '\0')
+		pos++;
+	left = ft_substr(old_str, start, pos);
+	return (left);
 }
 
 /* recebe uma str,  expande todos os $ */
 char	*_expandStr(char *old_str, int pos)
 {
-	char	*tmp;
+	char	*expan;
 	char	*new_str;
+	char	*left;
 
 	new_str = NULL;
-	tmp = NULL;
+	expan = NULL;
 	while (old_str[pos])
-	{	//excepcao: se for $ n entra no loop
-		if (old_str[pos] == '$' && old_str[pos + 1] != '\0') /* se encontrar $ e nao for o ultimo */
-		{
-			if (new_str)
-			{
-				tmp = ft_strdup(new_str);
-				free(new_str);
-			}
-			new_str = _newStr(old_str, pos, tmp);
-			pos = _endVarPos(old_str, pos + 1); /* nova pos no final do que foi lido */
-		}
-		else
-			pos++;
+	{
+		printf("a esquerda: %s\n", left = _getRest(old_str, pos));
+		printf("o expand: %s\n\n", expan = _getExpansion(old_str, pos));
+		printf("pos: %i\n\n", pos = _endVarPos(old_str, pos + 1)); /* nova pos no final do que foi lido */
 	}
 	return (new_str);
 }

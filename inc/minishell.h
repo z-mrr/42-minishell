@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/13 16:59:05 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/13 23:18:40 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ void	execInput(t_sh *sh);
 void	builtin(t_sh *sh);
 int	is_builtin(t_sh *sh);
 //sortInput.c
-void	sortInput(t_sh *f);
+int	sortInput(t_sh *f);
 //createWords.c //tokenizes the words
-void	createWords(t_sh *f);
-void	lexQuote(t_sh *f);
+int	createWords(t_sh *f);
+int	lexQuote(t_sh *f);
 void	lexWdend(t_sh *f);
 void	lexOp(t_sh *f);
 int		findOperator(char c);

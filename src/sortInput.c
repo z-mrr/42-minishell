@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/13 16:57:21 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/13 23:18:56 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,12 @@ void	parsecmd(t_sh *f)
 	}
 }
 
-/* return se input acabar por ser nulo */
-void	sortInput(t_sh *f)
+/* return 1 se input acabar por ser nulo */
+int	sortInput(t_sh *f)
 {
 	printf("\n\n                                       ### WORDS ###                         \n\n");
-	createWords(f);
+	if (createWords(f))
+		return (1);
 	printList(f->token);
 	printf("\n\n                                       ### LEXER ###                         \n\n");
 	//lexer(f);
@@ -61,4 +62,5 @@ void	sortInput(t_sh *f)
 	printListCmd(f->cmd);
 	printf("\n                                        ...free...                              \n");
 	freeTokens(f);
+	return (0);
 }

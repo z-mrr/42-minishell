@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:46 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/13 16:06:36 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/13 23:15:02 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	lexWdend(t_sh *f)
 	f->parser->wd_begin = f->parser->pos;
 }
 
-/* separa desde 1a aspa ate proxima aspa*/
-void	lexQuote(t_sh *f)
+/* separa desde 1a aspa ate proxima aspa, return 1 em caso de erro: falta de aspas */
+int	lexQuote(t_sh *f)
 {
 	if (f->parser->str[f->parser->pos] == 34)
 	{
@@ -64,7 +64,7 @@ void	lexQuote(t_sh *f)
 		while (f->parser->str[f->parser->pos] != 34)
 		{
 			if (f->parser->str[f->parser->pos] == '\0')
-				{printf("err quotes");exit(-1);}
+				return (1);
 			f->parser->pos++;
 		}
 	}
@@ -74,22 +74,26 @@ void	lexQuote(t_sh *f)
 		while (f->parser->str[f->parser->pos] != 39)
 		{
 			if (f->parser->str[f->parser->pos] == '\0')
-				{printf("err quotes");exit(-1);}
+				return (1);
 			f->parser->pos++;
 		}
 	}
 	f->parser->pos++;
+	return (0);
 }
 
 /* separa input por palaras; se algum par de quotes não fechar da erro */
-void	createWords(t_sh *f)
+int	createWords(t_sh *f)
 {
 	f->parser->pos = 0;
 	f->parser->wd_begin = 0;
 	while (f->parser->str[f->parser->pos] != '\0')
 	{
 		if (f->parser->str[f->parser->pos] == '\'' || f->parser->str[f->parser->pos] == '\"') /* errno */
-			lexQuote(f);
+		{
+			if (lexQuote(f))
+				return (1);
+		}
 		else if (findOperator(f->parser->str[f->parser->pos]))
 			lexOp(f);
 		else if (f->parser->str[f->parser->pos] == ' ')
@@ -100,4 +104,5 @@ void	createWords(t_sh *f)
 	if (f->parser->pos - f->parser->wd_begin)
 		append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_begin, f->parser->pos - f->parser->wd_begin)); //ultima palavra
 	printf("current f->parser->pos: %i - %c\n", f->parser->pos, f->parser->str[f->parser->pos]);
+	return (0);
 }

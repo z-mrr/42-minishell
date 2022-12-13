@@ -6,7 +6,7 @@
 #    By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 13:13:31 by jdias-mo          #+#    #+#              #
-#    Updated: 2022/12/09 19:23:54 by jdias-mo         ###   ########.fr        #
+#    Updated: 2022/12/13 21:46:34 by gde-alme         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJ_DIR			=	$(BUILD_DIR)/objects
 READLINE_DIR	=	/usr/include/readline
 SRC				=	$(SRC_DIR)/*.c
 CC				=	gcc
-CFLAGS			=	-Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS			=	-Wall -Wextra -Werror -g
 INCLUDES		=	-I$(INC_DIR) -I$(LIBFT_DIR) -I$(READLINE_DIR)
 LINKS			=	-L$(LIBFT_DIR) -lft -L$(READLINE_DIR) -lreadline
 

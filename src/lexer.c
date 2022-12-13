@@ -222,7 +222,7 @@ int	expandStr(t_sh *f, t_token *node)
 		printf("fpos%i fchar: %c\n", f->parser->pos, node->token_str[f->parser->pos]);
 	}
 	f->parser->pos = 0;
-	rmvQuotes(f);
+//	rmvQuotes(f);
 	return (0);
 }
 

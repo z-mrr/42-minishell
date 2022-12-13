@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/13 16:49:42 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/13 16:59:05 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,9 @@ void	lexOp(t_sh *f);
 int		findOperator(char c);
 //lexer.c
 void	lexer(t_sh *f);
+void    _expander(t_sh *f);
 //lexer_utils.c
-void	rmvQuotes(t_sh *f);
+void	rmvQuotes(t_token *node);
 int		countPairs(char *s);
 //parser.c
 int     charArrayLen(char **array);

@@ -104,11 +104,3 @@ void	_expander(t_sh *f)
 		node = node->next;
 	}
 }
-
-//void	sortInput(t_sh *f)
-//{
-//	createWords(f); /* separa palaras de operadores */
-//	expander(f); /* expande $ */
-//	parser(f); /* cria cmds com as palavras e operadores*/
-//	freeTokens;
-//}

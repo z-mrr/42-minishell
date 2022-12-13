@@ -38,7 +38,7 @@ char	*_newStr(char *old_str, int pos, char *new_str)
 	expansion = NULL;
 	tmp = NULL;
 	printf("pos: %i, str: %s\n", pos, old_str);
-	//printf("expan: %s\n", expansion = getExpansion(ft_substr(old_str, pos,  _endVarPos(old_str, pos + 1) - pos))); /* devolve respectiva expansao; */
+	printf("expan: %s\n", expansion = getExpansion(ft_substr(old_str, pos,  _endVarPos(old_str, pos + 1) - pos))); /* devolve respectiva expansao; */
 	if (new_str) /* se ja foi lido alguma coisa, adiciona expansao*/
 	{
 		if (expansion != NULL)
@@ -97,8 +97,10 @@ void	_expander(t_sh *f)
 		tmp = ft_strdup(node->token_str);
 		free(node->token_str);
 		node->token_str = _expandStr(tmp, 0);
-		if (node->token_str)
-			rmvQuotes(node);
+		free(tmp);
+		if (!(node->token_str))
+			exit(-1);
+		//	rmvQuotes(node);
 		node = node->next;
 	}
 }

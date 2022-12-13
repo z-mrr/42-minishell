@@ -15,6 +15,7 @@ int	_endVarPos(char *s, int pos)
 /* devolve expansao ou null */
 char	*getExpansion(char *s)
 {
+	printf("var: %s\n\n", s);
 	if (!(ft_strcmp(s, "$?")))
 		return (s);
 	else if (!(ft_strcmp(s, "$$")))
@@ -24,7 +25,7 @@ char	*getExpansion(char *s)
 	else
 	{
 		free(s);
-		/* get_env */ return (ft_strdup(NULL));
+		/* get_env */ return (NULL);
 	}
 
 }
@@ -36,11 +37,11 @@ char	*_newStr(char *old_str, int pos, char *new_str)
 
 	expansion = NULL;
 	tmp = NULL;
-	expansion = getExpansion(ft_substr(old_str, pos,  _endVarPos(old_str, pos + 1) - pos)); /* devolve respectiva expansao; */
-		exit(-1);
+	printf("pos: %i, str: %s\n", pos, old_str);
+	//printf("expan: %s\n", expansion = getExpansion(ft_substr(old_str, pos,  _endVarPos(old_str, pos + 1) - pos))); /* devolve respectiva expansao; */
 	if (new_str) /* se ja foi lido alguma coisa, adiciona expansao*/
 	{
-		if (expansion)
+		if (expansion != NULL)
 		{
 			tmp = ft_strdup(new_str);
 			free(new_str);
@@ -49,11 +50,9 @@ char	*_newStr(char *old_str, int pos, char *new_str)
 	}
 	else /*se ainda n foi nada lido */
 	{
-		tmp = ft_substr(old_str, 0, pos - 1);
-		if (expansion)
-			new_str = ft_strjoin(tmp, expansion);
+		if (expansion != NULL)
+			new_str = ft_strdup(expansion);
 	}
-		exit(-1);
 	free(expansion);
 	free(tmp);
 	return (new_str);
@@ -77,30 +76,29 @@ char	*_expandStr(char *old_str, int pos)
 				free(new_str);
 			}
 			new_str = _newStr(old_str, pos, tmp);
-			pos = _endVarPos(old_str, pos) + 1; /* nova pos no final do que foi lido */
+			pos = _endVarPos(old_str, pos + 1); /* nova pos no final do que foi lido */
 		}
 		else
 			pos++;
 	}
-	if (new_str)
-		return (new_str);
-	else
-		return (old_str);
+	return (new_str);
 }
 
 /* token a token , expande os $ na str*/
 void	_expander(t_sh *f)
 {
 	t_token *node;
+	char	*tmp;
 
 	node = NULL;
 	node = f->token;
 	while (node != NULL)
 	{
-		
-		printf("%s\n", _expandStr(node->token_str, 0));
-		rmvQuotes(node);
-		//if (node->token_str == '\0') ; remove node.
+		tmp = ft_strdup(node->token_str);
+		free(node->token_str);
+		node->token_str = _expandStr(tmp, 0);
+		if (node->token_str)
+			rmvQuotes(node);
 		node = node->next;
 	}
 }

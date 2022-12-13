@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/13 11:37:29 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/13 11:48:23 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,6 @@ void	init_sh(int argc, char **argv, char **envp, t_sh *sh)
 	sh->parser->pos = 0;
 	sh->parser->wd_begin = 0;
 }
-/*
-void	test(t_sh *sh)
-{
-	if (sh->cmds->full_cmd[0] )
-	pwd();
-	cd(sh);
-	export(sh);
-	unset(sh);
-	env(sh);
-	echo(sh);
-	exit(sh);
-}*/
 
 /*trata dos sinais, corta espaços no inicio e fim da string, adiciona à history,
 dá erro se for ;, prompt personalizado com user e dir*/

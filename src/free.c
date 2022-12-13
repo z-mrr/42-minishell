@@ -2,18 +2,18 @@
 
 void	freeTokens(t_sh *f)
 {
-	while (f->token->next != NULL)
+	t_token *node;
+	t_token	*tmp;
+
+	node = f->token;
+	while (node != NULL)
 	{
-		printf("free token: %s\n", f->token->token_str);
-		f->token = f->token->next;
-		free(f->token->prev->token_str);
-		f->token->prev->next = NULL;
-		free(f->token->prev);
-		f->token->prev = NULL;
+		tmp = node;
+		node = node->next;
+		free(tmp->token_str);
+		free(tmp);
+		tmp = NULL;
 	}
-	printf("free token: %s\n", f->token->token_str);
-	free(f->token->token_str);
-	free(f->token);
 	f->token = NULL;
 }
 

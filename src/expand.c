@@ -85,7 +85,7 @@ char	*_expandStr(char *old_str, int pos)
 	new_str = NULL;
 	tmp = NULL;
 	while (old_str[pos])
-	{
+	{	//excepcao: se for $ n entra no loop
 		if (old_str[pos] == '$' && old_str[pos + 1] != '\0') /* se encontrar $ e nao for o ultimo */
 		{
 			if (new_str)

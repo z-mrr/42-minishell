@@ -5,7 +5,7 @@ int	_endVarPos(char *s, int pos)
 {
 	while (s[pos] != '\0')
 	{
-		if (s[pos] == '$' || s[pos] == 34 || s[pos] == 39 || s[pos] == ' ' || s[pos] == '?')
+		if (s[pos] == '$' || s[pos] == 34 || s[pos] == 39 || s[pos] == ' ' || s[pos - 1] == '?')
 			return (pos);
 		pos++;
 	}
@@ -51,7 +51,12 @@ char	*_newStr(char *old_str, int pos, char *new_str)
 	else /*se ainda n foi nada lido */
 	{
 		if (expansion != NULL)
-			new_str = ft_strdup(expansion);
+		{
+			tmp = ft_substr(old_str, 0, pos);
+			new_str = ft_strjoin(tmp, expansion);
+		}
+		else
+			new_str = ft_substr(old_str, 0, pos);
 	}
 	free(expansion);
 	free(tmp);

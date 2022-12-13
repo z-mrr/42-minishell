@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/13 11:48:23 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/13 15:12:25 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	init_sh(int argc, char **argv, char **envp, t_sh *sh)
 		return ;
 	}
 	shlvl(sh);
-	sh->cmds = NULL;
+	sh->cmd = NULL;
 	sh->token = NULL;
 	sh->parser->str = NULL;
 	sh->parser->pos = 0;
@@ -59,8 +59,6 @@ int	main(int argc, char **argv, char **envp)
 	t_sh		sh;
 
 	init_sh(argc, argv, envp, &sh);
-	//TESTS <================================================================
-	//tests(&sh);
 	while(1)
 	{
 		handle_sig();
@@ -68,8 +66,9 @@ int	main(int argc, char **argv, char **envp)
 		if (!sh.parser->str)//isto pq lexer n tava a lidar com \0 after strtrim. nao passam string nulas ou vazias
 			continue ;
 		sortInput(&sh);
+		execInput(&sh);
 		free(sh.parser->str);
-		free(sh.parser);
+	//	free(sh.parser);
 		//falta f free lista t_cmd;
 	}
 	mtr_free(sh.envp);

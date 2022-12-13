@@ -6,13 +6,13 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:15:11 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/13 11:40:00 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/13 14:57:44 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*export no options. mudar test para sh->cmds->full_cmdcmds->content->args*/
+/*export no options. mudar test para sh->cmd->full_cmdcmd->content->args*/
 int	ft_export(t_sh *sh)
 {
 	int		n;
@@ -21,17 +21,17 @@ int	ft_export(t_sh *sh)
 	char	*var;
 	char	*value;
 
-	n = mtr_len(sh->cmds->full_cmd);
+	n = mtr_len(sh->cmd->full_cmd);
 	if (n > 1)
 	{
 			i = 0;
 			while (++i < n)
 			{
-				j = ft_strichr(sh->cmds->full_cmd[i], '=');
+				j = ft_strichr(sh->cmd->full_cmd[i], '=');
 				if (j < 1)
 					return (0);//
-				var = ft_substr(sh->cmds->full_cmd[i], 0, j);
-				value = ft_strdup(sh->cmds->full_cmd[i] +  (j + 1));
+				var = ft_substr(sh->cmd->full_cmd[i], 0, j);
+				value = ft_strdup(sh->cmd->full_cmd[i] +  (j + 1));
 				set_env(var, value, sh);
 				free(var);
 				free(value);
@@ -104,21 +104,21 @@ int	ft_exit(t_sh *sh)
 	int	status;
 	int	n;
 
-	n = mtr_len(sh->cmds->full_cmd);
+	n = mtr_len(sh->cmd->full_cmd);
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	if (n > 2)
 	{
-		mtr_free(sh->cmds->full_cmd);
+		mtr_free(sh->cmd->full_cmd);
 		ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
 		return (1);
 	}
 	status = 0;
 	if (n == 2)
 	{
-		exit_check(sh->cmds->full_cmd);
-		status = ft_atoi(sh->cmds->full_cmd[1]);
+		exit_check(sh->cmd->full_cmd);
+		status = ft_atoi(sh->cmd->full_cmd[1]);
 	}
-	mtr_free(sh->cmds->full_cmd);
+	mtr_free(sh->cmd->full_cmd);
 	exit(status);
 }
 

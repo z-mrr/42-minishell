@@ -6,14 +6,14 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/12 23:01:39 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/13 14:57:44 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 /* adiciona token a cmd struct, se OP cria novo node da cmd struct*/
-void	parseCmds(t_sh *f)
+void	parsecmd(t_sh *f)
 {
 
 	t_token *token;
@@ -22,7 +22,7 @@ void	parseCmds(t_sh *f)
 	token = f->token;
 	head = NULL;
 	head = (t_cmd *)malloc(sizeof(t_cmd));
-	f->cmds = head;
+	f->cmd = head;
 	initCmd(head);
 	while (token != NULL)
 	{
@@ -54,10 +54,10 @@ void	sortInput(t_sh *f)
 	lexer(f);
 	printList(f->token);
 	printf("\n\n                                       ### PARSER ###                        \n\n");
-	parseCmds(f);
+	parsecmd(f);
 	printf("\n\n                                       ### NO FINAL ###                      \n\n");
 	printList(f->token);
-	printListCmd(f->cmds);
+	printListCmd(f->cmd);
 	printf("\n                                        ...free...                              \n");
 	freeTokens(f);
 }

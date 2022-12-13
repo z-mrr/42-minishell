@@ -6,13 +6,11 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/13 11:48:55 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/13 16:22:20 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	g_status;
 
 void	shlvl(t_sh *sh)
 {
@@ -47,24 +45,12 @@ void	init_sh(int argc, char **argv, char **envp, t_sh *sh)
 		return ;
 	}
 	shlvl(sh);
-	sh->cmds = NULL;
+	sh->cmd = NULL;
 	sh->token = NULL;
 	sh->parser->str = NULL;
 	sh->parser->pos = 0;
 	sh->parser->wd_begin = 0;
 }
-/*
-void	test(t_sh *sh)
-{
-	if (sh->cmds->full_cmd[0] )
-	pwd();
-	cd(sh);
-	export(sh);
-	unset(sh);
-	env(sh);
-	echo(sh);
-	exit(sh);
-}*/
 
 /*trata dos sinais, corta espaços no inicio e fim da string, adiciona à history,
 dá erro se for ;, prompt personalizado com user e dir*/
@@ -73,8 +59,6 @@ int	main(int argc, char **argv, char **envp)
 	t_sh		sh;
 
 	init_sh(argc, argv, envp, &sh);
-	//TESTS <================================================================
-	//tests(&sh);
 	while(1)
 	{
 		handle_sig();
@@ -83,9 +67,10 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		sortInput(&sh);
 		free(sh.parser->str);
-		free(sh.parser);
-		//falta f free lista t_cmd;
+		execInput(&sh);
 	}
+	//falta f free lista t_cmd;
+	free(sh.parser);
 	mtr_free(sh.envp);
 	exit(g_status);//
 }

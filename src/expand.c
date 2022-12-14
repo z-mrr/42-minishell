@@ -114,8 +114,34 @@ char	*_expandStr(t_sh *f, char *old_str)
 	return (new_str);
 }
 
-/* token a token , expande os $ na str*/
-void	_expander(t_sh *f)
+
+/* remove nodes */
+int	rmvNodes(t_sh *f)
+{
+	t_token *node;
+	t_token *tmp;
+
+	node = f->token;
+	while (node != NULL)
+	{
+		tmp = node->next;
+		if (!node)
+			break ;
+		if (!(node->token_str)) 
+		{
+			printf("node: %s\n", node->token_str);
+			ddl_removeToken(&(f->token), node);
+		}
+		node = tmp;
+	}
+	if (f->token == NULL)
+		return (1);
+	return (0);
+}
+
+
+/* token a token , expande os $ na str, remove quotes e elimina tokens vazios */
+int	_expander(t_sh *f)
 {
 	t_token *node;
 	char	*tmp;
@@ -124,16 +150,15 @@ void	_expander(t_sh *f)
 	node = f->token;
 	while (node != NULL)
 	{
-		if (ft_strchr(node->token_str, '$'))
-		{
-			tmp = ft_strdup(node->token_str);
-			free(node->token_str);
-			node->token_str = _expandStr(f, tmp);
-			free(tmp);
-		 }
-		if (!(node->token_str))
-			{printf("node: %s", node->token_str);exit(-1);}
-		//	rmvQuotes(node);
+		tmp = ft_strdup(node->token_str);
+		free(node->token_str);
+		node->token_str = _expandStr(f, tmp);
+		free(tmp);
+		if (node->token_str)
+			rmvQuotes(node);
 		node = node->next;
 	}
+	if (rmvNodes(f))
+		return (1);
+	return (0);
 }

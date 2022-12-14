@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/14 14:58:57 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/14 16:36:51 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	sortInput(t_sh *f)
 		return (1);
 	printList(f->token);
 	printf("\n\n                                       ### LEXER ###                         \n\n");
-	//lexer(f);
 	if (_expander(f))
 		return (1);
 	printList(f->token);
@@ -31,5 +30,6 @@ int	sortInput(t_sh *f)
 	printList(f->token);
 	printListCmd(f->cmd);
 	printf("\n                                        ...free...                              \n");
+	freeTokens(f);
 	return (0);
 }

@@ -28,9 +28,11 @@ void	free_list(t_sh *sh)
 	{
 		tmp = node;
 		node = node->next;
-		printf("free a cmd: %s\n", tmp->full_cmd[0]);
-		mtr_free(tmp->full_cmd);
-		free(tmp->path);
+		//printf("free a cmd: %s\n", tmp->full_cmd[0]);
+		if (tmp->full_cmd)
+			mtr_free(tmp->full_cmd);
+		if (tmp->path)
+			free(tmp->path);
 		tmp->path = NULL;
 		tmp->prev = NULL;
 		free(tmp);

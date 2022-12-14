@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/14 15:37:36 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/14 16:38:02 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	freeTokens(t_sh *f);
 void	free_list(t_sh *sh);
 void	free_list(t_sh *sh);
 //perror.c
-int		parserError(char *error);
+int		parserError(t_sh *f, char *error);
 //pwd_unset_echo_cd.c test args
 int		ft_pwd(void);
 int		ft_unset(t_sh *sh);

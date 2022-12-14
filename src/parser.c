@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/14 14:13:29 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/14 16:39:12 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ void ddl_append(t_cmd **head)
 int parseOperators(t_sh *f, t_cmd *node, t_token *token)
 {
 	if (token->next == NULL)
-		return (parserError(token->token_str));
+		return (parserError(f, token->token_str));
 	else
 	{
 		if (token->next->token_type == 'O' || token->prev == NULL)
-			return (parserError(token->token_str));
+			return (parserError(f, token->token_str));
 	}
 	if (!(ft_strcmp(token->token_str, "|")))
 	{

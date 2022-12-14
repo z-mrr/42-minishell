@@ -16,6 +16,8 @@
 		"type_traits": "c",
 		"utility": "c",
 		"sstream": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"*.tcc": "c",
+		"fstream": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 01:56:42 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/13 15:10:39 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/14 20:38:16 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,41 +26,41 @@ int	ft_pwd(void)
 }
 
 /*unset with no options*/
-int	ft_unset(t_sh *sh)
+int	ft_unset(t_sh *sh, t_cmd *cmd)
 {
 	int		i;
 	int		n;
 
-	n = mtr_len(sh->cmd->full_cmd);
+	n = mtr_len(cmd->full_cmd);
 	if (n > 1)
 	{
 		i = 0;
-		while (sh->cmd->full_cmd[++i])
-			rmv_env(sh->cmd->full_cmd[i], sh);
+		while (cmd->full_cmd[++i])
+			rmv_env(cmd->full_cmd[i], sh);
 	}
 	return (0);
 }
 
 /*echo with option -n*/
-int	ft_echo(t_sh *sh)
+int	ft_echo(t_cmd *cmd)
 {
 	int	i;
 	int	n;
 	int	opt;
 
 	i = 0;
-	n = mtr_len(sh->cmd->full_cmd);
+	n = mtr_len(cmd->full_cmd);
 //	opt = 1;
 //	if (n > 2)
-		opt = ft_strncmp(sh->cmd->full_cmd[1], "-n", 2);
+		opt = ft_strncmp(cmd->full_cmd[1], "-n", 2);
 	if (n < 2 || (!opt && n < 3))
 		return (0);
 	if (!opt)
 		i++;
-	while (sh->cmd->full_cmd[++i])
+	while (cmd->full_cmd[++i])
 	{
-		ft_putstr_fd(sh->cmd->full_cmd[i], 1);
-		if (sh->cmd->full_cmd[i + 1])
+		ft_putstr_fd(cmd->full_cmd[i], 1);
+		if (cmd->full_cmd[i + 1])
 			ft_putchar_fd(' ', 1);
 	}
 	if (opt)
@@ -69,21 +69,21 @@ int	ft_echo(t_sh *sh)
 }
 
 /*cd with only a relative or absolute path*/
-int	ft_cd(t_sh *sh)
+int	ft_cd(t_sh *sh, t_cmd *cmd)
 {
 	int		n;
 	char	*pwd;
 	char	*oldpwd;
 
-	n = mtr_len(sh->cmd->full_cmd);
+	n = mtr_len(cmd->full_cmd);
 	if (n > 2)
 	{
 		perror("cd error too many args");//
 		return (0);//
 	}
 	if (n == 1)
-		cd_home(sh);
-	if(chdir(sh->cmd->full_cmd[1]) == -1)
+		cd_home(sh, cmd);
+	if(chdir(cmd->full_cmd[1]) == -1)
 	{
 		perror("cd error wrong path");//
 		return (0);//
@@ -97,7 +97,7 @@ int	ft_cd(t_sh *sh)
 	return (0);
 }
 
-int	cd_home(t_sh *sh)
+int	cd_home(t_sh *sh, t_cmd *cmd)
 {
 	char	*home;
 
@@ -107,9 +107,9 @@ int	cd_home(t_sh *sh)
 		perror("cd error setting home");
 		return (0);//
 	}
-	sh->cmd->full_cmd = mtr_add(home, sh->cmd->full_cmd);
+	cmd->full_cmd = mtr_add(home, cmd->full_cmd);
 	free(home);
-	if (!sh->cmd->full_cmd)
+	if (!cmd->full_cmd)
 	{
 		perror("cd error setting home");//
 		return (0);//

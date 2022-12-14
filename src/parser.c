@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/14 14:13:29 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/14 22:22:19 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	initCmd(t_cmd *node)
 {
 	node->full_cmd = NULL;
 	node->path = NULL;
-	node->in_file= STDOUT_FILENO;
+	node->in_file= STDIN_FILENO;
 	node->out_file = STDOUT_FILENO;
 }
 

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/14 15:44:09 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/14 22:58:06 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # include <signal.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <dirent.h>
+# include <sys/types.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 # define READ 0
 # define WRITE 1
@@ -61,11 +65,16 @@ typedef struct	s_sh
 	char		**envp;
 }				t_sh;
 
+//child.c
+void	ft_child(t_sh *sh, t_cmd *cmd, int *fd);
+void	check_fd(t_cmd *cmd, int *fd);
 //exec.c
-char	*get_path(t_sh *sh);
+void	ft_fork(t_sh *sh, t_cmd *cmd, int *fd);
+int		check_fork(t_sh *sh, t_cmd *cmd, int *fd);
+char	*get_path(t_sh *sh, t_cmd *cmd);
 void	execInput(t_sh *sh);
-void	builtin(t_sh *sh);
-int		is_builtin(t_sh *sh);
+int		ft_builtin(t_sh *sh, t_cmd *cmd);
+int		is_builtin(t_cmd *cmd);
 //sortInput.c
 int		sortInput(t_sh *f);
 //createWords.c //tokenizes the words
@@ -99,17 +108,17 @@ void	free_list(t_sh *sh);
 void	free_list(t_sh *sh);
 //perror.c
 int		parserError(char *error);
-//pwd_unset_echo_cd.c test args
+//pwd_unset_echo_cd.c
 int		ft_pwd(void);
-int		ft_unset(t_sh *sh);
-int		ft_echo(t_sh *sh);
-int		ft_cd(t_sh *sht);
-int		cd_home(t_sh *sh);
+int		ft_unset(t_sh *sh, t_cmd *cmd);
+int		ft_echo(t_cmd *cmd);
+int		ft_cd(t_sh *sh, t_cmd *cmd);
+int		cd_home(t_sh *sh, t_cmd *cmd);
 //export_exit.c test args
-int		ft_export(t_sh *sh);
+int		ft_export(t_sh *sh, t_cmd *cmd);
 int		print_export(t_sh *sh);
 char	**set_export(t_sh *sh);
-int		ft_exit(t_sh *sh);
+int		ft_exit(t_cmd *cmd);
 void	exit_check(char **str);
 //env.c
 int		ft_env(t_sh *sh);

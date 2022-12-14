@@ -26,14 +26,16 @@ int	_endVarPos(char *s, int pos)
 }
 
 /* devolve expansao ou null */
-char	*_getExpansion(char *old_str, int pos)
+char	*_getExpansion(char *old_str, t_sh *f)
 {
 	char	*expansion;
 
 	expansion = NULL;
-	printf("pos: %i, str: %s\n", pos, old_str);
-
-	printf("var: %s\n", expansion = ft_substr(old_str, pos,  _endVarPos(old_str, pos + 1) - pos)); /* devolve respectiva expansao; */
+	printf("pos: %i, str: %s\n", f->parser->pos, old_str);
+	if (_endVarPos(old_str, f->parser->pos + 1) != '$')
+		printf("expan: %s\n", expansion = ft_substr(old_str, f->parser->pos,  _endVarPos(old_str, f->parser->pos + 1) - f->parser->pos)); /* devolve respectiva expansao; */
+	else
+		printf("expan$: %s\n", expansion = ft_substr(old_str, f->parser->pos,  _endVarPos(old_str, f->parser->pos + 1) - 1));
 
 	/*get env*/
 	free(expansion);
@@ -41,33 +43,74 @@ char	*_getExpansion(char *old_str, int pos)
 	return (NULL);
 }
 
-char	*_getRest(char *old_str, int pos)
+char	*_getRest(char *old_str, t_sh *f)
 {
 	int	start;
 	char	*left;
 
 	left = NULL;
-	start = pos;
-	while (old_str[pos] != '$' && old_str[pos] != '\0')
-		pos++;
-	left = ft_substr(old_str, start, pos);
-	return (left);
+	start = f->parser->pos;
+	while (old_str[f->parser->pos] != '$' && old_str[f->parser->pos] != '\0')
+		f->parser->pos++;
+	if (f->parser->pos > start)
+	{
+		left = ft_substr(old_str, start, f->parser->pos);
+		printf("left = %s\n", left);
+		return (left);
+	}
+	else
+		return (NULL);
 }
 
-/* recebe uma str,  expande todos os $ */
-char	*_expandStr(char *old_str, int pos)
+char	*_getFullRest(t_sh *f, char *old_str)
 {
-	char	*expan;
+	char	*frest;
+	char	*parsed;
+	char	*expansion;
+
+	frest = NULL;
+	parsed = _getRest(old_str, f);
+	expansion = _getExpansion(old_str, f);
+	if (expansion && parsed)
+	{
+		frest = ft_strjoin(parsed, expansion);
+		free(parsed);
+		free(expansion);
+	}
+	else if (parsed)
+	{
+		frest = ft_strdup(parsed);
+		free(parsed);
+	}
+	else
+		return (NULL);
+	return (frest);
+}
+
+
+/* recebe uma str,  expande todos os $ */
+char	*_expandStr(t_sh *f, char *old_str)
+{
+	char	*rest;
 	char	*new_str;
-	char	*left;
+	char	*tmp;
 
 	new_str = NULL;
-	expan = NULL;
-	while (old_str[pos])
+	rest = NULL;
+	f->parser->pos = 0;
+	while (old_str[f->parser->pos])
 	{
-		printf("a esquerda: %s\n", left = _getRest(old_str, pos));
-		printf("o expand: %s\n\n", expan = _getExpansion(old_str, pos));
-		printf("pos: %i\n\n", pos = _endVarPos(old_str, pos + 1)); /* nova pos no final do que foi lido */
+		printf("rest: %s\n", rest = _getFullRest(f, old_str));
+		if (new_str)
+		{
+			tmp = ft_strdup(new_str);
+			free(new_str);
+			printf("new_str: %s\n", new_str = ft_strjoin(tmp, rest));
+			free(tmp);
+		}
+		free(rest);
+		exit(-1);
+		printf("pos: %i\n\n", f->parser->pos = _endVarPos(old_str, f->parser->pos + 1)); /* nova pos no final do que foi lido */
 	}
 	return (new_str);
 }
@@ -86,7 +129,7 @@ void	_expander(t_sh *f)
 		{
 			tmp = ft_strdup(node->token_str);
 			free(node->token_str);
-			node->token_str = _expandStr(tmp, 0);
+			node->token_str = _expandStr(f, tmp);
 			free(tmp);
 		}
 		if (!(node->token_str))
@@ -95,3 +138,4 @@ void	_expander(t_sh *f)
 		node = node->next;
 	}
 }
+

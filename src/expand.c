@@ -32,8 +32,18 @@ char	*_getRest(char *old_str, t_sh *f)
 
 	left = NULL;
 	printf("start pos: %i\n", start = f->parser->pos);
-	while (old_str[f->parser->pos] != '$' && old_str[f->parser->pos] != '\0')
-		f->parser->pos++;
+	while (old_str[f->parser->pos] != '\0' && old_str[f->parser->pos] != '$')
+	{
+		if (old_str[f->parser->pos] == 39)
+		{
+			f->parser->pos++;
+			while (old_str[f->parser->pos] != 39)
+				f->parser->pos++;
+			f->parser->pos++;
+		}
+		else
+			f->parser->pos++;
+	}
 	if (f->parser->pos > start)
 	{
 		left = ft_substr(old_str, start, f->parser->pos - start);

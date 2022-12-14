@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/13 10:53:28 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/14 14:13:29 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	addStrCmd(t_cmd *node, char *s)
 	while (node->full_cmd[i])
 	{
 		new_cmd[i] = ft_strdup(node->full_cmd[i]);
+		free(node->full_cmd[i]);
 		i++;
 	}
 	new_cmd[i] = ft_strdup(s);
@@ -53,19 +54,73 @@ void	initCmd(t_cmd *node)
 	node->path = NULL;
 	node->in_file= STDOUT_FILENO;
 	node->out_file = STDOUT_FILENO;
-	node->next = NULL;
-	node->prev = NULL;
 }
 
-void	ddl_append(t_cmd *last)
+void ddl_append(t_cmd **head)
 {
 	t_cmd	*new_node;
+	t_cmd	*last;
 
 	new_node = NULL;
 	new_node = (t_cmd *)malloc(sizeof(t_cmd));
 
 	new_node->next = NULL;
-	new_node->prev = last;
+	if (*head == NULL)
+	{
+		new_node->prev = NULL;
+		new_node->next = NULL;
+		*head = new_node;
+		return ;
+	}
+	last = *head;
+	while (last->next != NULL)
+		last = last->next;
 	last->next = new_node;
-	printf("new_node adress: %p\n", new_node);
+	new_node->prev = last;
+}
+
+int parseOperators(t_sh *f, t_cmd *node, t_token *token)
+{
+	if (token->next == NULL)
+		return (parserError(token->token_str));
+	else
+	{
+		if (token->next->token_type == 'O' || token->prev == NULL)
+			return (parserError(token->token_str));
+	}
+	if (!(ft_strcmp(token->token_str, "|")))
+	{
+		ddl_append(&(f->cmd));
+		node = node->next;
+		initCmd(node);
+	}
+	return (0);
+}
+
+/* adiciona token a cmd struct, se OP cria novo node da cmd struct*/
+int	parsecmd(t_sh *f)
+{
+
+	t_token *token;
+	t_cmd *node;
+
+	token = f->token;
+	node = NULL;
+	ddl_append(&(f->cmd));
+	node = f->cmd;
+	initCmd(node);
+	while (token != NULL)
+	{
+		if (token->token_type == 'O') /* op */
+		{
+			if (parseOperators(f, node, token))
+				return (1);
+			if (node->next)
+				node = node->next;
+		}
+		else
+			addStrCmd(node, token->token_str);
+		token = token->next;
+	}
+	return (0);
 }

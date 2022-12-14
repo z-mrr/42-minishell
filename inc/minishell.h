@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/14 11:45:40 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/14 15:00:19 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define READ 0
 # define WRITE 1
 
-int	g_status;//exit status. When a script ends with an exit that has no parameter, the exit status of the script is the exit status of the last command executed in the script (previous to the exit). expand $?
+extern int	g_status;//exit status. When a script ends with an exit that has no parameter, the exit status of the script is the exit status of the last command executed in the script (previous to the exit). expand $?
 
 typedef struct	s_token
 {
@@ -62,36 +62,43 @@ typedef struct	s_sh
 }				t_sh;
 
 //exec.c
+char	*get_path(t_sh *sh);
 void	execInput(t_sh *sh);
 void	builtin(t_sh *sh);
 int		is_builtin(t_sh *sh);
 //sortInput.c
-void	sortInput(t_sh *f);
+int		sortInput(t_sh *f);
 //createWords.c //tokenizes the words
-void	createWords(t_sh *f);
-void	lexQuote(t_sh *f);
+int		createWords(t_sh *f);
+int		lexQuote(t_sh *f);
 void	lexWdend(t_sh *f);
 void	lexOp(t_sh *f);
 int		findOperator(char c);
 //lexer.c
 void	lexer(t_sh *f);
+int    _expander(t_sh *f);
 //lexer_utils.c
-void	rmvQuotes(t_sh *f);
+void	rmvQuotes(t_token *node);
 int		countPairs(char *s);
+void	ddl_removeToken(t_token **head, t_token *node);
+int		_endVarPos(char *s, int pos);
 //parser.c
 int     charArrayLen(char **array);
 void    addStrCmd(t_cmd *node, char *s);
-void    ddl_append(t_cmd *last);
+void    ddl_append(t_cmd **head);
 void	initCmd(t_cmd *node);
+int		parsecmd(t_sh *f);
 //ddl_utils.c
 void	append_dll(t_sh *f, t_token **head, char *s);/*f nao é usado*/
 void	addType_ll(t_sh *f, char type);
-void 	append_dll_cmd(t_sh *f, t_cmd **head);
 void	printList(t_token *head);
 void	printListCmd(t_cmd *head);
 //free.c
 void	freeTokens(t_sh *f);
 void	free_list(t_sh *sh);
+void	free_list(t_sh *sh);
+//perror.c
+int		parserError(char *error);
 //pwd_unset_echo_cd.c test args
 int		ft_pwd(void);
 int		ft_unset(t_sh *sh);

@@ -6,11 +6,13 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/14 12:49:29 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/14 15:01:58 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	g_status;
 
 void	shlvl(t_sh *sh)
 {
@@ -68,6 +70,7 @@ int	main(int argc, char **argv, char **envp)
 		sortInput(&sh);
 		free(sh.parser->str);
 		execInput(&sh);
+		freeTokens(&sh);
 		free_list(&sh);
 	}
 	//falta f free lista t_cmd;

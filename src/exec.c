@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/14 13:07:39 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/14 14:54:03 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	execInput(t_sh *sh)
 	//		printf("%i: %s\n", i, sh->cmd->full_cmd[i]);
 		if (!(is_builtin(sh)))
 			sh->cmd->path = get_path(sh);
-		
+
 	//	printf("path: %s\n", sh->cmd->path);
 
 	//	node = node->next;

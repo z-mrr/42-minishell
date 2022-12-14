@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:46 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/13 23:15:02 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/14 10:29:32 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	lexQuote(t_sh *f)
 		while (f->parser->str[f->parser->pos] != 34)
 		{
 			if (f->parser->str[f->parser->pos] == '\0')
-				return (1);
+				return (parserError(34));
 			f->parser->pos++;
 		}
 	}
@@ -74,7 +74,7 @@ int	lexQuote(t_sh *f)
 		while (f->parser->str[f->parser->pos] != 39)
 		{
 			if (f->parser->str[f->parser->pos] == '\0')
-				return (1);
+				return (parserError(39));
 			f->parser->pos++;
 		}
 	}

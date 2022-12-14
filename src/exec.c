@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/14 14:54:03 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/14 15:37:09 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*get_path(t_sh *sh)
 	i = -1;
 	while(paths[++i])
 	{
-		tmp = ft_strjoin(*paths, "/");
+		tmp = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(tmp, sh->cmd->full_cmd[0]);
 		free(tmp);
 		if(!access(path, 0))
@@ -82,21 +82,17 @@ char	*get_path(t_sh *sh)
 
 void	execInput(t_sh *sh)
 {
-//	t_cmd	*node;
+	t_cmd	*node;
 
-//	node = sh->cmd;
-	while (sh->cmd)
+	node = sh->cmd;
+	while (node)
 	{
-	//	int i = -1;
-	//	while (sh->cmd->full_cmd[++i])
-	//		printf("%i: %s\n", i, sh->cmd->full_cmd[i]);
+	/*	int i = -1;
+		while (node->full_cmd[++i])
+			printf("%i: %s\n", i, node->full_cmd[i]);*/
 		if (!(is_builtin(sh)))
-			sh->cmd->path = get_path(sh);
-
-	//	printf("path: %s\n", sh->cmd->path);
-
-	//	node = node->next;
-		sh->cmd = sh->cmd->next;
+			node->path = get_path(sh);
+	//	printf("path: %s\n", node->path);
+		node = node->next;
 	}
-//	free_list(sh);
 }

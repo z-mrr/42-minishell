@@ -19,20 +19,22 @@ void	freeTokens(t_sh *f)
 	f->token = NULL;
 }
 
-void	free_list(t_sh *sh)//?
+void	free_list(t_sh *sh)
 {
+	t_cmd	*node;
 	t_cmd	*tmp;
-	while(sh->cmd)
+	node = sh->cmd;
+	while(node != NULL)
 	{
-		tmp = sh->cmd->next;
-		free(sh->cmd->path);
-		sh->cmd->path = NULL;
-		sh->cmd->prev = NULL;
-		sh->cmd->next = NULL;
-		mtr_free(sh->cmd->full_cmd);
-		sh->cmd = tmp;
+		tmp = node;
+		node = node->next;
+		printf("free a cmd: %s\n", tmp->full_cmd[0]);
+		mtr_free(tmp->full_cmd);
+		free(tmp->path);
+		tmp->path = NULL;
+		tmp->prev = NULL;
 		free(tmp);
+		tmp = NULL;
 	}
-	free(sh->cmd);
 	sh->cmd = NULL;
 }

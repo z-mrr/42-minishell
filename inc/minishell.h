@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/14 15:00:19 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/14 15:37:36 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef struct	s_token
 {
 	char			*token_str;
 	char			token_type;
-	struct	s_token	*next;
-	struct	s_token	*prev;
+	struct s_token	*next;
+	struct s_token	*prev;
 }				t_token;
 
 typedef	struct	s_cmd

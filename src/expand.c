@@ -101,16 +101,20 @@ char	*_expandStr(t_sh *f, char *old_str)
 	while (old_str[f->parser->pos])
 	{
 		printf("rest: %s\n", rest = _getFullRest(f, old_str));
-		if (new_str)
+		if (rest)
 		{
-			tmp = ft_strdup(new_str);
-			free(new_str);
-			printf("new_str: %s\n", new_str = ft_strjoin(tmp, rest));
-			free(tmp);
+			if (new_str)
+			{
+				tmp = ft_strdup(new_str);
+				free(new_str);
+				printf("new_str: %s\n", new_str = ft_strjoin(tmp, rest));
+				free(tmp);
+				free(rest);
+			}
+			else
+				new_str = ft_strdup(rest);
 		}
-		free(rest);
-		exit(-1);
-		printf("pos: %i\n\n", f->parser->pos = _endVarPos(old_str, f->parser->pos + 1)); /* nova pos no final do que foi lido */
+			printf("pos: %i\n\n", f->parser->pos = _endVarPos(old_str, f->parser->pos + 1)); /* nova pos no final do que foi lido */
 	}
 	return (new_str);
 }

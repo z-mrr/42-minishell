@@ -4,18 +4,24 @@
 char	*_getExpansion(char *old_str, t_sh *f)
 {
 	char	*expansion;
+	char	*env;
 
 	expansion = NULL;
+	env = NULL;
 	printf("pos: %i, str: %s\n", f->parser->pos, old_str);
 	if (_endVarPos(old_str, f->parser->pos + 1) != '$')
 		printf("expan: %s\n", expansion = ft_substr(old_str, f->parser->pos,  _endVarPos(old_str, f->parser->pos + 1) - f->parser->pos)); /* devolve respectiva expansao; */
 	else
 		printf("expan$: %s\n", expansion = ft_substr(old_str, f->parser->pos,  _endVarPos(old_str, f->parser->pos + 1) - 1));
+	if (!(ft_strcmp(expansion, "$?")))
+		return (ft_strdup("0"));
+	if (!(ft_strcmp(expansion, "$")))
+		return (expansion);
 	
-	/*get env*/
+	printf("env: %s\n", env = get_env(expansion + 1, f));
 	free(expansion);
-
-	
+	if (env)
+		return (env);
 	return (NULL);
 }
 
@@ -58,8 +64,11 @@ char	*_getFullRest(t_sh *f, char *old_str)
 		frest = ft_strdup(parsed);
 		free(parsed);
 	}
-	else
-		return (NULL);
+	else if (expansion)
+	{
+		frest = ft_strdup(expansion);
+		free(expansion);
+	}
 	return (frest);
 }
 

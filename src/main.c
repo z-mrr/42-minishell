@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/13 16:22:20 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/14 12:49:29 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	main(int argc, char **argv, char **envp)
 		sortInput(&sh);
 		free(sh.parser->str);
 		execInput(&sh);
+		free_list(&sh);
 	}
 	//falta f free lista t_cmd;
 	free(sh.parser);

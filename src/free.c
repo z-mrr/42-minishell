@@ -17,12 +17,16 @@ void	freeTokens(t_sh *f)
 	f->token = NULL;
 }
 
-void	free_list(t_sh *sh)
+void	free_list(t_sh *sh)//?
 {
 	t_cmd	*tmp;
 	while(sh->cmd)
 	{
 		tmp = sh->cmd->next;
+		free(sh->cmd->prev);
+		free(sh->cmd->next);
+		free(sh->cmd->path);
+		sh->cmd->path = NULL;
 		sh->cmd->prev = NULL;
 		sh->cmd->next = NULL;
 		mtr_free(sh->cmd->full_cmd);

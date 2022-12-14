@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/13 16:16:41 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/14 11:45:40 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include <signal.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# define READ 0
+# define WRITE 1
 
 int	g_status;//exit status. When a script ends with an exit that has no parameter, the exit status of the script is the exit status of the last command executed in the script (previous to the exit). expand $?
 
@@ -61,7 +64,7 @@ typedef struct	s_sh
 //exec.c
 void	execInput(t_sh *sh);
 void	builtin(t_sh *sh);
-int	is_builtin(t_sh *sh);
+int		is_builtin(t_sh *sh);
 //sortInput.c
 void	sortInput(t_sh *f);
 //createWords.c //tokenizes the words

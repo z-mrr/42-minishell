@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/13 16:23:13 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/14 13:07:39 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,51 @@ void	builtin(t_sh *sh)
 		ft_exit(sh);
 }
 
+char	*get_path(t_sh *sh)
+{
+	char	**paths;
+	char	*tmp;
+	char	*path;
+	char	*env;
+	int		i;
+
+	env = get_env("PATH", sh);
+	paths = ft_split(env, ':');
+	free(env);
+	i = -1;
+	while(paths[++i])
+	{
+		tmp = ft_strjoin(*paths, "/");
+		path = ft_strjoin(tmp, sh->cmd->full_cmd[0]);
+		free(tmp);
+		if(!access(path, 0))
+		{
+			mtr_free(paths);
+			return (path);
+		}
+		free(path);
+	}
+	mtr_free(paths);
+	return (NULL);
+}
+
 void	execInput(t_sh *sh)
 {
-	t_cmd	*node;
+//	t_cmd	*node;
 
-	node = sh->cmd;
-	while (node)
+//	node = sh->cmd;
+	while (sh->cmd)
 	{
-		if (is_builtin(sh))
-			builtin(sh);
-		node = node->next;
+	//	int i = -1;
+	//	while (sh->cmd->full_cmd[++i])
+	//		printf("%i: %s\n", i, sh->cmd->full_cmd[i]);
+		if (!(is_builtin(sh)))
+			sh->cmd->path = get_path(sh);
+		
+	//	printf("path: %s\n", sh->cmd->path);
+
+	//	node = node->next;
+		sh->cmd = sh->cmd->next;
 	}
-	free_list(sh);
+//	free_list(sh);
 }

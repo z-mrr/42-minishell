@@ -150,10 +150,13 @@ int	_expander(t_sh *f)
 	node = f->token;
 	while (node != NULL)
 	{
-		tmp = ft_strdup(node->token_str);
-		free(node->token_str);
-		node->token_str = _expandStr(f, tmp);
-		free(tmp);
+		if (ft_strchr(node->token_str, '$'))
+		{
+			tmp = ft_strdup(node->token_str);
+			free(node->token_str);
+			node->token_str = _expandStr(f, tmp);
+			free(tmp);
+		}
 		if (node->token_str)
 			rmvQuotes(node);
 		node = node->next;

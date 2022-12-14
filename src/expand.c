@@ -11,10 +11,11 @@ char	*_getExpansion(char *old_str, t_sh *f)
 		printf("expan: %s\n", expansion = ft_substr(old_str, f->parser->pos,  _endVarPos(old_str, f->parser->pos + 1) - f->parser->pos)); /* devolve respectiva expansao; */
 	else
 		printf("expan$: %s\n", expansion = ft_substr(old_str, f->parser->pos,  _endVarPos(old_str, f->parser->pos + 1) - 1));
-
+	
 	/*get env*/
 	free(expansion);
 
+	
 	return (NULL);
 }
 
@@ -24,12 +25,12 @@ char	*_getRest(char *old_str, t_sh *f)
 	char	*left;
 
 	left = NULL;
-	start = f->parser->pos;
+	printf("start pos: %i\n", start = f->parser->pos);
 	while (old_str[f->parser->pos] != '$' && old_str[f->parser->pos] != '\0')
 		f->parser->pos++;
 	if (f->parser->pos > start)
 	{
-		left = ft_substr(old_str, start, f->parser->pos);
+		left = ft_substr(old_str, start, f->parser->pos - start);
 		printf("left = %s\n", left);
 		return (left);
 	}
@@ -89,7 +90,7 @@ char	*_expandStr(t_sh *f, char *old_str)
 			else
 				new_str = ft_strdup(rest);
 		}
-			printf("pos: %i\n\n", f->parser->pos = _endVarPos(old_str, f->parser->pos + 1)); /* nova pos no final do que foi lido */
+		printf("pos: %i\n\n", f->parser->pos = _endVarPos(old_str, f->parser->pos + 1)); /* nova pos no final do que foi lido */
 	}
 	return (new_str);
 }
@@ -110,11 +111,10 @@ void	_expander(t_sh *f)
 			free(node->token_str);
 			node->token_str = _expandStr(f, tmp);
 			free(tmp);
-		}
+		 }
 		if (!(node->token_str))
 			{printf("node: %s", node->token_str);exit(-1);}
 		//	rmvQuotes(node);
 		node = node->next;
 	}
 }
-

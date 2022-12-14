@@ -1,30 +1,5 @@
 #include "../inc/minishell.h"
 
-void	ddl_removeToken(t_token **head, t_token *node)
-{
-	if (*head == NULL || node == NULL)
-		return ;
-	if (*head == node)
-		*head = node->next;
-	if (node->next != NULL)
-		node->next->prev = node->prev;
-	if (node->prev != NULL)
-		node->prev->next = node->next;
-	free(node);
-}
-
-/* devolve pos do final da $var */
-int	_endVarPos(char *s, int pos)
-{
-	while (s[pos] != '\0')
-	{
-		if (s[pos] == '$' || s[pos] == 34 || s[pos] == 39 || s[pos] == ' ' || s[pos - 1] == '?')
-			return (pos);
-		pos++;
-	}
-	return (pos);
-}
-
 /* devolve expansao ou null */
 char	*_getExpansion(char *old_str, t_sh *f)
 {

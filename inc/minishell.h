@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/13 23:18:40 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/14 01:17:31 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void    _expander(t_sh *f);
 //lexer_utils.c
 void	rmvQuotes(t_token *node);
 int		countPairs(char *s);
+void	ddl_removeToken(t_token **head, t_token *node);
+int	_endVarPos(char *s, int pos);
 //parser.c
 int     charArrayLen(char **array);
 void    addStrCmd(t_cmd *node, char *s);

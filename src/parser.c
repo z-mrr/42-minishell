@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/14 12:31:45 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/14 14:13:29 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	addStrCmd(t_cmd *node, char *s)
 	while (node->full_cmd[i])
 	{
 		new_cmd[i] = ft_strdup(node->full_cmd[i]);
+		free(node->full_cmd[i]);
 		i++;
 	}
 	new_cmd[i] = ft_strdup(s);
@@ -84,7 +85,7 @@ int parseOperators(t_sh *f, t_cmd *node, t_token *token)
 		return (parserError(token->token_str));
 	else
 	{
-		if (token->next->token_type == 'O')
+		if (token->next->token_type == 'O' || token->prev == NULL)
 			return (parserError(token->token_str));
 	}
 	if (!(ft_strcmp(token->token_str, "|")))

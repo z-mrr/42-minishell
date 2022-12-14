@@ -34,4 +34,5 @@ void	free_list(t_sh *sh)
 		free(tmp);
 		tmp = NULL;
 	}
+	sh->cmd = NULL;
 }

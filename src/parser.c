@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/14 12:10:10 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/14 12:31:45 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,9 @@ int	parsecmd(t_sh *f)
 
 	token = f->token;
 	node = NULL;
-	ddl_append(&(f->cmd)),
+	ddl_append(&(f->cmd));
 	node = f->cmd;
+	initCmd(node);
 	while (token != NULL)
 	{
 		if (token->token_type == 'O') /* op */

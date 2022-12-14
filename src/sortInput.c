@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/14 12:02:42 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/14 12:18:20 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,5 @@ int	sortInput(t_sh *f)
 	printList(f->token);
 	printListCmd(f->cmd);
 	printf("\n                                        ...free...                              \n");
-	freeTokens(f);
 	return (0);
 }

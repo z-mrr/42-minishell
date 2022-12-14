@@ -23,8 +23,6 @@ void	free_list(t_sh *sh)//?
 	while(sh->cmd)
 	{
 		tmp = sh->cmd->next;
-		free(sh->cmd->prev);
-		free(sh->cmd->next);
 		free(sh->cmd->path);
 		sh->cmd->path = NULL;
 		sh->cmd->prev = NULL;

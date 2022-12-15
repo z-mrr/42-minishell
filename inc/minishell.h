@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/15 20:07:39 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/15 21:18:10 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ void	printList(t_token *head);
 void	printListCmd(t_cmd *head);
 //free.c
 void	freeTokens(t_sh *f);
-void	free_list(t_sh *sh);
 void	free_list(t_sh *sh);
 //perror.c
 int		parserError(char *error);

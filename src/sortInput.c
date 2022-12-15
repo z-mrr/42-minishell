@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/14 17:11:35 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/15 02:27:50 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	sortInput(t_sh *f)
 	printf("\n\n                                       ### PARSER ###                        \n\n");
 	if (parsecmd(f))
 		return (1);
+	//printf("exit: sortinput\n");exit(-1);
 	printf("\n\n                                       ### NO FINAL ###                      \n\n");
 	printList(f->token);
 	printListCmd(f->cmd);

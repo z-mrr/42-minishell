@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:06 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/13 12:07:55 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/14 17:35:28 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,37 @@ void	printListCmd(t_cmd *head)
 		head = head->next;
 	}
 	printf("\n                                      Mem END                                    \n");
+}
+
+void	initCmd(t_cmd *node)
+{
+	node->full_cmd = NULL;
+	node->path = NULL;
+	node->in_file= STDOUT_FILENO;
+	node->out_file = STDOUT_FILENO;
+}
+
+void ddl_append(t_cmd **head)
+{
+	t_cmd	*new_node;
+	t_cmd	*last;
+
+	new_node = NULL;
+	new_node = (t_cmd *)malloc(sizeof(t_cmd));
+
+	new_node->next = NULL;
+	if (*head == NULL)
+	{
+		new_node->prev = NULL;
+		new_node->next = NULL;
+		*head = new_node;
+		return ;
+	}
+	last = *head;
+	while (last->next != NULL)
+		last = last->next;
+	last->next = new_node;
+	new_node->prev = last;
 }
 
 /* adiciona tipo de token */

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/14 17:14:03 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/15 02:33:46 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ int	main(int argc, char **argv, char **envp)
 			execInput(&sh);
 		//free(sh.parser->str);
 		free_list(&sh);
-		free(sh.parser);
-		mtr_free(sh.envp);
 		exit(-1);
 	}
+		free(sh.parser);
+		mtr_free(sh.envp);
 	//falta f free lista t_cmd;
 	exit(g_status);//
 }

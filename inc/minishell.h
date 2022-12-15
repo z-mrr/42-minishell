@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/14 16:38:02 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/15 01:14:17 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,12 @@
 # include <signal.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <dirent.h>
 
+# define BUFFER_SIZE 4096 //MAX_PATH =~4096 bytes
 # define READ 0
 # define WRITE 1
 
@@ -99,6 +104,8 @@ void	free_list(t_sh *sh);
 void	free_list(t_sh *sh);
 //perror.c
 int		parserError(t_sh *f, char *error);
+//redirecs.c
+int	parseRedirecs(t_sh *f, t_cmd *node, t_token *token);
 //pwd_unset_echo_cd.c test args
 int		ft_pwd(void);
 int		ft_unset(t_sh *sh);

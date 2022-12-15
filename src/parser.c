@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/14 16:39:12 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/15 02:31:38 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,37 +48,8 @@ void	addStrCmd(t_cmd *node, char *s)
 	node->full_cmd = new_cmd;
 }
 
-void	initCmd(t_cmd *node)
-{
-	node->full_cmd = NULL;
-	node->path = NULL;
-	node->in_file= STDOUT_FILENO;
-	node->out_file = STDOUT_FILENO;
-}
 
-void ddl_append(t_cmd **head)
-{
-	t_cmd	*new_node;
-	t_cmd	*last;
-
-	new_node = NULL;
-	new_node = (t_cmd *)malloc(sizeof(t_cmd));
-
-	new_node->next = NULL;
-	if (*head == NULL)
-	{
-		new_node->prev = NULL;
-		new_node->next = NULL;
-		*head = new_node;
-		return ;
-	}
-	last = *head;
-	while (last->next != NULL)
-		last = last->next;
-	last->next = new_node;
-	new_node->prev = last;
-}
-
+/* parse dos ops, se | cria novo cmd*/
 int parseOperators(t_sh *f, t_cmd *node, t_token *token)
 {
 	if (token->next == NULL)
@@ -93,6 +64,11 @@ int parseOperators(t_sh *f, t_cmd *node, t_token *token)
 		ddl_append(&(f->cmd));
 		node = node->next;
 		initCmd(node);
+	}
+	else
+	{
+		if (parseRedirecs(f, node, token))
+			return (parserError(f, token->token_str));
 	}
 	return (0);
 }
@@ -114,9 +90,11 @@ int	parsecmd(t_sh *f)
 		if (token->token_type == 'O') /* op */
 		{
 			if (parseOperators(f, node, token))
-				return (1);
+				return (parserError(f, token->token_str));
 			if (node->next)
 				node = node->next;
+			if (ft_strcmp(token->token_str, "|") && token->next)
+				token = token->next;
 		}
 		else
 			addStrCmd(node, token->token_str);

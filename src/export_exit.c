@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:15:11 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/14 20:40:09 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/15 20:14:29 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int	ft_exit(t_cmd *cmd)
 		status = ft_atoi(cmd->full_cmd[1]);
 	}
 	mtr_free(cmd->full_cmd);
+	g_status = status;
 	exit(status);
 }
 

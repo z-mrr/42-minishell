@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/14 22:58:33 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/15 10:26:12 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*redirect -> is builtin -> path -> check fork -> fd/dup fork -> exec*/
 
-int	is_builtin(t_cmd *cmd)
+int	check_builtin(t_cmd *cmd)
 {
 	if (!strcmp(cmd->full_cmd[0], "echo"))
 		return (1);
@@ -36,19 +36,19 @@ int	is_builtin(t_cmd *cmd)
 
 int	ft_builtin(t_sh *sh, t_cmd *cmd)
 {
-	if (!strcmp(sh->cmd->full_cmd[0], "echo"))
+	if (!strcmp(cmd->full_cmd[0], "echo"))
 		ft_echo(cmd);
-	else if (!strcmp(sh->cmd->full_cmd[0], "cd"))
+	else if (!strcmp(cmd->full_cmd[0], "cd"))
 		ft_cd(sh, cmd);
-	else if (!strcmp(sh->cmd->full_cmd[0], "pwd"))
+	else if (!strcmp(cmd->full_cmd[0], "pwd"))
 		ft_pwd();
-	else if (!strcmp(sh->cmd->full_cmd[0], "export"))
+	else if (!strcmp(cmd->full_cmd[0], "export"))
 		ft_export(sh, cmd);
-	else if (!strcmp(sh->cmd->full_cmd[0], "unset"))
+	else if (!strcmp(cmd->full_cmd[0], "unset"))
 		ft_unset(sh, cmd);
-	else if (!strcmp(sh->cmd->full_cmd[0], "env"))
+	else if (!strcmp(cmd->full_cmd[0], "env"))
 		ft_env(sh);
-	else if (!strcmp(sh->cmd->full_cmd[0], "exit"))
+	else if (!strcmp(cmd->full_cmd[0], "exit"))
 		ft_exit(cmd);
 	return (0);
 }
@@ -81,44 +81,6 @@ char	*get_path(t_sh *sh, t_cmd *cmd)
 	return (NULL);
 }
 
-void	ft_fork(t_sh *sh, t_cmd *cmd, int *fd)
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == -1)
-	{
-		close(fd[READ]);
-		close(fd[WRITE]);
-		perror("fork error");//
-	}
-	else if (!pid)
-	{
-		ft_child(sh, cmd, fd);
-		printf("Hello from child\n");
-	}
-}
-
-int	check_fork(t_sh *sh, t_cmd *cmd, int *fd)
-{
-	DIR *dir;
-
-	dir = NULL;
-	if (cmd->full_cmd)
-		dir = opendir(cmd->full_cmd[0]);
-	if (cmd->in_file == -1 || cmd->out_file == -1)
-		return (0);
-	if ((cmd->path && !access(cmd->path, X_OK)) || is_builtin(cmd))
-		ft_fork(sh, cmd, fd);
-	else if (!is_builtin(cmd) && ((cmd->path && !access(cmd->path, F_OK)) || dir))
-		g_status = 126;//
-	else if (cmd->path && !is_builtin(cmd))
-		g_status = 127;//
-	if (dir)
-		closedir(dir);
-	return (1);
-}
-
 void	execInput(t_sh *sh)
 {
 	t_cmd	*cmd;
@@ -127,7 +89,7 @@ void	execInput(t_sh *sh)
 	cmd = sh->cmd;
 	while (cmd)
 	{
-		if (!(is_builtin(cmd)))
+		if (!(check_builtin(cmd)))
 			cmd->path = get_path(sh, cmd);//checkar erros, usar DIR?
 		if (pipe(fd) == -1)
 			return ;//
@@ -145,5 +107,4 @@ void	execInput(t_sh *sh)
 		cmd = cmd->next;
 		waitpid(-1, &g_status, 0);//
 	}
-
 }

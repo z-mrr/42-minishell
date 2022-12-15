@@ -1,16 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   child.c                                            :+:      :+:    :+:   */
+/*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:02:23 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/14 22:47:26 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/15 10:13:16 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	check_fork(t_sh *sh, t_cmd *cmd, int *fd)
+{
+	DIR *dir;
+
+	dir = NULL;
+	if (cmd->full_cmd)
+		dir = opendir(cmd->full_cmd[0]);
+	if (cmd->in_file == -1 || cmd->out_file == -1)
+		return (0);
+	if ((cmd->path && !access(cmd->path, X_OK)) || check_builtin(cmd))
+		ft_fork(sh, cmd, fd);
+	else if (!check_builtin(cmd) && ((cmd->path && !access(cmd->path, F_OK)) || dir))
+		g_status = 126;//
+	else if (cmd->path && !check_builtin(cmd))
+		g_status = 127;//
+	if (dir)
+		closedir(dir);
+	return (1);
+}
+
+void	ft_fork(t_sh *sh, t_cmd *cmd, int *fd)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		close(fd[READ]);
+		close(fd[WRITE]);
+		perror("fork error");//
+	}
+	else if (!pid)
+		ft_child(sh, cmd, fd);
+}
 
 void	check_fd(t_cmd *cmd, int *fd)
 {
@@ -38,7 +73,7 @@ void	check_fd(t_cmd *cmd, int *fd)
 void	ft_child(t_sh *sh, t_cmd *cmd, int *fd)
 {
 	check_fd(cmd, fd);
-	if (!is_builtin(cmd))
+	if (!check_builtin(cmd))
 		execve(cmd->path, cmd->full_cmd, sh->envp);
 	else
 	{

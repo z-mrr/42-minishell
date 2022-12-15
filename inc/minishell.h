@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/14 22:58:06 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/15 10:14:45 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct	s_token
 typedef	struct	s_cmd
 {
 	char			**full_cmd; //cmd e args
-	char			*path; //cmd PATH; se builtin deixar so nome
+	char			*path; //cmd PATH
 	int				in_file;
 	int				out_file;
 	struct s_cmd	*next;
@@ -65,16 +65,16 @@ typedef struct	s_sh
 	char		**envp;
 }				t_sh;
 
-//child.c
+//fork.c
 void	ft_child(t_sh *sh, t_cmd *cmd, int *fd);
 void	check_fd(t_cmd *cmd, int *fd);
-//exec.c
 void	ft_fork(t_sh *sh, t_cmd *cmd, int *fd);
 int		check_fork(t_sh *sh, t_cmd *cmd, int *fd);
+//exec.c
 char	*get_path(t_sh *sh, t_cmd *cmd);
 void	execInput(t_sh *sh);
 int		ft_builtin(t_sh *sh, t_cmd *cmd);
-int		is_builtin(t_cmd *cmd);
+int		check_builtin(t_cmd *cmd);
 //sortInput.c
 int		sortInput(t_sh *f);
 //createWords.c //tokenizes the words

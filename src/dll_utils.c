@@ -6,46 +6,11 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:06 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/13 12:07:55 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/15 20:07:37 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	printList(t_token *head)
-{
-	printf("\n                                          Mem                                    \n");
-	while (head != NULL)
-	{
-		printf("\nIS TOKEN! ; ADRESS: %p; | ", &(head));
-		printf("token_str: %s ; ADRESS: %p; | ", head->token_str, &(head->token_str));
-		printf("token_type: %c ; ADRESS %p: \n", head->token_type, &(head->token_type));
-		head = head->next;
-	}
-	printf("\n                                      Mem END                                    \n");
-}
-
-void	printListCmd(t_cmd *head)
-{
-	int	i;
-
-
-	printf("\n                                          Mem                                    \n");
-	while (head != NULL)
-	{
-		i = 0;
-		while (head->full_cmd[i])
-		{
-			if (i == 0)
-				printf("Command: %s | ADRESS: %p\n", head->full_cmd[i], head);
-			else
-				printf("Arg[%i]: %s\n", i - 1, head->full_cmd[i]);
-			i++;
-		}
-		head = head->next;
-	}
-	printf("\n                                      Mem END                                    \n");
-}
 
 /* adiciona tipo de token */
 void	addType_ll(t_sh *f, char type)

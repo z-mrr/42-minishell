@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/15 11:48:53 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/15 19:51:04 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,32 +61,33 @@ int	ft_builtin(t_sh *sh, t_cmd *cmd)
 char	*get_path(t_sh *sh, t_cmd *cmd)
 {
 	char	**paths;
-	char	*tmp;
-	char	*path;
+	char	*path[2];
 	char	*env;
 	int		i;
 
+	if (ft_strchr(cmd->full_cmd[0], '/') && !access(cmd->full_cmd[0], F_OK))//se o cmd for uma path para ficheiro executavel
+		return(ft_strdup(cmd->full_cmd[0]));
 	env = get_env("PATH", sh);
 	paths = ft_split(env, ':');
 	free(env);
 	i = -1;
 	while(paths[++i])
 	{
-		tmp = ft_strjoin(paths[i], "/");
-		path = ft_strjoin(tmp, cmd->full_cmd[0]);
-		free(tmp);
-		if(!access(path, 0))
+		path[0] = ft_strjoin(paths[i], "/");
+		path[1] = ft_strjoin(path[0], cmd->full_cmd[0]);
+		free(path[0]);
+		if (!access(path[1], F_OK))
 		{
 			mtr_free(paths);
-			return (path);
+			return (path[1]);
 		}
-		free(path);
+		free(path[1]);
 	}
 	mtr_free(paths);
 	return (NULL);
 }
 
-void	check_fd(t_cmd *cmd, int *fd)
+void	parent_fd(t_cmd *cmd, int *fd)
 {
 		close(fd[WRITE]);
 		if (cmd->next && (cmd->next->in_file == STDIN_FILENO))//caso pipe
@@ -105,6 +106,8 @@ void	execInput(t_sh *sh)
 	int		fd[2];
 
 	cmd = sh->cmd;
+	signal(SIGINT, SIG_IGN);//test
+	signal(SIGQUIT, SIG_IGN);
 	while (cmd)
 	{
 		if (check_builtin(cmd) < 0  && !cmd->next)//builtins q nao forkam e nao funcionam com pipe a seguir
@@ -117,7 +120,7 @@ void	execInput(t_sh *sh)
 				return ;//
 			if (!check_fork(sh, cmd, fd))
 				return ;//
-			check_fd(cmd, fd);
+			parent_fd(cmd, fd);
 			waitpid(-1, &g_status, 0);//
 		}
 		cmd = cmd->next;

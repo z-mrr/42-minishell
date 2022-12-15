@@ -8,17 +8,15 @@ char	*_getExpansion(char *old_str, t_sh *f)
 
 	expansion = NULL;
 	env = NULL;
-//	printf("pos: %i, str: %s\n", f->parser->pos, old_str);
 	if (_endVarPos(old_str, f->parser->pos + 1) != '$')
-	/*	printf("expan: %s\n", */expansion = ft_substr(old_str, f->parser->pos,  _endVarPos(old_str, f->parser->pos + 1) - f->parser->pos); /* devolve respectiva expansao; */
+		expansion = ft_substr(old_str, f->parser->pos,  _endVarPos(old_str, f->parser->pos + 1) - f->parser->pos);
 	else
-	/*	printf("expan$: %s\n", */expansion = ft_substr(old_str, f->parser->pos,  _endVarPos(old_str, f->parser->pos + 1) - 1);
+		expansion = ft_substr(old_str, f->parser->pos,  _endVarPos(old_str, f->parser->pos + 1) - 1);
 	if (!(ft_strcmp(expansion, "$?")))
 		return (ft_strdup("0"));
 	if (!(ft_strcmp(expansion, "$")))
 		return (expansion);
-
-/*	printf("env: %s\n", */env = get_env(expansion + 1, f);
+	env = get_env(expansion + 1, f);
 	free(expansion);
 	if (env)
 		return (env);
@@ -31,7 +29,7 @@ char	*_getRest(char *old_str, t_sh *f)
 	char	*left;
 
 	left = NULL;
-/*	printf("start pos: %i\n", */start = f->parser->pos;
+	start = f->parser->pos;
 	while (old_str[f->parser->pos] != '\0' && old_str[f->parser->pos] != '$')
 	{
 		if (old_str[f->parser->pos] == 39)
@@ -47,7 +45,6 @@ char	*_getRest(char *old_str, t_sh *f)
 	if (f->parser->pos > start)
 	{
 		left = ft_substr(old_str, start, f->parser->pos - start);
-	//	printf("left = %s\n", left);
 		return (left);
 	}
 	else
@@ -95,21 +92,21 @@ char	*_expandStr(t_sh *f, char *old_str)
 	f->parser->pos = 0;
 	while (old_str[f->parser->pos])
 	{
-		printf("rest: %s\n", rest = _getFullRest(f, old_str));
+		rest = _getFullRest(f, old_str);
 		if (rest)
 		{
 			if (new_str)
 			{
 				tmp = ft_strdup(new_str);
 				free(new_str);
-				printf("new_str: %s\n", new_str = ft_strjoin(tmp, rest));
+				new_str = ft_strjoin(tmp, rest);
 				free(tmp);
 				free(rest);
 			}
 			else
 				new_str = ft_strdup(rest);
 		}
-		/*printf("pos: %i\n\n", */f->parser->pos = _endVarPos(old_str, f->parser->pos + 1); /* nova pos no final do que foi lido */
+		f->parser->pos = _endVarPos(old_str, f->parser->pos + 1);
 	}
 	return (new_str);
 }
@@ -129,7 +126,6 @@ int	rmvNodes(t_sh *f)
 			break ;
 		if (!(node->token_str))
 		{
-		//	printf("node: %s\n", node->token_str);
 			ddl_removeToken(&(f->token), node);
 		}
 		node = tmp;

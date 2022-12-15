@@ -10,7 +10,6 @@ void	freeTokens(t_sh *f)
 	{
 		tmp = node;
 		node = node->next;
-	//	printf("free a token_str: %s\n", tmp->token_str);
 		free(tmp->token_str);
 		tmp->prev = NULL;
 		free(tmp);
@@ -28,7 +27,6 @@ void	free_list(t_sh *sh)
 	{
 		tmp = node;
 		node = node->next;
-	//	printf("free a cmd: %s\n", tmp->full_cmd[0]);
 		mtr_free(tmp->full_cmd);
 		free(tmp->path);
 		tmp->path = NULL;

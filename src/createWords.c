@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:46 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/14 22:01:56 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/15 20:02:28 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,5 @@ int	createWords(t_sh *f)
 	}
 	if (f->parser->pos - f->parser->wd_begin)
 		append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_begin, f->parser->pos - f->parser->wd_begin)); //ultima palavra
-//	printf("current f->parser->pos: %i - %c\n", f->parser->pos, f->parser->str[f->parser->pos]);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/15 02:31:38 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/15 03:22:12 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	parsecmd(t_sh *f)
 		if (token->token_type == 'O') /* op */
 		{
 			if (parseOperators(f, node, token))
-				return (parserError(f, token->token_str));
+				return (1);
 			if (node->next)
 				node = node->next;
 			if (ft_strcmp(token->token_str, "|") && token->next)

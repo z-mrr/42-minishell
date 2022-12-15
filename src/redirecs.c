@@ -36,9 +36,9 @@ int	redirOutFile(char *path, t_sh *f, t_cmd *node, t_token *token)
 		{printf("is a dir\n"); return (1);} //error is a dir
 	if (access(path, W_OK) == 0)
 	{
-		if (!(ft_strcmp(token->token_str, ">>")))
+		if (!(ft_strcmp(token->prev->token_str, ">>")))
 			fd = open(pathname, O_CREAT | O_RDWR | O_APPEND, 0644);
-		if (ft_strcmp(token->token_str, ">"))
+		if (!(ft_strcmp(token->prev->token_str, ">")))
 			fd = open(pathname, O_CREAT | O_RDWR | O_TRUNC, 0644);
 		printf("fd: %i\n",fd);
 		write(fd, "eque", 3);

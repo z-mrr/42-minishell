@@ -108,6 +108,7 @@ char	*_expandStr(t_sh *f, char *old_str)
 		}
 		f->parser->pos = _endVarPos(old_str, f->parser->pos + 1);
 	}
+	free(rest);
 	return (new_str);
 }
 

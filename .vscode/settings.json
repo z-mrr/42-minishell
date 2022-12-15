@@ -19,5 +19,6 @@
 		"stdlib.h": "c",
 		"*.tcc": "c",
 		"fstream": "c"
-	}
+	},
+	"C_Cpp.errorSquiggles": "disabled"
 }

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/15 10:14:45 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/15 11:05:22 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ typedef struct	s_sh
 
 //fork.c
 void	ft_child(t_sh *sh, t_cmd *cmd, int *fd);
-void	check_fd(t_cmd *cmd, int *fd);
+void	check_child_fd(t_cmd *cmd, int *fd);
 void	ft_fork(t_sh *sh, t_cmd *cmd, int *fd);
 int		check_fork(t_sh *sh, t_cmd *cmd, int *fd);
 //exec.c
+void	check_fd(t_cmd *cmd, int *fd);
 char	*get_path(t_sh *sh, t_cmd *cmd);
 void	execInput(t_sh *sh);
 int		ft_builtin(t_sh *sh, t_cmd *cmd);

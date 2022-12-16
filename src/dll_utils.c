@@ -6,11 +6,76 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:06 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/15 20:07:37 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/16 12:39:50 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	printList(t_token *head)
+{
+	printf("\n                                          Mem                                    \n");
+	while (head != NULL)
+	{
+		printf("token_str: %s | ", head->token_str);
+		printf("token_type: %c\n", head->token_type);
+		head = head->next;
+	}
+	printf("\n                                      Mem END                                    \n");
+}
+
+void	printListCmd(t_cmd *head)
+{
+	int	i;
+
+
+	printf("\n                                          Mem                                    \n");
+	while (head != NULL)
+	{
+		i = 0;
+		while (head->full_cmd[i])
+		{
+			if (i == 0)
+				printf("Command: %s | ADRESS: %p\n", head->full_cmd[i], head);
+			else
+				printf("Arg[%i]: %s\n", i - 1, head->full_cmd[i]);
+			i++;
+		}
+		head = head->next;
+	}
+	printf("\n                                      Mem END                                    \n");
+}
+
+void	initCmd(t_cmd *node)
+{
+	node->full_cmd = NULL;
+	node->path = NULL;
+	node->in_file= STDIN_FILENO;
+	node->out_file = STDOUT_FILENO;
+}
+
+void ddl_append(t_cmd **head)
+{
+	t_cmd	*new_node;
+	t_cmd	*last;
+
+	new_node = NULL;
+	new_node = (t_cmd *)malloc(sizeof(t_cmd));
+
+	new_node->next = NULL;
+	if (*head == NULL)
+	{
+		new_node->prev = NULL;
+		new_node->next = NULL;
+		*head = new_node;
+		return ;
+	}
+	last = *head;
+	while (last->next != NULL)
+		last = last->next;
+	last->next = new_node;
+	new_node->prev = last;
+}
 
 /* adiciona tipo de token */
 void	addType_ll(t_sh *f, char type)

@@ -104,7 +104,10 @@ char	*_expandStr(t_sh *f, char *old_str)
 				free(rest);
 			}
 			else
+			{
 				new_str = ft_strdup(rest);
+				free(rest);
+			}
 		}
 		f->parser->pos = _endVarPos(old_str, f->parser->pos + 1);
 	}

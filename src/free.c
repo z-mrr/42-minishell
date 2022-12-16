@@ -27,8 +27,10 @@ void	free_cmd(t_sh *sh)
 	{
 		tmp = node;
 		node = node->next;
-		mtr_free(tmp->full_cmd);
-		free(tmp->path);
+		if (tmp->full_cmd)
+			mtr_free(tmp->full_cmd);
+		if (tmp->path)
+			free(tmp->path);
 		tmp->path = NULL;
 		tmp->prev = NULL;
 		free(tmp);

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/16 00:01:29 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/16 12:34:28 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,14 @@
 # include <signal.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <dirent.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 # include <sys/types.h>
+# include <dirent.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 
+# define BUFFER_SIZE 4096 //MAX_PATH =~4096 bytes
 # define READ 0
 # define WRITE 1
 
@@ -115,11 +118,15 @@ void	free_lists(t_sh *sh);
 void	free_sh(t_sh *sh);
 void	freeTokens(t_sh *f);
 void	free_cmd(t_sh *sh);
-
 //error.c
-int		parserError(char *error);
-
-//pwd_unset_echo_cd.c
+int		parserError(t_sh *f, char *error);
+//redirecs.c
+int		parse_redirecs(t_sh *f, t_cmd *node, t_token *token);
+//redir_utils.c
+int		redirecOutFile(char *pathname, t_cmd *node, t_token *token);
+char	*get_filepath(t_sh *f, t_token *token);
+char	*get_filepathname(char *path, t_token *token);
+//pwd_unset_echo_cd.c test args
 int		ft_pwd(void);
 int		ft_unset(t_sh *sh, t_cmd *cmd);
 int		ft_echo(t_cmd *cmd);

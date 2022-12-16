@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/14 22:22:19 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/16 12:28:00 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,48 +45,20 @@ void	addStrCmd(t_cmd *node, char *s)
 	new_cmd[i] = ft_strdup(s);
 	new_cmd[++i] = 0;
 	free(node->full_cmd);
-	node->full_cmd = new_cmd;
+	node->full_cmd = mtr_dup(new_cmd);
+	mtr_free(new_cmd);
 }
 
-void	initCmd(t_cmd *node)
-{
-	node->full_cmd = NULL;
-	node->path = NULL;
-	node->in_file= STDIN_FILENO;
-	node->out_file = STDOUT_FILENO;
-}
 
-void ddl_append(t_cmd **head)
-{
-	t_cmd	*new_node;
-	t_cmd	*last;
-
-	new_node = NULL;
-	new_node = (t_cmd *)malloc(sizeof(t_cmd));
-
-	new_node->next = NULL;
-	if (*head == NULL)
-	{
-		new_node->prev = NULL;
-		new_node->next = NULL;
-		*head = new_node;
-		return ;
-	}
-	last = *head;
-	while (last->next != NULL)
-		last = last->next;
-	last->next = new_node;
-	new_node->prev = last;
-}
-
+/* parse dos ops, se | cria novo cmd*/
 int parseOperators(t_sh *f, t_cmd *node, t_token *token)
 {
 	if (token->next == NULL)
-		return (parserError(token->token_str));
+		{printf("minishell: syntax error near unexpected token '%s'\n", token->token_str);return (1);}
 	else
 	{
 		if (token->next->token_type == 'O' || token->prev == NULL)
-			return (parserError(token->token_str));
+			{printf("minishell: syntax error near unexpected token '%s'\n", token->token_str);return (1);}
 	}
 	if (!(ft_strcmp(token->token_str, "|")))
 	{
@@ -94,6 +66,8 @@ int parseOperators(t_sh *f, t_cmd *node, t_token *token)
 		node = node->next;
 		initCmd(node);
 	}
+	else
+		return (parse_redirecs(f, node, token));
 	return (0);
 }
 
@@ -114,9 +88,11 @@ int	parsecmd(t_sh *f)
 		if (token->token_type == 'O') /* op */
 		{
 			if (parseOperators(f, node, token))
-				return (1);
+				printf("erno\n");//return (1); //erro apenas neste cmd
 			if (node->next)
 				node = node->next;
+			if (ft_strcmp(token->token_str, "|") != 0 && token->next)
+				token = token->next;
 		}
 		else
 			addStrCmd(node, token->token_str);

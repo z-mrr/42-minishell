@@ -1,7 +1,7 @@
 #include "../inc/minishell.h"
 
 /* devolve pathname inteiro do ficheiro */
-char	*getFilePathName(char *path, t_token *token)
+char	*get_filepathname(char *path, t_token *token)
 {
 	char	*pathname;
 
@@ -18,7 +18,7 @@ char	*getFilePathName(char *path, t_token *token)
 }
 
 /* devolve path dor dir onde se vai escrever */
-char	*getFilePath(t_sh *f, t_token *token)
+char	*get_filepath(t_sh *f, t_token *token)
 {
 	char	*path;
 	int	i;

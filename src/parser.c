@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/16 01:08:57 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/16 02:11:36 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int parseOperators(t_sh *f, t_cmd *node, t_token *token)
 		initCmd(node);
 	}
 	else
-		return (parseRedirecs(f, node, token));
+		return (parse_redirecs(f, node, token));
 	return (0);
 }
 

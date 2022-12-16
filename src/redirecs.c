@@ -1,24 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirecs.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/16 02:04:22 by gde-alme          #+#    #+#             */
+/*   Updated: 2022/12/16 02:20:18 by gde-alme         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
 /* se o file ja existe, ve se csg aceder, senao da erro */
-int	redirecInFile(char *pathname, t_cmd *node, t_token *token)
+int	redirec_infile(char *pathname, t_cmd *node, t_token *token)
 {
-	if (access(pathname, F_OK) == 0) //existe ficheiro
+	if (access(pathname, F_OK) == 0) /* existe ficheiro */
 	{
-		if (access(pathname, R_OK) == 0) //podemos ler
+		if (access(pathname, R_OK) == 0) /* podemos ler */
 		{
 			node->in_file = open(pathname, O_CREAT | O_RDWR | O_TRUNC, 0644);
-			return (0); //no error ?
+			return (0); /* no error ? */
 		}
 		printf("minishell: %s: Permission denied\n", token->token_str);
-		return (3); //permission denied
+		return (3); /* permission denied */
 	}
 	printf("minishell: %s: No such file.\n", token->token_str);
-	return (3); //no such file or  ?
+	return (3); /* no such file or  ? */
 }
 
 /* ve se dir existe, se conseguir tenta escrever no dir, se sim continua*/
-int	redirIn(t_sh *f, t_cmd *node, t_token *token)
+int	redir_in(t_sh *f, t_cmd *node, t_token *token)
 {
 	DIR	*dir;
 	char	*path;
@@ -26,16 +38,16 @@ int	redirIn(t_sh *f, t_cmd *node, t_token *token)
 	int	i;
 
 	path = NULL;
-	path = getFilePath(f, token);
+	path = get_filepath(f, token);
 	printf("path: %s\n", path);
 	if (access(path, F_OK) == 0) //path to dir exists
 	{
 		if (access(path, R_OK) == 0)
 		{
 			dir = opendir(path);
-			pathname= getFilePathName(path, token);
+			pathname = get_filepathname(path, token);
 			free(path);
-			i = redirecInFile(pathname, node, token);
+			i = redirec_infile(pathname, node, token);
 			closedir(dir);
 			free(pathname);
 			write(node->in_file, "readfile\n", 9); //!
@@ -49,7 +61,7 @@ int	redirIn(t_sh *f, t_cmd *node, t_token *token)
 	return (1); //file or dir not exist
 }
 /* ve se dir existe, se conseguir tenta escrever no dir, se sim continua*/
-int	redirOut(t_sh *f, t_cmd *node, t_token *token)
+int	redir_out(t_sh *f, t_cmd *node, t_token *token)
 {
 	DIR	*dir;
 	char	*path;
@@ -57,14 +69,14 @@ int	redirOut(t_sh *f, t_cmd *node, t_token *token)
 	int	i;
 
 	path = NULL;
-	path = getFilePath(f, token);
+	path = get_filepath(f, token);
 	printf("path: %s\n", path);
 	if (access(path, F_OK) == 0) //path to dir exists
 	{
 		if (access(path, W_OK) == 0)
 		{
 			dir = opendir(path);
-			pathname= getFilePathName(path, token);
+			pathname= get_filepathname(path, token);
 			free(path);
 			i = redirecOutFile(pathname, node, token);
 			closedir(dir);
@@ -77,16 +89,15 @@ int	redirOut(t_sh *f, t_cmd *node, t_token *token)
 		return (2); //access denied
 	}
 	printf("minishell: %s: No such file or directory\n", token->token_str);
-	return (1); //file or dir not exist
+	return (1);
 }
 
-
-int	parseRedirecs(t_sh *f, t_cmd *node, t_token *token)
+int	parse_redirecs(t_sh *f, t_cmd *node, t_token *token)
 {
-	if (ft_strcmp(token->token_str, ">") == 0 || ft_strcmp(token->token_str, ">>") == 0)
-		return (redirOut(f, node, token->next));
+	if (ft_strcmp(token->token_str, ">") == 0
+		|| ft_strcmp(token->token_str, ">>") == 0)
+		return (redir_out(f, node, token->next));
 	if (ft_strcmp(token->token_str, "<") == 0)
-		return (redirIn(f, node, token->next));
-	//return (redirOut(f, node, token->next));
+		return (redir_in(f, node, token->next));
 	return (0);
 }

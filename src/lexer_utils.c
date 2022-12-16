@@ -1,6 +1,6 @@
 #include "../inc/minishell.h"
 
-void	ddl_removeToken(t_token **head, t_token *node)
+void	ddl_remove_token(t_token **head, t_token *node)
 {
 	if (*head == NULL || node == NULL)
 		return ;
@@ -13,7 +13,7 @@ void	ddl_removeToken(t_token **head, t_token *node)
 	free(node);
 }
 
-int	_endVarPos(char *s, int pos)
+int	end_varpos(char *s, int pos)
 {
 	while (s[pos] != '\0')
 	{
@@ -24,7 +24,7 @@ int	_endVarPos(char *s, int pos)
 	return (pos);
 }
 
-int	countPairs(char *s)
+int	count_pairs(char *s)
 {
 	int	i;
 	int	pairs;
@@ -49,7 +49,7 @@ int	countPairs(char *s)
 
 
 /* remove pares de quotes */
-void	rmvQuotes(t_token *node)
+void	rmv_quotes(t_token *node)
 {
 	int	i;
 	int	j;
@@ -58,7 +58,7 @@ void	rmvQuotes(t_token *node)
 
 	i = 0;
 	j = 0;
-	new_str = (char *)malloc(sizeof(char) * ((ft_strlen(node->token_str) - (countPairs(node->token_str) * 2) + 1)));
+	new_str = (char *)malloc(sizeof(char) * ((ft_strlen(node->token_str) - (count_pairs(node->token_str) * 2) + 1)));
 	while (node->token_str[i] != '\0')
 	{
 		if (node->token_str[i] == 34 || node->token_str[i] == 39)

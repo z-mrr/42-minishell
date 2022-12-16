@@ -6,12 +6,12 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/16 20:21:11 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/16 20:33:54 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-int	charArrayLen(char **array)
+int	char_arraylen(char **array)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ int	charArrayLen(char **array)
 }
 
 /* adiciona mais uma palavra ao cmd/args faz ja update do f->token */
-void	addStrCmd(t_cmd *node, char *s)
+void	addstr_cmd(t_cmd *node, char *s)
 {
 	char	**new_cmd;
 	int	i;
@@ -35,7 +35,7 @@ void	addStrCmd(t_cmd *node, char *s)
 		node->full_cmd[1] = 0;
 		return ;
 	}
-	new_cmd = (char **)malloc(sizeof(char *) * ((charArrayLen(node->full_cmd) + 2)));
+	new_cmd = (char **)malloc(sizeof(char *) * ((char_arraylen(node->full_cmd) + 2)));
 	while (node->full_cmd[i])
 	{
 		new_cmd[i] = ft_strdup(node->full_cmd[i]);
@@ -95,7 +95,7 @@ int	parsecmd(t_sh *f)
 				token = token->next;
 		}
 		else
-			addStrCmd(node, token->token_str);
+			addstr_cmd(node, token->token_str);
 		token = token->next;
 	}
 	return (0);

@@ -6,14 +6,14 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/16 20:19:08 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/16 20:32:28 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 /* return 1 se input acabar por ser nulo */
-int	sortInput(t_sh *f)
+int	sort_input(t_sh *f)
 {
 	if (create_words(f))
 		return (1);

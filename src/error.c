@@ -8,7 +8,7 @@ void	redirecErros(char *error, int redir)
 }
 */
 
-int	parserError(t_sh *f, char *error)
+int	parser_error(t_sh *f, char *error)
 {
 	if (!(ft_strcmp(error, "\'")) || !(ft_strcmp(error, "\"")))
 	{

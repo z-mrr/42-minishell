@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:04:22 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/16 12:48:33 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/16 20:23:14 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	redir_out(t_sh *f, t_cmd *node, t_token *token)
 			dir = opendir(path);
 			pathname= get_filepathname(path, token);
 			free(path);
-			i = redirecOutFile(pathname, node, token);
+			i = redirec_outfile(pathname, node, token);
 			closedir(dir);
 			free(pathname);
 			return (i); //se nao for 0, erro

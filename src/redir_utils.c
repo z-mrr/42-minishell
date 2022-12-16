@@ -40,7 +40,7 @@ char	*get_filepath(t_sh *f, t_token *token)
 }
 
 /* se o file ja existe, ve se csg aceder, senao da erro */
-int	redirecOutFile(char *pathname, t_cmd *node, t_token *token)
+int	redirec_outfile(char *pathname, t_cmd *node, t_token *token)
 {
 	if (access(pathname, F_OK) == 0) //existe ficheiro
 	{

@@ -8,10 +8,10 @@ char	*_getExpansion(char *old_str, t_sh *f)
 
 	expansion = NULL;
 	env = NULL;
-	if (_endVarPos(old_str, f->parser->pos + 1) != '$')
-		expansion = ft_substr(old_str, f->parser->pos,  _endVarPos(old_str, f->parser->pos + 1) - f->parser->pos);
+	if (end_varpos(old_str, f->parser->pos + 1) != '$')
+		expansion = ft_substr(old_str, f->parser->pos,  end_varpos(old_str, f->parser->pos + 1) - f->parser->pos);
 	else
-		expansion = ft_substr(old_str, f->parser->pos,  _endVarPos(old_str, f->parser->pos + 1) - 1);
+		expansion = ft_substr(old_str, f->parser->pos,  end_varpos(old_str, f->parser->pos + 1) - 1);
 	if (!(ft_strcmp(expansion, "$?")))
 		return (ft_strdup("0"));
 	if (!(ft_strcmp(expansion, "$")))
@@ -109,7 +109,7 @@ char	*_expandStr(t_sh *f, char *old_str)
 				free(rest);
 			}
 		}
-		f->parser->pos = _endVarPos(old_str, f->parser->pos + 1);
+		f->parser->pos = end_varpos(old_str, f->parser->pos + 1);
 	}
 	free(rest);
 	return (new_str);
@@ -129,9 +129,7 @@ int	rmvNodes(t_sh *f)
 		if (!node)
 			break ;
 		if (!(node->token_str))
-		{
-			ddl_removeToken(&(f->token), node);
-		}
+			ddl_remove_token(&(f->token), node);
 		node = tmp;
 	}
 	if (f->token == NULL)
@@ -158,7 +156,7 @@ int	_expander(t_sh *f)
 			free(tmp);
 		}
 		if (node->token_str)
-			rmvQuotes(node);
+			rmv_quotes(node);
 		node = node->next;
 	}
 	if (rmvNodes(f))

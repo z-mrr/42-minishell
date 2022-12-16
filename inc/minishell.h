@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/16 20:33:25 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/16 21:10:43 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ extern int	g_status;//exit status. When a script ends with an exit that has no p
 
 typedef struct	s_token
 {
-	char			*token_str;
-	char			token_type;
+	char			*word;
+	char			type;
 	struct s_token	*next;
 	struct s_token	*prev;
 }				t_token;
@@ -57,7 +57,7 @@ typedef struct	s_parser
 {
 	char	*str;
 	int		pos;
-	int		wd_begin;
+	int		wd_b;
 }				t_parser;
 
 typedef struct	s_sh
@@ -102,7 +102,7 @@ int		end_varpos(char *s, int pos);
 
 //parser.c
 int     char_arraylen(char **array);
-void    addstr_cmd(t_cmd *node, char *s);
+void    addstr_cmd(t_cmd *n, char *s);
 void    ddl_append(t_cmd **head);
 void	initcmd(t_cmd *node);
 int		parsecmd(t_sh *f);

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/16 20:45:23 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/16 21:16:41 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ void	addstr_cmd(t_cmd *node, char *s)
 int	parse_operators(t_sh *f, t_cmd *node, t_token *token)
 {
 	if (token->next == NULL)
-		{printf("minishell: syntax error near unexpected token '%s'\n", token->token_str);return (1);}
+		{printf("minishell: syntax error near unexpected token '%s'\n", token->word);return (1);}
 	else
 	{
-		if (token->next->token_type == 'O' || token->prev == NULL)
-			{printf("minishell: syntax error near unexpected token '%s'\n", token->token_str);return (1);}
+		if (token->next->type == 'O' || token->prev == NULL)
+			{printf("minishell: syntax error near unexpected token '%s'\n", token->word);return (1);}
 	}
-	if (!(ft_strcmp(token->token_str, "|")))
+	if (!(ft_strcmp(token->word, "|")))
 	{
 		ddl_append(&(f->cmd));
 		node = node->next;
@@ -74,9 +74,8 @@ int	parse_operators(t_sh *f, t_cmd *node, t_token *token)
 /* adiciona token a cmd struct, se OP cria novo node da cmd struct*/
 int	parsecmd(t_sh *f)
 {
-
-	t_token *token;
-	t_cmd *node;
+	t_token	*token;
+	t_cmd	*node;
 
 	token = f->token;
 	node = NULL;
@@ -85,17 +84,17 @@ int	parsecmd(t_sh *f)
 	initcmd(node);
 	while (token != NULL)
 	{
-		if (token->token_type == 'O') /* op */
+		if (token->type == 'O') /* op */
 		{
 			if (parse_operators(f, node, token))
 				printf("erno\n");//return (1); //erro apenas neste cmd
 			if (node->next)
 				node = node->next;
-			if (ft_strcmp(token->token_str, "|") != 0 && token->next)
+			if (ft_strcmp(token->word, "|") != 0 && token->next)
 				token = token->next;
 		}
 		else
-			addstr_cmd(node, token->token_str);
+			addstr_cmd(node, token->word);
 		token = token->next;
 	}
 	return (0);

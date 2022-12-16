@@ -17,8 +17,8 @@ void	print_list(t_token *head)
 	printf("\n                                          Mem                                    \n");
 	while (head != NULL)
 	{
-		printf("token_str: %s | ", head->token_str);
-		printf("token_type: %c\n", head->token_type);
+		printf("word: %s | ", head->word);
+		printf("type: %c\n", head->type);
 		head = head->next;
 	}
 	printf("\n                                      Mem END                                    \n");
@@ -85,7 +85,7 @@ void	addType_ll(t_sh *f, char type)
 	head = f->token;
 	while (head->next != NULL)
 		head = head->next;
-	head->token_type = type;
+	head->type = type;
 }
 
 /* adiciona mais um node (do tipo neutro) a lista de tokens */
@@ -98,8 +98,8 @@ void append_dll(t_sh *f, t_token **head, char *s)
 	new_node = NULL;
 	new_node = (t_token *)malloc(sizeof(t_token));
 
-	new_node->token_str = s;
-	new_node->token_type = 'N';
+	new_node->word = s;
+	new_node->type = 'N';
 	new_node->next = NULL;
 	if (*head == NULL)
 	{

@@ -22,10 +22,10 @@ int	redirec_infile(char *pathname, t_cmd *node, t_token *token)
 			node->in_file = open(pathname, O_RDONLY, 0644);
 			return (0); /* no error ? */
 		}
-		printf("minishell: %s: Permission denied\n", token->token_str);
+		printf("minishell: %s: Permission denied\n", token->word);
 		return (3); /* permission denied */
 	}
-	printf("minishell: %s: No such file.\n", token->token_str);
+	printf("minishell: %s: No such file.\n", token->word);
 	return (3); /* no such file or  ? */
 }
 
@@ -53,10 +53,10 @@ int	redir_in(t_sh *f, t_cmd *node, t_token *token)
 			return (i); //se nao for 0, erro
 		}
 		free(path);
-		printf("minishell: %s: Permission denied\n", token->token_str);
+		printf("minishell: %s: Permission denied\n", token->word);
 		return (2); //access denied
 	}
-	printf("minishell: %s: No such file.\n", token->token_str);
+	printf("minishell: %s: No such file.\n", token->word);
 	return (1); //file or dir not exist
 }
 
@@ -85,19 +85,19 @@ int	redir_out(t_sh *f, t_cmd *node, t_token *token)
 			return (i); //se nao for 0, erro
 		}
 		free(path);
-		printf("minishell: %s: Permission denied\n", token->token_str);
+		printf("minishell: %s: Permission denied\n", token->word);
 		return (2); //access denied
 	}
-	printf("minishell: %s: No such file or directory\n", token->token_str);
+	printf("minishell: %s: No such file or directory\n", token->word);
 	return (1);
 }
 
 int	parse_redirecs(t_sh *f, t_cmd *node, t_token *token)
 {
-	if (ft_strcmp(token->token_str, ">") == 0
-		|| ft_strcmp(token->token_str, ">>") == 0)
+	if (ft_strcmp(token->word, ">") == 0
+		|| ft_strcmp(token->word, ">>") == 0)
 		return (redir_out(f, node, token->next));
-	if (ft_strcmp(token->token_str, "<") == 0)
+	if (ft_strcmp(token->word, "<") == 0)
 		return (redir_in(f, node, token->next));
 	return (0);
 }

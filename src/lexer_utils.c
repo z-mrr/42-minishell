@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 20:37:01 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/16 20:57:17 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/16 21:11:00 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,29 +61,29 @@ int	count_pairs(char *s)
 }
 
 /* remove pares de quotes */
-void	rmv_quotes(t_token *node)
+void	rmv_quotes(t_token *n)
 {
 	char	c;
-	char	*new_str;
+	char	*nstr;
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
-	new_str = (char *)malloc(sizeof(char) * ((ft_strlen(node->token_str) - (count_pairs(node->token_str) * 2) + 1)));
-	while (node->token_str[i] != '\0')
+	nstr = (char *)malloc(sizeof(char) * ((ft_strlen(n->word) - (count_pairs(n->word) * 2) + 1)));
+	while (n->word[i] != '\0')
 	{
-		if (node->token_str[i] == 34 || node->token_str[i] == 39)
+		if (n->word[i] == 34 || n->word[i] == 39)
 		{
-			c = node->token_str[i++];
-			while (node->token_str[i] != c)
-				new_str[j++] = node->token_str[i++];
+			c = n->word[i++];
+			while (n->word[i] != c)
+				nstr[j++] = n->word[i++];
 			i++;
 		}
 		else
-			new_str[j++] = node->token_str[i++];
+			nstr[j++] = n->word[i++];
 	}
-	free(node->token_str);
-	new_str[j] = '\0';
-	node->token_str = new_str;
+	free(n->word);
+	nstr[j] = '\0';
+	n->word = nstr;
 }

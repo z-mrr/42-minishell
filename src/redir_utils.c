@@ -18,14 +18,14 @@ char	*get_filepathname(char *path, t_token *token)
 	char	*pathname;
 
 	pathname = NULL;
-	if (token->token_str[0] == '/' || (token->token_str[0] == '.'
-			&& token->token_str[1] == '/'))
+	if (token->word[0] == '/' || (token->word[0] == '.'
+			&& token->word[1] == '/'))
 	{
-		pathname = ft_strdup(token->token_str);
+		pathname = ft_strdup(token->word);
 		printf("pathname: %s\n", pathname);
 		return (pathname);
 	}
-	pathname = ft_strjoin(path, token->token_str);
+	pathname = ft_strjoin(path, token->word);
 	printf("pathname: %s\n", pathname);
 	return (pathname);
 }
@@ -38,13 +38,13 @@ char	*get_filepath(t_sh *f, t_token *token)
 	char	*tmp;
 
 	path = NULL;
-	if (token->token_str[0] == '/' || (token->token_str[0] == '.'
-			&& token->token_str[1] == '/'))
+	if (token->word[0] == '/' || (token->word[0] == '.'
+			&& token->word[1] == '/'))
 	{
-		i = ft_strlen(token->token_str) - 1;
-		while (i > -1 && token->token_str[i] != '/')
+		i = ft_strlen(token->word) - 1;
+		while (i > -1 && token->word[i] != '/')
 			i--;
-		path = ft_substr(token->token_str, 0, i + 1);
+		path = ft_substr(token->word, 0, i + 1);
 		return (path);
 	}
 	tmp = get_env("PWD", f);
@@ -60,16 +60,16 @@ int	redirec_outfile(char *pathname, t_cmd *n, t_token *token)
 	{
 		if (access(pathname, W_OK) == 0)
 		{
-			if (ft_strcmp(token->prev->token_str, ">>") == 0)
+			if (ft_strcmp(token->prev->word, ">>") == 0)
 				n->out_file = open(pathname, O_CREAT | O_RDWR | O_APPEND, 0644);
 			else
 				n->out_file = open(pathname, O_CREAT | O_RDWR | O_TRUNC, 0644);
 			return (0); //no error ?
 		}
-		printf("minishell: %s: Permission denied\n", token->token_str);
+		printf("minishell: %s: Permission denied\n", token->word);
 		return (3); //permission denied
 	}
-	if (ft_strcmp(token->token_str, ">>") == 0)
+	if (ft_strcmp(token->word, ">>") == 0)
 		n->out_file = open(pathname, O_CREAT | O_RDWR | O_APPEND, 0644);
 	else
 		n->out_file = open(pathname, O_CREAT | O_RDWR | O_TRUNC, 0644);

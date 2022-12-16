@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:46 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/16 20:49:03 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/16 21:20:35 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,32 +27,37 @@ int	find_operator(char c)
 /* separa palavra antes de operador e o operador */
 void	lex_op(t_sh *f)
 {
-	if (f->parser->pos - f->parser->wd_begin)
-		append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_begin, f->parser->pos - f->parser->wd_begin)); //palavra ate operator
-	f->parser->wd_begin = f->parser->pos;
-	if (f->parser->str[f->parser->pos] == 60 || f->parser->str[f->parser->pos] == 62) /* << >> */
+	int	i;
+	int	j;
+
+	j = f->parser->wd_b;
+	i = f->parser->pos;
+	if (i - j)
+		append_dll(f, &(f->token), ft_substr(f->parser->str, j, i - f->parser->wd_b)); //palavra ate operator
+	f->parser->wd_b = f->parser->pos;
+	if (f->parser->str[i] == 60 || f->parser->str[i] == 62) /* << >> */
 	{
-		if (f->parser->str[f->parser->pos + 1] == f->parser->str[f->parser->pos])
-			f->parser->pos += 2;
+		if (f->parser->str[i + 1] == f->parser->str[i])
+			i += 2;
 		else
-			f->parser->pos++;
+			i++;
 	}
 	else
-		f->parser->pos++;
+		i++;
 
-	append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_begin, f->parser->pos - f->parser->wd_begin)); //operator
-	f->parser->wd_begin = f->parser->pos;
+	append_dll(f, &(f->token), ft_substr(f->parser->str, j, i - f->parser->wd_b)); //operator
+	j = i;
 	addType_ll(f, 'O');
 }
 
 /* separa palavra normal + espacos entre palavras */
 void	lex_wdend(t_sh *f)
 {
-	if (f->parser->pos - f->parser->wd_begin)
-		append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_begin, f->parser->pos - f->parser->wd_begin));
+	if (f->parser->pos - f->parser->wd_b)
+		append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_b, f->parser->pos - f->parser->wd_b));
 	while (f->parser->str[f->parser->pos] == ' ')
 		f->parser->pos++;
-	f->parser->wd_begin = f->parser->pos;
+	f->parser->wd_b = f->parser->pos;
 }
 
 /* separa desde 1a aspa ate proxima aspa, return 1 em caso de erro: falta de aspas */
@@ -86,7 +91,7 @@ int	lex_quote(t_sh *f)
 int	create_words(t_sh *f)
 {
 	f->parser->pos = 0;
-	f->parser->wd_begin = 0;
+	f->parser->wd_b = 0;
 	while (f->parser->str[f->parser->pos] != '\0')
 	{
 		if (f->parser->str[f->parser->pos] == '\'' || f->parser->str[f->parser->pos] == '\"') /* errno */
@@ -101,7 +106,7 @@ int	create_words(t_sh *f)
 		else
 			f->parser->pos++;
 	}
-	if (f->parser->pos - f->parser->wd_begin)
-		append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_begin, f->parser->pos - f->parser->wd_begin)); //ultima palavra
+	if (f->parser->pos - f->parser->wd_b)
+		append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_b, f->parser->pos - f->parser->wd_b)); //ultima palavra
 	return (0);
 }

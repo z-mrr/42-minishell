@@ -56,7 +56,7 @@ void init_parser(t_sh *sh)
 	}
 	sh->parser->str = NULL;
 	sh->parser->pos = 0;
-	sh->parser->wd_begin = 0;
+	sh->parser->wd_b = 0;
 }
 
 /*inicializa variaveis, duplica envp, incrementa $SHLVL em envp*/

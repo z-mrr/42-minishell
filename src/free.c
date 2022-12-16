@@ -22,7 +22,7 @@ void	free_tokens(t_sh *f)
 	{
 		tmp = node;
 		node = node->next;
-		free(tmp->token_str);
+		free(tmp->word);
 		tmp->prev = NULL;
 		free(tmp);
 		tmp = NULL;

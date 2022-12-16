@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 01:56:42 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/15 21:49:58 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/16 00:29:08 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ int	ft_echo(t_cmd *cmd)
 
 	i = 0;
 	n = mtr_len(cmd->full_cmd);
-//	opt = 1;
-//	if (n > 2)
-		opt = ft_strncmp(cmd->full_cmd[1], "-n", 2);
+	opt = ft_strncmp(cmd->full_cmd[1], "-n", 2);
 	if (n < 2 || (!opt && n < 3))
 		return (0);
 	if (!opt)

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/15 23:05:02 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/16 00:34:52 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	execInput(t_sh *sh)
 				cmd->path = get_path(sh, cmd);//checkar erros, usar DIR?
 			if (pipe(fd) == -1)
 				return ;//
-			if (check_fork(sh, cmd, fd))
+			if (!check_fork(sh, cmd, fd))
 				return ;//
 			parent_fd(cmd, fd);
 			waitpid(-1, &g_status, 0);//

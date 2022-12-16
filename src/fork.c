@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:02:23 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/15 23:09:43 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/16 00:36:31 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 int	check_fork(t_sh *sh, t_cmd *cmd, int *fd)
 {
 	if (cmd->in_file == -1 || cmd->out_file == -1)//open erros
-		return (1);
+		return (0);
 	else if ((cmd->path && !access(cmd->path, X_OK) && !is_dir(cmd->path))
 			|| check_builtin(cmd))
 		ft_fork(sh, cmd, fd);
 	else if (!cmd->path)
-		return (g_status = 127);//error file not found
+		g_status = 127;//error file not found
 	else if (access(cmd->path, X_OK))
-		return (g_status = 126);//error permission denied
+		g_status = 126;//error permission denied
 	else if (is_dir(cmd->path))
-		return (g_status = 126);//error is a dir
-	return (0);
+		g_status = 126;//error is a dir
+	return (1);
 }
 
 void	ft_fork(t_sh *sh, t_cmd *cmd, int *fd)

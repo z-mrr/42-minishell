@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/16 13:07:16 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/16 13:56:50 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	execInput(t_sh *sh)
 			if (!check_fork(sh, cmd, fd))
 				return ;//
 			parent_fd(cmd, fd);
-			waitpid(-1, &g_status, 0);//
+			wait(&g_status);//
 		}
 		cmd = cmd->next;
 	}

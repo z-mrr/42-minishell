@@ -26,14 +26,14 @@ int	redirIn(t_sh *f, t_cmd *node, t_token *token)
 	int	i;
 
 	path = NULL;
-	path = getFilePath(f, node, token);
+	path = getFilePath(f, token);
 	printf("path: %s\n", path);
 	if (access(path, F_OK) == 0) //path to dir exists
 	{
 		if (access(path, R_OK) == 0)
 		{
 			dir = opendir(path);
-			pathname= getFilePathName(path, f, node, token);
+			pathname= getFilePathName(path, token);
 			free(path);
 			i = redirecInFile(pathname, node, token);
 			closedir(dir);
@@ -57,14 +57,14 @@ int	redirOut(t_sh *f, t_cmd *node, t_token *token)
 	int	i;
 
 	path = NULL;
-	path = getFilePath(f, node, token);
+	path = getFilePath(f, token);
 	printf("path: %s\n", path);
 	if (access(path, F_OK) == 0) //path to dir exists
 	{
 		if (access(path, W_OK) == 0)
 		{
 			dir = opendir(path);
-			pathname= getFilePathName(path, f, node, token);
+			pathname= getFilePathName(path, token);
 			free(path);
 			i = redirecOutFile(pathname, node, token);
 			closedir(dir);
@@ -83,8 +83,6 @@ int	redirOut(t_sh *f, t_cmd *node, t_token *token)
 
 int	parseRedirecs(t_sh *f, t_cmd *node, t_token *token)
 {
-	int	i;
-
 	if (ft_strcmp(token->token_str, ">") == 0 || ft_strcmp(token->token_str, ">>") == 0)
 		return (redirOut(f, node, token->next));
 	if (ft_strcmp(token->token_str, "<") == 0)

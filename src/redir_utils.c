@@ -1,7 +1,7 @@
 #include "../inc/minishell.h"
 
 /* devolve pathname inteiro do ficheiro */
-char	*getFilePathName(char *path, t_sh *f, t_cmd *node, t_token *token)
+char	*getFilePathName(char *path, t_token *token)
 {
 	char	*pathname;
 
@@ -18,7 +18,7 @@ char	*getFilePathName(char *path, t_sh *f, t_cmd *node, t_token *token)
 }
 
 /* devolve path dor dir onde se vai escrever */
-char	*getFilePath(t_sh *f, t_cmd *node, t_token *token)
+char	*getFilePath(t_sh *f, t_token *token)
 {
 	char	*path;
 	int	i;
@@ -42,9 +42,6 @@ char	*getFilePath(t_sh *f, t_cmd *node, t_token *token)
 /* se o file ja existe, ve se csg aceder, senao da erro */
 int	redirecOutFile(char *pathname, t_cmd *node, t_token *token)
 {
-	int	perm;
-
-	perm = 0;
 	if (access(pathname, F_OK) == 0) //existe ficheiro
 	{
 		if (access(pathname, W_OK) == 0)

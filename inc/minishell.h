@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/15 23:00:49 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/16 02:02:18 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ int		parserError(t_sh *f, char *error);
 int	parseRedirecs(t_sh *f, t_cmd *node, t_token *token);
 //redir_utils.c
 int	redirecOutFile(char *pathname, t_cmd *node, t_token *token);
-char	*getFilePath(t_sh *f, t_cmd *node, t_token *token);
-char	*getFilePathName(char *path, t_sh *f, t_cmd *node, t_token *token);
+char	*getFilePath(t_sh *f, t_token *token);
+char	*getFilePathName(char *path, t_token *token);
 //pwd_unset_echo_cd.c test args
 int		ft_pwd(void);
 int		ft_unset(t_sh *sh);

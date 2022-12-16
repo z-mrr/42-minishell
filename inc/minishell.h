@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/16 20:21:39 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/16 20:33:25 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int		ft_builtin(t_sh *sh, t_cmd *cmd);
 int		check_builtin(t_cmd *cmd);
 
 //sortInput.c
-int		sortInput(t_sh *f);
+int		sort_input(t_sh *f);
 
 //createWords.c //tokenizes the words
 int		create_words(t_sh *f);
@@ -95,14 +95,14 @@ void	lexer(t_sh *f);
 int    _expander(t_sh *f);
 
 //lexer_utils.c
-void	rmvQuotes(t_token *node);
-int		countPairs(char *s);
-void	ddl_removeToken(t_token **head, t_token *node);
-int		_endVarPos(char *s, int pos);
+void	rmv_quotes(t_token *node);
+int		count_pairs(char *s);
+void	ddl_remove_token(t_token **head, t_token *node);
+int		end_varpos(char *s, int pos);
 
 //parser.c
-int     charArrayLen(char **array);
-void    addStrCmd(t_cmd *node, char *s);
+int     char_arraylen(char **array);
+void    addstr_cmd(t_cmd *node, char *s);
 void    ddl_append(t_cmd **head);
 void	initcmd(t_cmd *node);
 int		parsecmd(t_sh *f);
@@ -119,11 +119,11 @@ void	free_sh(t_sh *sh);
 void	free_tokens(t_sh *f);
 void	free_cmd(t_sh *sh);
 //error.c
-int		parserError(t_sh *f, char *error);
+int		parser_error(t_sh *f, char *error);
 //redirecs.c
 int		parse_redirecs(t_sh *f, t_cmd *node, t_token *token);
 //redir_utils.c
-int		redirecOutFile(char *pathname, t_cmd *node, t_token *token);
+int		redirec_outfile(char *pathname, t_cmd *node, t_token *token);
 char	*get_filepath(t_sh *f, t_token *token);
 char	*get_filepathname(char *path, t_token *token);
 //pwd_unset_echo_cd.c test args

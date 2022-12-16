@@ -21,7 +21,7 @@ int	parserError(t_sh *f, char *error)
 	/*else if (redir != 0)
 		redirecErrors(error, redir);*/
 	if (f->token)
-		freeTokens(f);
+		free_tokens(f);
 	if (f->cmd)
 		free_cmd(f);
 	return (1);

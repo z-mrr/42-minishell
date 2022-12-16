@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/16 12:34:28 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/16 20:21:39 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,11 @@ int		check_builtin(t_cmd *cmd);
 int		sortInput(t_sh *f);
 
 //createWords.c //tokenizes the words
-int		createWords(t_sh *f);
-int		lexQuote(t_sh *f);
-void	lexWdend(t_sh *f);
-void	lexOp(t_sh *f);
-int		findOperator(char c);
+int		create_words(t_sh *f);
+int		lex_quote(t_sh *f);
+void	lex_wdend(t_sh *f);
+void	lex_op(t_sh *f);
+int		find_operator(char c);
 
 //lexer.c
 void	lexer(t_sh *f);
@@ -104,19 +104,19 @@ int		_endVarPos(char *s, int pos);
 int     charArrayLen(char **array);
 void    addStrCmd(t_cmd *node, char *s);
 void    ddl_append(t_cmd **head);
-void	initCmd(t_cmd *node);
+void	initcmd(t_cmd *node);
 int		parsecmd(t_sh *f);
 
 //ddl_utils.c
 void	append_dll(t_sh *f, t_token **head, char *s);/*f nao é usado*/
 void	addType_ll(t_sh *f, char type);
-void	printList(t_token *head);
-void	printListCmd(t_cmd *head);
+void	print_list(t_token *head);
+void	print_listcmd(t_cmd *head);
 
 //free.c
 void	free_lists(t_sh *sh);
 void	free_sh(t_sh *sh);
-void	freeTokens(t_sh *f);
+void	free_tokens(t_sh *f);
 void	free_cmd(t_sh *sh);
 //error.c
 int		parserError(t_sh *f, char *error);

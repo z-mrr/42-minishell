@@ -6,13 +6,13 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:06 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/16 12:39:50 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/16 20:20:03 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	printList(t_token *head)
+void	print_list(t_token *head)
 {
 	printf("\n                                          Mem                                    \n");
 	while (head != NULL)
@@ -24,7 +24,7 @@ void	printList(t_token *head)
 	printf("\n                                      Mem END                                    \n");
 }
 
-void	printListCmd(t_cmd *head)
+void	print_listcmd(t_cmd *head)
 {
 	int	i;
 
@@ -46,7 +46,7 @@ void	printListCmd(t_cmd *head)
 	printf("\n                                      Mem END                                    \n");
 }
 
-void	initCmd(t_cmd *node)
+void	initcmd(t_cmd *node)
 {
 	node->full_cmd = NULL;
 	node->path = NULL;

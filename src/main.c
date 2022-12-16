@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/15 02:33:46 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/16 00:56:25 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,15 @@ int	main(int argc, char **argv, char **envp)
 		sh.parser->str = argv[1];
 		if (!sh.parser->str)//isto pq lexer n tava a lidar com \0 after strtrim. nao passam string nulas ou vazias
 			continue ;
-		if (!(sortInput(&sh)))
-			execInput(&sh);
+		sortInput(&sh);
+		//execInput(&sh);
 		//free(sh.parser->str);
+		freeTokens(&sh);
 		free_list(&sh);
-		exit(-1);
-	}
 		free(sh.parser);
 		mtr_free(sh.envp);
+		exit(-1);
+	}
 	//falta f free lista t_cmd;
 	exit(g_status);//
 }

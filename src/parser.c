@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/15 03:22:12 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/16 01:08:57 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	addStrCmd(t_cmd *node, char *s)
 	new_cmd[i] = ft_strdup(s);
 	new_cmd[++i] = 0;
 	free(node->full_cmd);
-	node->full_cmd = new_cmd;
+	node->full_cmd = mtr_dup(new_cmd);
+	mtr_free(new_cmd);
 }
 
 
@@ -53,11 +54,11 @@ void	addStrCmd(t_cmd *node, char *s)
 int parseOperators(t_sh *f, t_cmd *node, t_token *token)
 {
 	if (token->next == NULL)
-		return (parserError(f, token->token_str));
+		{printf("minishell: syntax error near unexpected token '%s'\n", token->token_str);return (1);}
 	else
 	{
 		if (token->next->token_type == 'O' || token->prev == NULL)
-			return (parserError(f, token->token_str));
+			{printf("minishell: syntax error near unexpected token '%s'\n", token->token_str);return (1);}
 	}
 	if (!(ft_strcmp(token->token_str, "|")))
 	{
@@ -66,10 +67,7 @@ int parseOperators(t_sh *f, t_cmd *node, t_token *token)
 		initCmd(node);
 	}
 	else
-	{
-		if (parseRedirecs(f, node, token))
-			return (parserError(f, token->token_str));
-	}
+		return (parseRedirecs(f, node, token));
 	return (0);
 }
 
@@ -90,10 +88,10 @@ int	parsecmd(t_sh *f)
 		if (token->token_type == 'O') /* op */
 		{
 			if (parseOperators(f, node, token))
-				return (1);
+				printf("erno\n");//return (1); //erro apenas neste cmd 
 			if (node->next)
 				node = node->next;
-			if (ft_strcmp(token->token_str, "|") && token->next)
+			if (ft_strcmp(token->token_str, "|") != 0 && token->next)
 				token = token->next;
 		}
 		else

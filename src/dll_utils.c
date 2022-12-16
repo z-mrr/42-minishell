@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:06 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/14 17:35:28 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/16 01:11:52 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ void	printList(t_token *head)
 	printf("\n                                          Mem                                    \n");
 	while (head != NULL)
 	{
-		printf("\nIS TOKEN! ; ADRESS: %p; | ", &(head));
-		printf("token_str: %s ; ADRESS: %p; | ", head->token_str, &(head->token_str));
-		printf("token_type: %c ; ADRESS %p: \n", head->token_type, &(head->token_type));
+		printf("token_str: %s | ", head->token_str);
+		printf("token_type: %c\n", head->token_type);
 		head = head->next;
 	}
 	printf("\n                                      Mem END                                    \n");

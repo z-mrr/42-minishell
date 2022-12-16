@@ -6,12 +6,13 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/16 20:33:54 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/16 20:45:23 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-int	char_arraylen(char **array)
+
+int	charlen(char **array)
 {
 	int	i;
 
@@ -25,7 +26,7 @@ int	char_arraylen(char **array)
 void	addstr_cmd(t_cmd *node, char *s)
 {
 	char	**new_cmd;
-	int	i;
+	int		i;
 
 	i = 0;
 	if (node->full_cmd == NULL)
@@ -35,7 +36,7 @@ void	addstr_cmd(t_cmd *node, char *s)
 		node->full_cmd[1] = 0;
 		return ;
 	}
-	new_cmd = (char **)malloc(sizeof(char *) * ((char_arraylen(node->full_cmd) + 2)));
+	new_cmd = (char **)malloc(sizeof(char *) * ((charlen(node->full_cmd) + 2)));
 	while (node->full_cmd[i])
 	{
 		new_cmd[i] = ft_strdup(node->full_cmd[i]);
@@ -49,9 +50,8 @@ void	addstr_cmd(t_cmd *node, char *s)
 	mtr_free(new_cmd);
 }
 
-
 /* parse dos ops, se | cria novo cmd*/
-int parseOperators(t_sh *f, t_cmd *node, t_token *token)
+int	parse_operators(t_sh *f, t_cmd *node, t_token *token)
 {
 	if (token->next == NULL)
 		{printf("minishell: syntax error near unexpected token '%s'\n", token->token_str);return (1);}
@@ -87,7 +87,7 @@ int	parsecmd(t_sh *f)
 	{
 		if (token->token_type == 'O') /* op */
 		{
-			if (parseOperators(f, node, token))
+			if (parse_operators(f, node, token))
 				printf("erno\n");//return (1); //erro apenas neste cmd
 			if (node->next)
 				node = node->next;

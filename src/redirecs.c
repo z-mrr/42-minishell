@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:04:22 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/16 20:23:14 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/16 20:36:32 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	redir_in(t_sh *f, t_cmd *node, t_token *token)
 	printf("minishell: %s: No such file.\n", token->token_str);
 	return (1); //file or dir not exist
 }
+
 /* ve se dir existe, se conseguir tenta escrever no dir, se sim continua*/
 int	redir_out(t_sh *f, t_cmd *node, t_token *token)
 {
@@ -67,6 +68,7 @@ int	redir_out(t_sh *f, t_cmd *node, t_token *token)
 	char	*pathname;
 	int		i;
 
+	pathname = NULL;
 	path = NULL;
 	path = get_filepath(f, token);
 	printf("path: %s\n", path);
@@ -75,7 +77,7 @@ int	redir_out(t_sh *f, t_cmd *node, t_token *token)
 		if (access(path, W_OK) == 0)
 		{
 			dir = opendir(path);
-			pathname= get_filepathname(path, token);
+			pathname = get_filepathname(path, token);
 			free(path);
 			i = redirec_outfile(pathname, node, token);
 			closedir(dir);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/16 20:37:01 by gde-alme          #+#    #+#             */
+/*   Updated: 2022/12/16 20:57:17 by gde-alme         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
 void	ddl_remove_token(t_token **head, t_token *node)
@@ -17,7 +29,8 @@ int	end_varpos(char *s, int pos)
 {
 	while (s[pos] != '\0')
 	{
-		if (s[pos] == '$' || s[pos] == 34 || s[pos] == 39 || s[pos] == ' ' || s[pos - 1] == '?')
+		if (s[pos] == '$' || s[pos] == 34 || s[pos] == 39
+			|| s[pos] == ' ' || s[pos - 1] == '?')
 			return (pos);
 		pos++;
 	}
@@ -26,9 +39,9 @@ int	end_varpos(char *s, int pos)
 
 int	count_pairs(char *s)
 {
-	int	i;
-	int	pairs;
 	char	c;
+	int		i;
+	int		pairs;
 
 	i = 0;
 	pairs = 0;
@@ -47,14 +60,13 @@ int	count_pairs(char *s)
 	return (pairs);
 }
 
-
 /* remove pares de quotes */
 void	rmv_quotes(t_token *node)
 {
-	int	i;
-	int	j;
-	char c;
+	char	c;
 	char	*new_str;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;

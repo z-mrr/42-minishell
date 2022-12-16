@@ -1,6 +1,21 @@
 
 #include "../inc/minishell.h"
 
+int	is_dir(char *path)
+{
+	DIR	*dir;
+	int	ret;
+
+	if (!path)
+		return (0);
+	ret = 0;
+	dir = opendir(path);
+	if (dir)
+		ret = 1;
+	closedir(dir);
+	return (ret);
+}
+
 /*returna primeiro index de char na string*/
 int	ft_strichr(char *str, char c)
 {

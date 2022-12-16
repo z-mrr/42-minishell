@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/15 22:29:11 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/16 00:01:43 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,41 @@ void	shlvl(t_sh *sh)
 	free(temp);
 }
 
-/*inicializa variaveis, duplica envp, incrementa $SHLVL em envp*/
-void	init_sh(int argc, char **argv, char **envp, t_sh *sh)
+void	init_sh(t_sh *sh, char **envp)
 {
-	(void)argc;
-	(void)argv;
-	g_status = 0;
-	sh->parser = malloc(sizeof(t_parser));
 	sh->envp = mtr_dup(envp);
 	if (!(sh->envp))
 	{
 	//	perror("envp");
 		return ;
 	}
-	shlvl(sh);
 	sh->cmd = NULL;
 	sh->token = NULL;
+	sh->parser = NULL;
+}
+
+void init_parser(t_sh *sh)
+{
+	sh->parser = malloc(sizeof(t_parser));
+	if(!sh->parser)
+	{
+		//perror
+		return ;
+	}
 	sh->parser->str = NULL;
 	sh->parser->pos = 0;
 	sh->parser->wd_begin = 0;
+}
+
+/*inicializa variaveis, duplica envp, incrementa $SHLVL em envp*/
+void	init(int argc, char **argv, char **envp, t_sh *sh)
+{
+	(void)argc;
+	(void)argv;
+	g_status = 0;
+	init_sh(sh, envp);
+	init_parser(sh);
+	shlvl(sh);
 }
 
 /*trata dos sinais, corta espaços no inicio e fim da string, adiciona à history,
@@ -60,7 +76,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_sh		sh;
 
-	init_sh(argc, argv, envp, &sh);
+	init(argc, argv, envp, &sh);
 	while(1)
 	{
 		handle_sig();
@@ -70,12 +86,9 @@ int	main(int argc, char **argv, char **envp)
 		sortInput(&sh);
 		execInput(&sh);
 		free(sh.parser->str);
-		freeTokens(&sh);
-		free_list(&sh);
+		free_lists(&sh);
 	}
-	//falta f free lista t_cmd;
-	free(sh.parser);
-	mtr_free(sh.envp);
+	free_sh(&sh);
 	exit(g_status);//
 }
 

@@ -18,7 +18,7 @@ void	freeTokens(t_sh *f)
 	f->token = NULL;
 }
 
-void	free_list(t_sh *sh)
+void	free_cmd(t_sh *sh)
 {
 	t_cmd	*node;
 	t_cmd	*tmp;
@@ -35,4 +35,28 @@ void	free_list(t_sh *sh)
 		tmp = NULL;
 	}
 	sh->cmd = NULL;
+}
+
+void	free_lists(t_sh *sh)
+{
+	if (sh->token)
+		freeTokens(sh);
+	if (sh->cmd)
+		free_cmd(sh);
+}
+
+void	free_sh(t_sh *sh)
+{
+	if (!sh)
+		return ;
+	if (sh->token)
+		freeTokens(sh);
+	if (sh->cmd)
+		free_cmd(sh);
+	if(sh->envp)
+		mtr_free(sh->envp);
+	if (sh->parser)
+		free(sh->parser);
+	sh->parser = NULL;
+	sh = NULL;
 }

@@ -40,21 +40,23 @@ void	free_cmd(t_sh *sh)
 	sh->cmd = NULL;
 }
 
+void	free_str(char *str)
+{
+	if (str && *str)
+		free(str);
+	str = NULL;
+}
+
 void	free_all(t_sh *sh)
 {
 	if (!sh)
 		return ;
-	if (sh->token)
-		free_token(sh);
-	if (sh->cmd)
-		free_cmd(sh);
-	if (sh->envp)
-		mtr_free(sh->envp);
-	if (sh->parser->str)
-		free(sh->parser->str);
+	free_token(sh);
+	free_cmd(sh);
+	mtr_free(sh->envp);
+	free_str(sh->parser->str);
 	if (sh->parser)
 		free(sh->parser);
-	sh->parser->str = NULL;
 	sh->parser = NULL;
 	sh = NULL;
 }

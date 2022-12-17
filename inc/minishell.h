@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/17 19:36:48 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/17 21:39:43 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	printListCmd(t_cmd *head);
 void	free_all(t_sh *sh);
 void	free_token(t_sh *f);
 void	free_cmd(t_sh *sh);
+void	free_str(char *str);
 
 //error.c
 int		parserError(t_sh *f, char *error);
@@ -169,14 +170,10 @@ char	*get_prompt(t_sh *sh);
 char	*get_user(void);
 char	*get_dir(t_sh *sh);
 
-//signal.c
-void	sig_handler(int signal);
-void	handle_sig(void);
-
 //main.c
-void	init_sh(t_sh *sh, char** envp);
-void	init_parser(t_sh *sh);
-void	shlvl(t_sh *sh);
+void	sig_handler(int signal);
 void	init(int argc, char **argv, char **envp, t_sh *sh);
+void	shlvl(t_sh *sh);
+void	oldpwd(t_sh *sh);
 
 #endif

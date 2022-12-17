@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:15:11 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/17 19:18:06 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/17 21:27:26 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_export(t_sh *sh, t_cmd *cmd)
 	return (0);
 }
 
-/*print export with no args, ordered and with var="value"*/
+/*print export with no args, ordered and with var="value"
 int	print_export(t_sh *sh)
 {
 	char	**env;
@@ -67,6 +67,35 @@ int	print_export(t_sh *sh)
 		ft_putstr_fd("\"\n", 1);
 		free(var);
 		free(value);
+	}
+	mtr_free(env);
+	return (0);
+}*/
+int	print_export(t_sh *sh)
+{
+	char	**env;
+	int		i;
+	int		j;
+	char	*aux;
+
+	env = set_export(sh);
+	i = -1;
+	while (env[++i])
+	{
+		if (!ft_strncmp(env[i], "_=", 2))
+			continue ;
+		ft_putstr_fd("declare -x ", 1);
+		aux = ft_strchr(env[i], '=');
+		j = -1;
+		while (env[i][++j] && env[i][j] != '=')
+			ft_putchar_fd(env[i][j], 1);
+		if (aux)
+		{
+			ft_putstr_fd("=\"", 1);
+			ft_putstr_fd(aux + 1, 1);
+			ft_putchar_fd('\"', 1);
+		}
+		ft_putchar_fd('\n', 1);
 	}
 	mtr_free(env);
 	return (0);

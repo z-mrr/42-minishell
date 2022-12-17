@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:51:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/12 23:01:39 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/17 21:51:58 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_env(t_sh *sh)
 	if (!*sh->envp)
 		return (0);//
 	i = -1;
-	while(sh->envp[++i])
+	while(sh->envp[++i] && ft_strchr(sh->envp[i], '='))
 		ft_putendl_fd(sh->envp[i], 1);
 	return (0);
 }
@@ -83,6 +83,8 @@ int	pos_env(char *var, char **envp)
 	int		i;
 	int		len;
 
+	if (!envp || !*envp)
+		return (-1);
 	aux = ft_strjoin(var, "=");
 	len = ft_strlen(aux);
 	i = -1;

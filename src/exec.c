@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/17 18:45:52 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/17 21:57:46 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,27 +61,28 @@ int	ft_builtin(t_sh *sh, t_cmd *cmd)
 char	*get_path(t_sh *sh, t_cmd *cmd)
 {
 	char	**paths;
-	char	*path[2];
-	char	*env;
+	char	*aux[3];
 	int		i;
 
 	if (ft_strchr(cmd->full_cmd[0], '/') && !access(cmd->full_cmd[0], F_OK))//se o cmd for uma path para ficheiro executavel
 		return(ft_strdup(cmd->full_cmd[0]));
-	env = get_env("PATH", sh);
-	paths = ft_split(env, ':');
-	free(env);
+	aux[2] = get_env("PATH", sh);
+	if (!aux[2])
+		return (NULL);
+	paths = ft_split(aux[3], ':');
+	free(aux[2]);
 	i = -1;
 	while(paths[++i])
 	{
-		path[0] = ft_strjoin(paths[i], "/");
-		path[1] = ft_strjoin(path[0], cmd->full_cmd[0]);
-		free(path[0]);
-		if (!access(path[1], F_OK))
+		aux[0] = ft_strjoin(paths[i], "/");
+		aux[1] = ft_strjoin(aux[0], cmd->full_cmd[0]);
+		free(aux[0]);
+		if (!access(aux[1], F_OK))
 		{
 			mtr_free(paths);
-			return (path[1]);
+			return (aux[1]);
 		}
-		free(path[1]);
+		free(aux[1]);
 	}
 	mtr_free(paths);
 	return (NULL);

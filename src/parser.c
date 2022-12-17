@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/16 21:16:41 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/17 13:55:46 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ void	addstr_cmd(t_cmd *node, char *s)
 int	parse_operators(t_sh *f, t_cmd *node, t_token *token)
 {
 	if (token->next == NULL)
-		{printf("minishell: syntax error near unexpected token '%s'\n", token->word);return (1);}
+		{printf("minishell: syntax error near unexpected token '%s'\n", token->word);exit(-1);}
 	else
 	{
 		if (token->next->type == 'O' || token->prev == NULL)
-			{printf("minishell: syntax error near unexpected token '%s'\n", token->word);return (1);}
+			{printf("minishell: syntax error near unexpected token '%s'\n", token->word);exit(-1);}
 	}
 	if (!(ft_strcmp(token->word, "|")))
 	{

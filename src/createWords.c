@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:46 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/16 21:20:35 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/17 14:09:52 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,21 @@ int	find_operator(char c)
 /* separa palavra antes de operador e o operador */
 void	lex_op(t_sh *f)
 {
-	int	i;
-	int	j;
-
-	j = f->parser->wd_b;
-	i = f->parser->pos;
-	if (i - j)
-		append_dll(f, &(f->token), ft_substr(f->parser->str, j, i - f->parser->wd_b)); //palavra ate operator
+	if (f->parser->pos - f->parser->wd_b)
+		append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_b, f->parser->pos - f->parser->wd_b)); //palavra ate operator
 	f->parser->wd_b = f->parser->pos;
-	if (f->parser->str[i] == 60 || f->parser->str[i] == 62) /* << >> */
+	if (f->parser->str[f->parser->pos] == 60 || f->parser->str[f->parser->pos] == 62) /* << >> */
 	{
-		if (f->parser->str[i + 1] == f->parser->str[i])
-			i += 2;
+		if (f->parser->str[f->parser->pos + 1] == f->parser->str[f->parser->pos])
+			f->parser->pos += 2;
 		else
-			i++;
+			f->parser->pos++;
 	}
 	else
-		i++;
+		f->parser->pos++;
 
-	append_dll(f, &(f->token), ft_substr(f->parser->str, j, i - f->parser->wd_b)); //operator
-	j = i;
+	append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_b, f->parser->pos - f->parser->wd_b)); //operator
+	f->parser->wd_b = f->parser->pos;
 	addType_ll(f, 'O');
 }
 

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/16 18:55:36 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/17 18:45:52 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	execInput(t_sh *sh)
 	{
 		if (check_builtin(cmd) < 0  && !cmd->next)//builtins q nao forkam e nao funcionam com pipe a seguir
 			ft_builtin(sh, cmd);
-		else
+		else if (cmd->in_file != -2 && cmd->out_file != -2)
 		{
 			if (!check_builtin(cmd))
 				cmd->path = get_path(sh, cmd);//checkar erros, usar DIR?

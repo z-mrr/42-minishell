@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/16 12:34:28 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/17 19:36:48 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,18 +114,21 @@ void	printList(t_token *head);
 void	printListCmd(t_cmd *head);
 
 //free.c
-void	free_lists(t_sh *sh);
-void	free_sh(t_sh *sh);
-void	freeTokens(t_sh *f);
+void	free_all(t_sh *sh);
+void	free_token(t_sh *f);
 void	free_cmd(t_sh *sh);
+
 //error.c
 int		parserError(t_sh *f, char *error);
+
 //redirecs.c
 int		parse_redirecs(t_sh *f, t_cmd *node, t_token *token);
+
 //redir_utils.c
 int		redirecOutFile(char *pathname, t_cmd *node, t_token *token);
 char	*get_filepath(t_sh *f, t_token *token);
 char	*get_filepathname(char *path, t_token *token);
+
 //pwd_unset_echo_cd.c test args
 int		ft_pwd(void);
 int		ft_unset(t_sh *sh, t_cmd *cmd);
@@ -151,6 +154,7 @@ void	rmv_env(char *var, t_sh *sh);
 int		ft_strichr(char *str, char c);
 int		ft_strcmp(char *s1, char *s2);
 int		is_dir(char *path);
+void	exiting(t_sh *sh);
 
 //mtr_utils.c
 int		mtr_len(char **m);

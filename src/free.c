@@ -1,6 +1,6 @@
 #include "../inc/minishell.h"
 
-void	freeTokens(t_sh *f)
+void	free_token(t_sh *f)
 {
 	t_token *node;
 	t_token	*tmp;
@@ -22,6 +22,7 @@ void	free_cmd(t_sh *sh)
 {
 	t_cmd	*node;
 	t_cmd	*tmp;
+
 	node = sh->cmd;
 	while(node != NULL)
 	{
@@ -39,26 +40,21 @@ void	free_cmd(t_sh *sh)
 	sh->cmd = NULL;
 }
 
-void	free_lists(t_sh *sh)
-{
-	if (sh->token)
-		freeTokens(sh);
-	if (sh->cmd)
-		free_cmd(sh);
-}
-
-void	free_sh(t_sh *sh)
+void	free_all(t_sh *sh)
 {
 	if (!sh)
 		return ;
 	if (sh->token)
-		freeTokens(sh);
+		free_token(sh);
 	if (sh->cmd)
 		free_cmd(sh);
-	if(sh->envp)
+	if (sh->envp)
 		mtr_free(sh->envp);
+	if (sh->parser->str)
+		free(sh->parser->str);
 	if (sh->parser)
 		free(sh->parser);
+	sh->parser->str = NULL;
 	sh->parser = NULL;
 	sh = NULL;
 }

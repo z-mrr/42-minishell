@@ -1,6 +1,21 @@
 
 #include "../inc/minishell.h"
 
+void	exiting(t_sh *sh)
+{
+	char	**exit_cmd;
+	t_cmd	cmd;
+
+	exit_cmd = malloc(sizeof(char *) * 3);
+	exit_cmd[0] = ft_strdup("exit");
+	exit_cmd[1] = ft_itoa(g_status);
+	exit_cmd[2] = NULL;
+	cmd.full_cmd = exit_cmd;
+	clear_history();
+	free_all(sh);
+	ft_exit(&cmd);
+}
+
 int	is_dir(char *path)
 {
 	DIR	*dir;

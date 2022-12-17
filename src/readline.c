@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 21:15:40 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/15 20:49:23 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/17 19:06:05 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*get_str(t_sh *sh)
 	if (!line)//case CTRL+D
 	{
 		ft_putendl_fd("exit", 1);
-		exit(g_status);//
+		exiting(sh);
 	}
 	str = ft_strtrim(line, " \t");
 	if (*str == '\0')//isto pq lexer n tava a lidar com \0 after strtrim

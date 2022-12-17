@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/17 14:53:00 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/17 15:21:11 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	execInput(t_sh *sh)
 		else if (cmd->in_file != -2 && cmd->out_file != -2)
 		{
 			if (!check_builtin(cmd))
-				cmd->path = get_path(sh, cmd);//checkar erros, usar DIR?
+				cmd->path = get_path(sh, cmd);
 			if (pipe(fd) == -1)
 				return ;//
 			if (!check_fork(sh, cmd, fd))

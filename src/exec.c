@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/17 21:57:46 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 00:11:15 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*get_path(t_sh *sh, t_cmd *cmd)
 	aux[2] = get_env("PATH", sh);
 	if (!aux[2])
 		return (NULL);
-	paths = ft_split(aux[3], ':');
+	paths = ft_split(aux[2], ':');
 	free(aux[2]);
 	i = -1;
 	while(paths[++i])

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/17 21:44:10 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 00:15:24 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!sh.parser->str)//nao passam string nulas ou vazias
 			continue ;
 		sortInput(&sh);
-		free_str(sh.parser->str);
+		free(sh.parser->str);
 		execInput(&sh);
 		free_token(&sh);
 		free_cmd(&sh);

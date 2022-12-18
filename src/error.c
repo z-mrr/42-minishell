@@ -27,10 +27,13 @@ int	parserError(t_sh *f, char *error)
 	return (1);
 }
 
-int	p_error(char *str, int status)
+int	p_error(char *s1, char *s2, char *s3, char *s4, int status)
 {
 	if (status)
 		g_status = status;
-	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putstr_fd(s1, STDERR_FILENO);
+	ft_putstr_fd(s2, STDERR_FILENO);
+	ft_putstr_fd(s3, STDERR_FILENO);
+	ft_putstr_fd(s4, STDERR_FILENO);
 	return (0);
 }

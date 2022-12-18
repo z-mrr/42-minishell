@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:04:22 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/16 12:48:33 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 05:56:49 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	redirec_infile(char *pathname, t_cmd *node, t_token *token)
 		return (3); /* permission denied */
 	}
 	printf("minishell: %s: No such file.\n", token->token_str);
+	node->in_file = -2;
 	return (3); /* no such file or  ? */
 }
 

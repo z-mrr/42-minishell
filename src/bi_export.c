@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:15:11 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 05:24:40 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 05:50:12 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ int	export_novalue(t_sh *sh, char *var)
 {
 	if (ft_strichr(var, '=') < 0)
 		return(set_env(var, NULL, sh));
-	p_error("minishell: export: `", 1);
-	p_error(var, 1);
-	p_error("': not a valid identifier\n", 1);
+	p_error("minishell: ", "export: `", var, "': not a valid identifier\n", 1);
 	return (0);
 }
 

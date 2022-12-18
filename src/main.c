@@ -6,14 +6,14 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 05:20:35 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 05:33:29 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 int	g_status;
-
+/*elimina envs sem value e retira value do OLDPWD*/
 void	oldpwd(t_sh *sh)
 {
 	int	i;
@@ -36,7 +36,7 @@ void	oldpwd(t_sh *sh)
 			sh->envp = mtr_rmv(i, sh->envp);
 	}
 }
-
+/*aumenta shlvl*/
 void	shlvl(t_sh *sh)
 {
 	char	*temp;

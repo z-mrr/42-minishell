@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd_unset_echo.c                                   :+:      :+:    :+:   */
+/*   bi_pwd_unset_echo.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 01:56:42 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 04:58:51 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 06:11:58 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,10 @@ int	ft_echo(t_cmd *cmd)
 	int	n;
 	int	opt;
 
-	printf("0: %s\n", cmd->full_cmd[0]);
-	printf("1: %s\n", cmd->full_cmd[1]);
-	printf("2: %s\n", cmd->full_cmd[2]);
+	if (!cmd->full_cmd[1])
+		return (0);
 	i = 0;
 	n = mtr_len(cmd->full_cmd);
-	printf("n: %d\n", n);
 	opt = ft_strncmp(cmd->full_cmd[1], "-n", 2);
 	if (n < 2 || (!opt && n < 3))
 		return (0);

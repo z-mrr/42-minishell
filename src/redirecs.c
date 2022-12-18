@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:04:22 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/18 16:46:44 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/18 17:26:21 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,33 +105,54 @@ char	*heredoc_nstr(char *str, char *buffer)
 	return (str);
 }
 
+int	heredocfd(t_cmd *node, char *str)
+{
+	int	fd[2];
+
+	if (pipe(fd) == -1)
+		return (g_status=errno);
+	if (str)
+	{
+		write(fd[WRITE], str, ft_strlen(str));
+		free(str);
+		close(fd[WRITE]);
+		if (g_status == 130)
+		{
+			close(fd[READ]);
+			return (1);
+		}
+		node->in_file = fd[READ];
+	}
+	else
+		node->in_file = -2;
+	
+	return (0); //ok
+}
+
 /* heredoc: writes to a str lines read by newline untill strcmp(lineread, "EOF") == 0 */
-int	redir_heredoc(char *eof)
+int	redir_heredoc(t_cmd *node, char *eof)
 {
 	char 	*str;
 	char	*buffer;
 
 	str = NULL;
 	buffer = NULL;
-	while (1)
+	while (g_status != 130)
 	{
 		buffer = readline("> ");
 		if (!buffer)
-			continue ;
-		if (ft_strcmp(buffer, eof) == 0)
-		{
-			free(buffer);
-			if (str)
-				free(str);
-			return (0);
-		}
+			return (node->in_file = -2); //if empty
 		if (!str)
 			str = ft_strdup(buffer);
 		else
 			str = heredoc_nstr(str, buffer);
+		if (ft_strcmp(buffer, eof) == 0)
+		{
+			free(buffer);
+			return (heredocfd(node, str));
+		}
 		free(buffer);
 	}
-		free(str);
 	return (0);
 }
 
@@ -143,6 +164,6 @@ int	parse_redirecs(t_sh *f, t_cmd *node, t_token *token)
 	if (ft_strcmp(token->word, "<") == 0)
 		return (redir_in(f, node, token->next));
 	if (ft_strcmp(token->word, "<<") == 0)
-		return (redir_heredoc(token->next->word));
+		return (redir_heredoc(node, token->next->word));
 	return (0);
 }

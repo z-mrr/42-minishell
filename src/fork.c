@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:02:23 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 03:05:17 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 03:15:54 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void	ft_fork(t_sh *sh, t_cmd *cmd, int *fd)
 	}
 	else if (!pid)
 	{
+		child_fd(cmd, fd);
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		child_fd(cmd, fd);
 		if (!check_builtin(cmd))
 			execve(cmd->path, cmd->full_cmd, sh->envp);
 		else if (check_builtin(cmd) > 0)
 			ft_builtin(sh, cmd);
-		exit(g_status);//status?
+		exit(g_status);
 	}
 }
 

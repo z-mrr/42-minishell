@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:02:23 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 15:02:33 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 16:06:03 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,19 @@ void	ft_fork(t_sh *sh, t_cmd *cmd, int *fd)
 
 void	child_fd(t_cmd *cmd, int *fd)
 {
-	if (cmd->in_file != STDIN_FILENO)//redirect in ou fd[read] de pipe
+	if (cmd->in_file != STDIN_FILENO)
 	{
 		if (dup2(cmd->in_file, STDIN_FILENO) == -1)
 			g_status = errno;
 		close(cmd->in_file);
 	}
-	if (cmd->out_file != STDOUT_FILENO)//redirect out
+	if (cmd->out_file != STDOUT_FILENO)
 	{
 		if (dup2(cmd->out_file, STDOUT_FILENO) == -1)
 			g_status = errno;
 		close(cmd->out_file);
 	}
-	else if (cmd->next)//pipe
+	else if (cmd->next)
 	{
 		if (dup2(fd[WRITE], STDOUT_FILENO) == -1)
 			g_status = errno;

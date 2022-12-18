@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 15:03:45 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 17:04:16 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,24 @@
 /*>0 to fork , <0 not fork*/
 int	check_builtin(t_cmd *cmd)
 {
-	if (!strcmp(cmd->full_cmd[0], "echo"))
+	if (!ft_strcmp(cmd->full_cmd[0], "echo"))
 		return (1);
-	else if (!strcmp(cmd->full_cmd[0], "cd"))
+	else if (!ft_strcmp(cmd->full_cmd[0], "cd"))
 		return (-1);
-	else if (!strcmp(cmd->full_cmd[0], "pwd"))
+	else if (!ft_strcmp(cmd->full_cmd[0], "pwd"))
 		return (1);
-	else if (!strcmp(cmd->full_cmd[0], "export"))
+	else if (!ft_strcmp(cmd->full_cmd[0], "export"))
 	{
 		if (cmd->full_cmd[1])
 			return (-1);
 		else
 			return (1);
 	}
-	else if (!strcmp(cmd->full_cmd[0], "unset"))
+	else if (!ft_strcmp(cmd->full_cmd[0], "unset"))
 		return (-1);
-	else if (!strcmp(cmd->full_cmd[0], "env"))
+	else if (!ft_strcmp(cmd->full_cmd[0], "env"))
 		return (1);
-	else if (!strcmp(cmd->full_cmd[0], "exit"))
+	else if (!ft_strcmp(cmd->full_cmd[0], "exit"))
 		return (-1);
 	else
 		return (0);
@@ -42,19 +42,19 @@ int	check_builtin(t_cmd *cmd)
 /*returnar gstatus?*/
 int	ft_builtin(t_sh *sh, t_cmd *cmd)
 {
-	if (!strcmp(cmd->full_cmd[0], "echo"))
+	if (!ft_strcmp(cmd->full_cmd[0], "echo"))
 		ft_echo(cmd);
-	else if (!strcmp(cmd->full_cmd[0], "cd"))
+	else if (!ft_strcmp(cmd->full_cmd[0], "cd"))
 		ft_cd(sh, cmd);
-	else if (!strcmp(cmd->full_cmd[0], "pwd"))
+	else if (!ft_strcmp(cmd->full_cmd[0], "pwd"))
 		ft_pwd();
-	else if (!strcmp(cmd->full_cmd[0], "export"))
+	else if (!ft_strcmp(cmd->full_cmd[0], "export"))
 		ft_export(sh, cmd);
-	else if (!strcmp(cmd->full_cmd[0], "unset"))
+	else if (!ft_strcmp(cmd->full_cmd[0], "unset"))
 		ft_unset(sh, cmd);
-	else if (!strcmp(cmd->full_cmd[0], "env"))
+	else if (!ft_strcmp(cmd->full_cmd[0], "env"))
 		ft_env(sh);
-	else if (!strcmp(cmd->full_cmd[0], "exit"))
+	else if (!ft_strcmp(cmd->full_cmd[0], "exit"))
 		ft_exit(cmd);
 	return (0);
 }

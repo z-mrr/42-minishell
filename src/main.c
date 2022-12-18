@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 14:58:17 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 17:35:36 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,9 @@ void sig_handler(int signal)
 	if (signal == SIGINT)
 	{
 		g_status = 130;
-		printf("\n");
-		rl_on_new_line();
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
 		rl_replace_line("", 0);
-		rl_redisplay();
+		rl_on_new_line();
 	}
 }
 
@@ -107,7 +106,6 @@ int	main(int argc, char **argv, char **envp)
 		execInput(&sh);
 		free_token(&sh);
 		free_cmd(&sh);
-		printf("status: %d\n", g_status);
 	}
 	return (0);
 }

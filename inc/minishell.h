@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 14:59:03 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 17:31:29 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <errno.h>
+# include <sys/ioctl.h>
 
 # define BUFFER_SIZE 4096 //MAX_PATH =~4096 bytes
 # define READ 0

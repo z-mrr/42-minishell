@@ -48,6 +48,8 @@ int	ft_strcmp(char *s1, char *s2)
 	int	n;
 	int	len[2];
 
+	if (!s1 || !s2)
+		return (-1);
 	len[0] = ft_strlen(s1);
 	len[1] = ft_strlen(s2);
 	if (len[0] > len[1])

@@ -13,7 +13,7 @@ char	*_getExpansion(char *old_str, t_sh *f)
 	else
 		expansion = ft_substr(old_str, f->parser->pos,  _endVarPos(old_str, f->parser->pos + 1) - 1);
 	if (!(ft_strcmp(expansion, "$?")))
-		return (ft_strdup("0"));
+		return (ft_itoa(g_status));//fixed
 	if (!(ft_strcmp(expansion, "$")))
 		return (expansion);
 	env = get_env(expansion + 1, f);

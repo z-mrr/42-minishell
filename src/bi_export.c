@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_exit.c                                      :+:      :+:    :+:   */
+/*   bi_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:15:11 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 02:38:54 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 05:11:46 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	ft_export(t_sh *sh, t_cmd *cmd)
 			while (++i < n)
 			{
 				j = ft_strichr(cmd->full_cmd[i], '=');
-				if (j < 1)
-					return (0);//
+				if (j <= 0)
+					return (export_novalue(sh, cmd, i));
 				var = ft_substr(cmd->full_cmd[i], 0, j);
 				value = ft_strdup(cmd->full_cmd[i] +  (j + 1));
 				set_env(var, value, sh);
@@ -39,6 +39,19 @@ int	ft_export(t_sh *sh, t_cmd *cmd)
 	}
 	else
 		print_export(sh);
+	return (0);
+}
+
+int	export_novalue(t_sh *sh, t_cmd *cmd, int i)
+{
+	char	*var;
+
+	var = ft_strdup(cmd->full_cmd[i]);
+	if (ft_strichr(var, '=') < 0)
+		return(set_env(var, NULL, sh));
+	p_error("minishell: export: `", 1);
+	p_error(var, 1);
+	p_error("': not a valid identifier\n", 1);
 	return (0);
 }
 
@@ -99,53 +112,3 @@ char	**set_export(t_sh *sh)
 	return (env);
 }
 
-/*exit with no options*/
-int	ft_exit(t_cmd *cmd)
-{
-	int	status;
-	int	n;
-
-	n = mtr_len(cmd->full_cmd);
-	ft_putendl_fd("exit", STDOUT_FILENO);
-	if (n > 2)
-	{
-		p_error("exit: too many arguments", 1);
-		return (g_status = 1);
-	}
-	status = 0;
-	if (n == 2)
-	{
-		exit_check(cmd->full_cmd);
-		status = ft_atoi(cmd->full_cmd[1]);
-	}
-	mtr_free(cmd->full_cmd);
-	exit(g_status = status);
-}
-
-/*exit -1 if argument isnt valid. i[1] is to not print spaces*/
-void	exit_check(char **str)
-{
-	int	i[2];
-
-	i[0] = 0;
-	i[1] = 0;
-	while (str[1][i[0]] == ' ' || str[1][i[0]] == '\t')
-	{
-		i[0]++;
-		i[1]++;
-	}
-	if (str[1][i[0]] == '+' || str[1][i[0]] == '-')
-		i[0]++;
-	while(str[1][i[0]])
-	{
-		if (!ft_isdigit(str[1][i[0]]) || i[0] >= 20)
-		{
-			ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
-			ft_putstr_fd(str[1] + i[1], STDERR_FILENO);
-			ft_putendl_fd(": numeric argument required", STDERR_FILENO);
-			mtr_free(str);
-			exit(g_status = 2);
-		}
-		i[0]++;
-	}
-}

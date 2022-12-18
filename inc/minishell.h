@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 02:05:29 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 04:59:53 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	free_cmd(t_sh *sh);
 
 //error.c
 int		parserError(t_sh *f, char *error);
-void	p_error(char *str, int status);
+int		p_error(char *str, int status);
 
 //redirecs.c
 int		parse_redirecs(t_sh *f, t_cmd *node, t_token *token);
@@ -131,25 +131,30 @@ int		redirecOutFile(char *pathname, t_cmd *node, t_token *token);
 char	*get_filepath(t_sh *f, t_token *token);
 char	*get_filepathname(char *path, t_token *token);
 
-//pwd_unset_echo_cd.c test args
+//bi_pwd_unset_echo_env.c
 int		ft_pwd(void);
 int		ft_unset(t_sh *sh, t_cmd *cmd);
 int		ft_echo(t_cmd *cmd);
+int		ft_env(t_sh *sh);
+
+//bi_cd.c
 int		ft_cd(t_sh *sh, t_cmd *cmd);
 int		cd_home(t_sh *sh, t_cmd *cmd);
 
-//export_exit.c test args
+//bi_export.c test args
 int		ft_export(t_sh *sh, t_cmd *cmd);
 int		print_export(t_sh *sh);
 char	**set_export(t_sh *sh);
+int		export_novalue(t_sh *sh, t_cmd *cmd, int i);
+
+//bi_exit.c
 int		ft_exit(t_cmd *cmd);
 void	exit_check(char **str);
 
 //env.c
-int		ft_env(t_sh *sh);
 char	*get_env(char *var, t_sh *sh);
 int		pos_env(char *var, char **envp);
-void	set_env(char *var, char *value, t_sh *sh);
+int		set_env(char *var, char *value, t_sh *sh);
 void	rmv_env(char *var, t_sh *sh);
 
 //utils.c

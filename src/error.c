@@ -27,10 +27,10 @@ int	parserError(t_sh *f, char *error)
 	return (1);
 }
 
-void	p_error(char *str, int status)
+int	p_error(char *str, int status)
 {
 	if (status)
 		g_status = status;
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putendl_fd(str, STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	return (0);
 }

@@ -101,17 +101,13 @@ char	*_expandStr(t_sh *f, char *old_str)
 				free(new_str);
 				new_str = ft_strjoin(tmp, rest);
 				free(tmp);
-				free(rest);
 			}
 			else
-			{
 				new_str = ft_strdup(rest);
-				free(rest);
-			}
+			free(rest);
 		}
 		f->parser->pos = _endVarPos(old_str, f->parser->pos + 1);
 	}
-	free(rest);
 	return (new_str);
 }
 

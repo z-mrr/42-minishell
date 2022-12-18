@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 00:11:15 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 01:21:10 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	check_builtin(t_cmd *cmd)
 		return (0);
 }
 
+/*returnar gstatus?*/
 int	ft_builtin(t_sh *sh, t_cmd *cmd)
 {
 	if (!strcmp(cmd->full_cmd[0], "echo"))

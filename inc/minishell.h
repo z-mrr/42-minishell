@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/16 21:10:43 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/18 17:10:01 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <dirent.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+#include <errno.h>
 
 # define BUFFER_SIZE 4096 //MAX_PATH =~4096 bytes
 # define READ 0

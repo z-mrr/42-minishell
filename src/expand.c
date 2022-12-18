@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 20:50:32 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/16 21:14:50 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/17 17:58:30 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@ char	*_get_expansion(char *old_str, t_sh *f)
 		expansion = ft_substr(old_str, i,  end_varpos(old_str, i + 1) - i);
 	else
 		expansion = ft_substr(old_str, i,  end_varpos(old_str, i + 1) - 1);
-	if (!(ft_strcmp(expansion, "$?")))
+	printf("%s\n", expansion);
+	if (ft_strcmp(expansion, "$?") == 0)
+	{
+		free(expansion);
 		return (ft_strdup("0"));
+	}
 	if (!(ft_strcmp(expansion, "$")))
 		return (expansion);
 	env = get_env(expansion + 1, f);
@@ -115,13 +119,9 @@ char	*_expandStr(t_sh *f, char *old_str)
 				free(new_str);
 				new_str = ft_strjoin(tmp, rest);
 				free(tmp);
-				free(rest);
 			}
 			else
-			{
 				new_str = ft_strdup(rest);
-				free(rest);
-			}
 		}
 		f->parser->pos = end_varpos(old_str, f->parser->pos + 1);
 	}

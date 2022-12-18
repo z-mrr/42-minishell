@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 01:56:42 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 06:11:58 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 14:06:41 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	ft_env(t_sh *sh)
 	int	i;
 
 	if (!*sh->envp)
-		return (0);//
+		return (g_status = 0);
 	i = -1;
 	while(sh->envp[++i] && ft_strchr(sh->envp[i], '='))
 		ft_putendl_fd(sh->envp[i], 1);
-	return (0);
+	return (g_status = 0);
 }
 
 /*pwd with no options*/
@@ -32,10 +32,10 @@ int	ft_pwd(void)
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
-		return (0);//
+		return (g_status = errno);
 	ft_putendl_fd(pwd, 1);
 	free (pwd);
-	return (0);
+	return (g_status = 0);
 }
 
 /*unset with no options*/
@@ -51,7 +51,7 @@ int	ft_unset(t_sh *sh, t_cmd *cmd)
 		while (cmd->full_cmd[++i])
 			rmv_env(cmd->full_cmd[i], sh);
 	}
-	return (0);
+	return (g_status = 0);
 }
 
 /*echo with option -n*/
@@ -62,12 +62,12 @@ int	ft_echo(t_cmd *cmd)
 	int	opt;
 
 	if (!cmd->full_cmd[1])
-		return (0);
+		return (g_status = 0);
 	i = 0;
 	n = mtr_len(cmd->full_cmd);
 	opt = ft_strncmp(cmd->full_cmd[1], "-n", 2);
 	if (n < 2 || (!opt && n < 3))
-		return (0);
+		return (g_status = 0);
 	if (!opt)
 		i++;
 	while (cmd->full_cmd[++i])
@@ -78,5 +78,5 @@ int	ft_echo(t_cmd *cmd)
 	}
 	if (opt)
 		ft_putchar_fd('\n', 1);
-	return (0);
+	return (g_status = 0);
 }

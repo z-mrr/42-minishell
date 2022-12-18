@@ -53,6 +53,7 @@ int	redirecOutFile(char *pathname, t_cmd *node, t_token *token)
 			return (0); //no error ?
 		}
 		printf("minishell: %s: Permission denied\n", token->token_str);
+		node->out_file = -2;//suficiente?
 		return (3); //permission denied
 	}
 	if (ft_strcmp(token->token_str, ">>") == 0)

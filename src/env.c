@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:51:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 05:24:38 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 14:03:06 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,9 @@ char	*get_env(char *var, t_sh *sh)
 	int	pos;
 
 	pos = pos_env(var, sh->envp);
-	if (pos < 0)
-	{
-	//	perror("get_env");
+	if (pos < 0 || !ft_strchr(sh->envp[pos], '='))
 		return (NULL);
-	}
-	return(ft_strdup(sh->envp[pos] + (ft_strlen(var) + 1)));//return de mallocd string after =
+	return(ft_strdup(sh->envp[pos] + (ft_strlen(var) + 1)));
 }
 
 /*modifica valor de env se já existente ou adiciona env se nao existe*/
@@ -37,7 +34,6 @@ int	set_env(char *var, char *value, t_sh *sh)
 	{
 		if (pos < 0)
 			sh->envp = mtr_add(var, sh->envp);
-		//free(var);
 		return (0);
 	}
 	aux[0] = ft_strjoin(var, "=");
@@ -62,10 +58,7 @@ void	rmv_env(char *var, t_sh *sh)
 
 	pos = pos_env(var, sh->envp);
 	if (pos < 0)
-	{
-	//	perror("rmv_env");
 		return ;
-	}
 	sh->envp = mtr_rmv(pos, sh->envp);
 }
 

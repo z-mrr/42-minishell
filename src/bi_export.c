@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:15:11 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 05:50:12 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 14:04:33 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,16 @@ int	ft_export(t_sh *sh, t_cmd *cmd)
 	}
 	else
 		print_export(sh);
-	return (0);
+	return (g_status = 0);
 }
 
 int	export_novalue(t_sh *sh, char *var)
 {
-	if (ft_strichr(var, '=') < 0)
-		return(set_env(var, NULL, sh));
-	p_error("minishell: ", "export: `", var, "': not a valid identifier\n", 1);
-	return (0);
+	if (!ft_strichr(var, '='))
+		return(p_error("minishell: ", "export: `", var, "': not a valid identifier\n", 1));
+	set_env(var, NULL, sh);
+	return(g_status = 0);
+
 }
 
 /*print export with no args, ordered and with var="value"*/

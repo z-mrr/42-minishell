@@ -35,5 +35,5 @@ int	p_error(char *s1, char *s2, char *s3, char *s4, int status)
 	ft_putstr_fd(s2, STDERR_FILENO);
 	ft_putstr_fd(s3, STDERR_FILENO);
 	ft_putstr_fd(s4, STDERR_FILENO);
-	return (0);
+	return (g_status);
 }

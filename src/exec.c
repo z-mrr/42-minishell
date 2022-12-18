@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/17 14:53:00 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 16:12:09 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,11 @@ void	execInput(t_sh *sh)
 	signal(SIGQUIT, SIG_IGN);
 	while (cmd)
 	{
+		if (!(cmd->full_cmd))
+		{
+			cmd = cmd->next;
+			continue ;
+		}
 		printf("infile:%d\noutfile:%d\n", cmd->in_file, cmd->out_file);
 		if (check_builtin(cmd) < 0  && !cmd->next)//builtins q nao forkam e nao funcionam com pipe a seguir
 			ft_builtin(sh, cmd);

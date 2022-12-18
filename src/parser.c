@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/17 13:55:46 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/18 15:58:21 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ int	parse_operators(t_sh *f, t_cmd *node, t_token *token)
 		{printf("minishell: syntax error near unexpected token '%s'\n", token->word);exit(-1);}
 	else
 	{
-		if (token->next->type == 'O' || token->prev == NULL)
+		if (token->next->type == 'O' || (token->prev == NULL && ft_strcmp(token->word, "<<") != 0))
 			{printf("minishell: syntax error near unexpected token '%s'\n", token->word);exit(-1);}
 	}
-	if (!(ft_strcmp(token->word, "|")))
+	if (ft_strcmp(token->word, "|") == 0)
 	{
 		ddl_append(&(f->cmd));
 		node = node->next;

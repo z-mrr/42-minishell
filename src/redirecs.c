@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:04:22 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/18 15:30:00 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/18 16:46:44 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,26 @@ int	redir_out(t_sh *f, t_cmd *node, t_token *token)
 	return (1);
 }
 
+char	*heredoc_nstr(char *str, char *buffer)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	tmp = ft_strjoin(str, "\n");
+	free(str);
+	str = ft_strjoin(tmp, buffer);
+	free(tmp);
+	return (str);
+}
+
 /* heredoc: writes to a str lines read by newline untill strcmp(lineread, "EOF") == 0 */
 int	redir_heredoc(char *eof)
 {
 	char 	*str;
 	char	*buffer;
-	char	*tmp;
 
 	str = NULL;
+	buffer = NULL;
 	while (1)
 	{
 		buffer = readline("> ");
@@ -109,19 +121,17 @@ int	redir_heredoc(char *eof)
 		if (ft_strcmp(buffer, eof) == 0)
 		{
 			free(buffer);
+			if (str)
+				free(str);
 			return (0);
 		}
-		if (str)
-		{
-			tmp = ft_strjoin(str, "\n");
-			free(str);
-			str = ft_strjoin(tmp, buffer);
-			free(tmp);
-		}
-		else
+		if (!str)
 			str = ft_strdup(buffer);
+		else
+			str = heredoc_nstr(str, buffer);
 		free(buffer);
 	}
+		free(str);
 	return (0);
 }
 

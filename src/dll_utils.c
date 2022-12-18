@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:06 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/16 20:20:03 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/18 16:08:20 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	print_listcmd(t_cmd *head)
 
 
 	printf("\n                                          Mem                                    \n");
+	if (!(head->full_cmd))
+		return ;
 	while (head != NULL)
 	{
 		i = 0;

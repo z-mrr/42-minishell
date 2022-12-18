@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 21:15:40 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 00:08:48 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 01:55:46 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*get_prompt(t_sh *sh)
 	aux[0] = ft_strjoin(aux[1], aux[2]);
 	free(aux[2]);
 	free(aux[1]);
-	if (!g_status || g_status == -1)
+	if (!g_status)
 		aux[1] = ft_strjoin(aux[0], BLU);
 	else
 		aux[1] = ft_strjoin(aux[0], RED);

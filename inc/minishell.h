@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 00:48:56 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 02:05:29 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	free_cmd(t_sh *sh);
 
 //error.c
 int		parserError(t_sh *f, char *error);
-void	p_error(int status, char *str);
+void	p_error(char *str, int status);
 
 //redirecs.c
 int		parse_redirecs(t_sh *f, t_cmd *node, t_token *token);

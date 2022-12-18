@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 05:33:29 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 14:26:16 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void sig_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
+		g_status = 130;
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);

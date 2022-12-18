@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 05:35:02 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 15:03:45 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*get_path(t_sh *sh, t_cmd *cmd)
 	char	*aux[3];
 	int		i;
 
-	if (ft_strchr(cmd->full_cmd[0], '/') && !access(cmd->full_cmd[0], F_OK))//se o cmd for uma path para ficheiro executavel
+	if (ft_strchr(cmd->full_cmd[0], '/') && !access(cmd->full_cmd[0], F_OK))
 		return(ft_strdup(cmd->full_cmd[0]));
 	aux[2] = get_env("PATH", sh);
 	if (!aux[2])
@@ -92,17 +92,17 @@ char	*get_path(t_sh *sh, t_cmd *cmd)
 void	parent_fd(t_cmd *cmd, int *fd)
 {
 		close(fd[WRITE]);
-		if (cmd->next && (cmd->next->in_file == STDIN_FILENO))//caso pipe
+		if (cmd->next && (cmd->next->in_file == STDIN_FILENO))
 			cmd->next->in_file = fd[READ];
 		else
-			close(fd[READ]);//caso no pipe
-		if (cmd->in_file > 2)//redirect in
-			close(cmd->in_file);//fd do open
-		if (cmd->out_file > 2)//redirect out
-			close(cmd->out_file);//fd do open
+			close(fd[READ]);
+		if (cmd->in_file > 2)
+			close(cmd->in_file);
+		if (cmd->out_file > 2)
+			close(cmd->out_file);
 }
 
-void	execInput(t_sh *sh)
+int	execInput(t_sh *sh)
 {
 	t_cmd	*cmd;
 	int		fd[2];
@@ -110,18 +110,18 @@ void	execInput(t_sh *sh)
 	cmd = sh->cmd;
 	while (cmd)
 	{
-		if (check_builtin(cmd) < 0  && !cmd->next)//builtins q nao forkam e nao funcionam com pipe a seguir
+		if (check_builtin(cmd) < 0  && !cmd->next)
 			ft_builtin(sh, cmd);
 		else if (cmd->in_file != -2 && cmd->out_file != -2)
 		{
-			signal(SIGINT, SIG_IGN);//test
+			signal(SIGINT, SIG_IGN);
 			signal(SIGQUIT, SIG_IGN);
 			if (!check_builtin(cmd))
 				cmd->path = get_path(sh, cmd);
 			if (pipe(fd) == -1)
-				return ;//
+				return(g_status = errno);
 			if (!check_fork(sh, cmd, fd))
-				return ;//
+				return (g_status);
 			parent_fd(cmd, fd);
 			wait(&g_status);
 			if (g_status > 255)
@@ -129,4 +129,5 @@ void	execInput(t_sh *sh)
 		}
 		cmd = cmd->next;
 	}
+	return (g_status);
 }

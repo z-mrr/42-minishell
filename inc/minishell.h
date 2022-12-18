@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 12:55:01 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 14:59:03 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		check_fork(t_sh *sh, t_cmd *cmd, int *fd);
 //exec.c
 void	parent_fd(t_cmd *cmd, int *fd);
 char	*get_path(t_sh *sh, t_cmd *cmd);
-void	execInput(t_sh *sh);
+int		execInput(t_sh *sh);
 int		ft_builtin(t_sh *sh, t_cmd *cmd);
 int		check_builtin(t_cmd *cmd);
 
@@ -178,7 +178,7 @@ char	*get_dir(t_sh *sh);
 
 //main.c
 void	sig_handler(int signal);
-void	init(int argc, char **argv, char **envp, t_sh *sh);
+int		init(int argc, char **argv, char **envp, t_sh *sh);
 void	shlvl(t_sh *sh);
 void	oldpwd(t_sh *sh);
 

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:02:23 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 14:20:49 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 15:02:33 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_fork(t_sh *sh, t_cmd *cmd, int *fd)
 	{
 		close(fd[READ]);
 		close(fd[WRITE]);
-		perror("fork error");//
+		g_status = errno;
 	}
 	else if (!pid)
 	{
@@ -59,19 +59,19 @@ void	child_fd(t_cmd *cmd, int *fd)
 	if (cmd->in_file != STDIN_FILENO)//redirect in ou fd[read] de pipe
 	{
 		if (dup2(cmd->in_file, STDIN_FILENO) == -1)
-			perror("dup error");//g_status = 1;
+			g_status = errno;
 		close(cmd->in_file);
 	}
 	if (cmd->out_file != STDOUT_FILENO)//redirect out
 	{
 		if (dup2(cmd->out_file, STDOUT_FILENO) == -1)
-			perror("dup error");//g_status = 1;
+			g_status = errno;
 		close(cmd->out_file);
 	}
 	else if (cmd->next)//pipe
 	{
 		if (dup2(fd[WRITE], STDOUT_FILENO) == -1)
-			perror("dup error");//g_status = 1;
+			g_status = errno;
 	}
 	close(fd[WRITE]);
 	close(fd[READ]);

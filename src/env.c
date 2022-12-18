@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:51:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 14:03:06 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 22:31:48 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,25 +65,21 @@ void	rmv_env(char *var, t_sh *sh)
 /*verifica se ha, return pos. -1 se nao houver*/
 int	pos_env(char *var, char **envp)
 {
-	char	*aux;
 	int		i;
 	int		len;
 
 	if (!envp || !*envp)
 		return (-1);
-	aux = ft_strdup(var);
-	len = ft_strlen(aux);
+	len = ft_strlen(var);
 	i = -1;
 	while (envp[++i])
 	{
-		if (!ft_strncmp(envp[i], aux, len))
+		if (!ft_strncmp(envp[i], var, len))
 		{
-			if (ft_strichr(envp[i], '=') == len + 1
-				|| ft_strichr(envp[i], '\0') == len + 1)
-			free(aux);
-			return (i);
+			if (ft_strichr(envp[i], '=') == len
+				|| ft_strichr(envp[i], '\0') == len)
+				return (i);
 		}
 	}
-	free(aux);
 	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 19:04:25 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 22:10:42 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	execInput(t_sh *sh)
 	int		fd[2];
 
 	cmd = sh->cmd;
-	while (cmd)
+	while (cmd && cmd->full_cmd)
 	{
 		if (check_builtin(cmd) < 0  && !cmd->next)
 			ft_builtin(sh, cmd);

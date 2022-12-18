@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:15:11 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 05:11:46 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 05:24:40 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_export(t_sh *sh, t_cmd *cmd)
 			{
 				j = ft_strichr(cmd->full_cmd[i], '=');
 				if (j <= 0)
-					return (export_novalue(sh, cmd, i));
+					return (export_novalue(sh, cmd->full_cmd[i]));
 				var = ft_substr(cmd->full_cmd[i], 0, j);
 				value = ft_strdup(cmd->full_cmd[i] +  (j + 1));
 				set_env(var, value, sh);
@@ -42,11 +42,8 @@ int	ft_export(t_sh *sh, t_cmd *cmd)
 	return (0);
 }
 
-int	export_novalue(t_sh *sh, t_cmd *cmd, int i)
+int	export_novalue(t_sh *sh, char *var)
 {
-	char	*var;
-
-	var = ft_strdup(cmd->full_cmd[i]);
 	if (ft_strichr(var, '=') < 0)
 		return(set_env(var, NULL, sh));
 	p_error("minishell: export: `", 1);

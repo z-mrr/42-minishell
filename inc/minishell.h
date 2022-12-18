@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 04:59:53 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 05:25:13 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int		cd_home(t_sh *sh, t_cmd *cmd);
 int		ft_export(t_sh *sh, t_cmd *cmd);
 int		print_export(t_sh *sh);
 char	**set_export(t_sh *sh);
-int		export_novalue(t_sh *sh, t_cmd *cmd, int i);
+int		export_novalue(t_sh *sh, char *var);
 
 //bi_exit.c
 int		ft_exit(t_cmd *cmd);

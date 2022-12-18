@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:51:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 04:58:36 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 05:24:38 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	set_env(char *var, char *value, t_sh *sh)
 	{
 		if (pos < 0)
 			sh->envp = mtr_add(var, sh->envp);
-		free(var);
+		//free(var);
 		return (0);
 	}
 	aux[0] = ft_strjoin(var, "=");

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 18:32:19 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 20:40:56 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,15 @@ int	g_status;
 void	oldpwd(t_sh *sh)
 {
 	int		i;
-	char	*temp;
-	int		oldpwd;
 
 	i = -1;
-	oldpwd = 0;
 	while (sh->envp[++i])
 	{
-		if(!ft_strncmp("OLDPWD", sh->envp[i], 6))
-		{
-			temp = sh->envp[i];
-			sh->envp[i] = ft_strdup("OLDPWD");
-			free(temp);
-			oldpwd = 1;
-		}
-	}
-	if (!oldpwd)
-		sh->envp = mtr_add(ft_strdup("OLDPWD"), sh->envp);
-	i = -1;
-	while (sh->envp[++i])
-	{
-		if (!ft_strchr(sh->envp[i], '=') && ft_strncmp("OLDPWD", sh->envp[i], 6))
+		if (!ft_strchr(sh->envp[i], '='))
 			sh->envp = mtr_rmv(i, sh->envp);
 	}
+	if (pos_env("OLDPWD", sh->envp) < 0)
+		set_env("OLDPWD", NULL, sh);
 }
 /*aumenta shlvl*/
 void	shlvl(t_sh *sh)
@@ -72,7 +58,7 @@ int	init(int argc, char **argv, char **envp, t_sh *sh)
 		return (g_status = errno);
 	sh->parser->str = NULL;
 	sh->parser->pos = 0;
-	sh->parser->wd_begin = 0;
+	sh->parser->wd_b = 0;
 	sh->envp = mtr_dup(envp);
 	if (!(sh->envp))
 		exit(g_status = errno);
@@ -107,10 +93,10 @@ int	main(int argc, char **argv, char **envp)
 		sh.parser->str = get_str(&sh);
 		if (!sh.parser->str)
 			continue ;
-		sortInput(&sh);
+		sort_input(&sh);
 		free(sh.parser->str);
 		execInput(&sh);
-		free_token(&sh);
+		free_tokens(&sh);
 		free_cmd(&sh);
 	}
 	return (0);

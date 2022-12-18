@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/16 20:50:09 by gde-alme          #+#    #+#             */
+/*   Updated: 2022/12/18 18:57:58 by jdias-mo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
-void	free_token(t_sh *f)
+void	free_tokens(t_sh *f)
 {
 	t_token *node;
 	t_token	*tmp;
@@ -10,7 +22,7 @@ void	free_token(t_sh *f)
 	{
 		tmp = node;
 		node = node->next;
-		free(tmp->token_str);
+		free(tmp->word);
 		tmp->prev = NULL;
 		free(tmp);
 		tmp = NULL;
@@ -44,7 +56,7 @@ void	free_all(t_sh *sh)
 {
 	if (!sh)
 		return ;
-	free_token(sh);
+	free_tokens(sh);
 	free_cmd(sh);
 	mtr_free(sh->envp);
 	if (sh->parser)

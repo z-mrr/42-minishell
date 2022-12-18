@@ -8,7 +8,7 @@ void	redirecErros(char *error, int redir)
 }
 */
 
-int	parserError(t_sh *f, char *error)
+int	parser_error(t_sh *f, char *error)
 {
 	if (!(ft_strcmp(error, "\'")) || !(ft_strcmp(error, "\"")))
 	{
@@ -21,7 +21,7 @@ int	parserError(t_sh *f, char *error)
 	/*else if (redir != 0)
 		redirecErrors(error, redir);*/
 	if (f->token)
-		free_token(f);
+		free_tokens(f);
 	if (f->cmd)
 		free_cmd(f);
 	return (1);

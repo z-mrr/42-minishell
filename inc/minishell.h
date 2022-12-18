@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 17:31:29 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 20:11:45 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ extern int	g_status;//exit status. When a script ends with an exit that has no p
 
 typedef struct	s_token
 {
-	char			*token_str;
-	char			token_type;
+	char			*word;
+	char			type;
 	struct s_token	*next;
 	struct s_token	*prev;
 }				t_token;
@@ -59,7 +59,7 @@ typedef struct	s_parser
 {
 	char	*str;
 	int		pos;
-	int		wd_begin;
+	int		wd_b;
 }				t_parser;
 
 typedef struct	s_sh
@@ -83,52 +83,52 @@ int		ft_builtin(t_sh *sh, t_cmd *cmd);
 int		check_builtin(t_cmd *cmd);
 
 //sortInput.c
-int		sortInput(t_sh *f);
+int		sort_input(t_sh *f);
 
 //createWords.c //tokenizes the words
-int		createWords(t_sh *f);
-int		lexQuote(t_sh *f);
-void	lexWdend(t_sh *f);
-void	lexOp(t_sh *f);
-int		findOperator(char c);
+int		create_words(t_sh *f);
+int		lex_quote(t_sh *f);
+void	lex_wdend(t_sh *f);
+void	lex_op(t_sh *f);
+int		find_operator(char c);
 
 //lexer.c
 void	lexer(t_sh *f);
 int    _expander(t_sh *f);
 
 //lexer_utils.c
-void	rmvQuotes(t_token *node);
-int		countPairs(char *s);
-void	ddl_removeToken(t_token **head, t_token *node);
-int		_endVarPos(char *s, int pos);
+void	rmv_quotes(t_token *node);
+int		count_pairs(char *s);
+void	ddl_remove_token(t_token **head, t_token *node);
+int		end_varpos(char *s, int pos);
 
 //parser.c
-int     charArrayLen(char **array);
-void    addStrCmd(t_cmd *node, char *s);
+int     char_arraylen(char **array);
+void    addstr_cmd(t_cmd *n, char *s);
 void    ddl_append(t_cmd **head);
-void	initCmd(t_cmd *node);
+void	initcmd(t_cmd *node);
 int		parsecmd(t_sh *f);
 
 //ddl_utils.c
 void	append_dll(t_sh *f, t_token **head, char *s);/*f nao é usado*/
 void	addType_ll(t_sh *f, char type);
-void	printList(t_token *head);
-void	printListCmd(t_cmd *head);
+void	print_list(t_token *head);
+void	print_listcmd(t_cmd *head);
 
 //free.c
 void	free_all(t_sh *sh);
-void	free_token(t_sh *f);
+void	free_tokens(t_sh *f);
 void	free_cmd(t_sh *sh);
 
 //error.c
-int		parserError(t_sh *f, char *error);
+int		parser_error(t_sh *f, char *error);
 int		p_error(char *s1, char *s2, char *s3, char *s4, int status);
 
 //redirecs.c
 int		parse_redirecs(t_sh *f, t_cmd *node, t_token *token);
 
 //redir_utils.c
-int		redirecOutFile(char *pathname, t_cmd *node, t_token *token);
+int		redirec_outfile(char *pathname, t_cmd *node, t_token *token);
 char	*get_filepath(t_sh *f, t_token *token);
 char	*get_filepathname(char *path, t_token *token);
 
@@ -141,6 +141,7 @@ int		ft_env(t_sh *sh);
 //bi_cd.c
 int		ft_cd(t_sh *sh, t_cmd *cmd);
 int		cd_home(t_sh *sh, t_cmd *cmd);
+int	cd_dash(t_sh *sh, t_cmd *cmd);
 
 //bi_export.c test args
 int		ft_export(t_sh *sh, t_cmd *cmd);

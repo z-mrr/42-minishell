@@ -6,30 +6,32 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:06 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/16 12:39:50 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 16:08:20 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	printList(t_token *head)
+void	print_list(t_token *head)
 {
 	printf("\n                                          Mem                                    \n");
 	while (head != NULL)
 	{
-		printf("token_str: %s | ", head->token_str);
-		printf("token_type: %c\n", head->token_type);
+		printf("word: %s | ", head->word);
+		printf("type: %c\n", head->type);
 		head = head->next;
 	}
 	printf("\n                                      Mem END                                    \n");
 }
 
-void	printListCmd(t_cmd *head)
+void	print_listcmd(t_cmd *head)
 {
 	int	i;
 
 
 	printf("\n                                          Mem                                    \n");
+	if (!(head->full_cmd))
+		return ;
 	while (head != NULL)
 	{
 		i = 0;
@@ -46,7 +48,7 @@ void	printListCmd(t_cmd *head)
 	printf("\n                                      Mem END                                    \n");
 }
 
-void	initCmd(t_cmd *node)
+void	initcmd(t_cmd *node)
 {
 	node->full_cmd = NULL;
 	node->path = NULL;
@@ -85,7 +87,7 @@ void	addType_ll(t_sh *f, char type)
 	head = f->token;
 	while (head->next != NULL)
 		head = head->next;
-	head->token_type = type;
+	head->type = type;
 }
 
 /* adiciona mais um node (do tipo neutro) a lista de tokens */
@@ -98,8 +100,8 @@ void append_dll(t_sh *f, t_token **head, char *s)
 	new_node = NULL;
 	new_node = (t_token *)malloc(sizeof(t_token));
 
-	new_node->token_str = s;
-	new_node->token_type = 'N';
+	new_node->word = s;
+	new_node->type = 'N';
 	new_node->next = NULL;
 	if (*head == NULL)
 	{

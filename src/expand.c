@@ -1,19 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/16 20:50:32 by gde-alme          #+#    #+#             */
+/*   Updated: 2022/12/18 18:46:28 by jdias-mo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
 /* devolve expansao ou null */
-char	*_getExpansion(char *old_str, t_sh *f)
+char	*_get_expansion(char *old_str, t_sh *f)
 {
 	char	*expansion;
 	char	*env;
+	int		i;
 
+	i = f->parser->pos;
 	expansion = NULL;
 	env = NULL;
-	if (_endVarPos(old_str, f->parser->pos + 1) != '$')
-		expansion = ft_substr(old_str, f->parser->pos,  _endVarPos(old_str, f->parser->pos + 1) - f->parser->pos);
+	if (end_varpos(old_str, i + 1) != '$')
+		expansion = ft_substr(old_str, i,  end_varpos(old_str, i + 1) - i);
 	else
-		expansion = ft_substr(old_str, f->parser->pos,  _endVarPos(old_str, f->parser->pos + 1) - 1);
-	if (!(ft_strcmp(expansion, "$?")))
+		expansion = ft_substr(old_str, i,  end_varpos(old_str, i + 1) - 1);
+	if (ft_strcmp(expansion, "$?") == 0)
+	{
+		free(expansion);
 		return (ft_itoa(g_status));//fixed
+	}
 	if (!(ft_strcmp(expansion, "$")))
 		return (expansion);
 	env = get_env(expansion + 1, f);
@@ -59,7 +76,7 @@ char	*_getFullRest(t_sh *f, char *old_str)
 
 	frest = NULL;
 	parsed = _getRest(old_str, f);
-	expansion = _getExpansion(old_str, f);
+	expansion = _get_expansion(old_str, f);
 	if (expansion && parsed)
 	{
 		frest = ft_strjoin(parsed, expansion);
@@ -106,7 +123,7 @@ char	*_expandStr(t_sh *f, char *old_str)
 				new_str = ft_strdup(rest);
 			free(rest);//mudei free. tava double free
 		}
-		f->parser->pos = _endVarPos(old_str, f->parser->pos + 1);
+		f->parser->pos = end_varpos(old_str, f->parser->pos + 1);
 	}
 	return (new_str);
 }
@@ -124,10 +141,8 @@ int	rmvNodes(t_sh *f)
 		tmp = node->next;
 		if (!node)
 			break ;
-		if (!(node->token_str))
-		{
-			ddl_removeToken(&(f->token), node);
-		}
+		if (!(node->word))
+			ddl_remove_token(&(f->token), node);
 		node = tmp;
 	}
 	if (f->token == NULL)
@@ -146,15 +161,15 @@ int	_expander(t_sh *f)
 	node = f->token;
 	while (node != NULL)
 	{
-		if (ft_strchr(node->token_str, '$'))
+		if (ft_strchr(node->word, '$'))
 		{
-			tmp = ft_strdup(node->token_str);
-			free(node->token_str);
-			node->token_str = _expandStr(f, tmp);
+			tmp = ft_strdup(node->word);
+			free(node->word);
+			node->word = _expandStr(f, tmp);
 			free(tmp);
 		}
-		if (node->token_str)
-			rmvQuotes(node);
+		if (node->word)
+			rmv_quotes(node);
 		node = node->next;
 	}
 	if (rmvNodes(f))

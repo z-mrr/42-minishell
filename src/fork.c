@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:02:23 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 06:12:45 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 14:20:49 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	check_fork(t_sh *sh, t_cmd *cmd, int *fd)
 {
-	if (cmd->in_file == -1 || cmd->out_file == -1)//open erros
+	if (cmd->in_file == -1 || cmd->out_file == -1)
 		return (0);
 	else if ((cmd->path && !access(cmd->path, X_OK) && !is_dir(cmd->path))
 			|| check_builtin(cmd))
 		ft_fork(sh, cmd, fd);
 	else if (!cmd->path && ft_strchr(cmd->full_cmd[0], '/'))
-		p_error("minishell: ", cmd->full_cmd[0], ": No such file or directory\n", NULL, 127);
+		p_error("minishell: ", cmd->full_cmd[0], ": No such file or directory", NULL, 127);
 	else if (!cmd->path && !ft_strchr(cmd->full_cmd[0], '/'))
 		p_error(cmd->full_cmd[0], ": command not found\n", NULL, NULL, 127);
 	else if (is_dir(cmd->path))

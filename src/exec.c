@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 22:10:42 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 22:34:56 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	parent_fd(t_cmd *cmd, int *fd)
 			close(cmd->out_file);
 }
 
-int	execInput(t_sh *sh)
+int	exec_input(t_sh *sh)
 {
 	t_cmd	*cmd;
 	int		fd[2];

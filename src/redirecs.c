@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:04:22 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/17 14:52:09 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 15:30:00 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	redirec_infile(char *pathname, t_cmd *node, t_token *token)
 			return (0); /* no error ? */
 		}
 		printf("minishell: %s: Permission denied\n", token->word);
-		return (3); /* permission denied */
+		return (4); /* permission denied */
 	}
 	printf("minishell: %s: No such file.\n", token->word);
 	node->in_file = -2;
@@ -93,6 +93,38 @@ int	redir_out(t_sh *f, t_cmd *node, t_token *token)
 	return (1);
 }
 
+/* heredoc: writes to a str lines read by newline untill strcmp(lineread, "EOF") == 0 */
+int	redir_heredoc(char *eof)
+{
+	char 	*str;
+	char	*buffer;
+	char	*tmp;
+
+	str = NULL;
+	while (1)
+	{
+		buffer = readline("> ");
+		if (!buffer)
+			continue ;
+		if (ft_strcmp(buffer, eof) == 0)
+		{
+			free(buffer);
+			return (0);
+		}
+		if (str)
+		{
+			tmp = ft_strjoin(str, "\n");
+			free(str);
+			str = ft_strjoin(tmp, buffer);
+			free(tmp);
+		}
+		else
+			str = ft_strdup(buffer);
+		free(buffer);
+	}
+	return (0);
+}
+
 int	parse_redirecs(t_sh *f, t_cmd *node, t_token *token)
 {
 	if (ft_strcmp(token->word, ">") == 0
@@ -100,5 +132,7 @@ int	parse_redirecs(t_sh *f, t_cmd *node, t_token *token)
 		return (redir_out(f, node, token->next));
 	if (ft_strcmp(token->word, "<") == 0)
 		return (redir_in(f, node, token->next));
+	if (ft_strcmp(token->word, "<<") == 0)
+		return (redir_heredoc(token->next->word));
 	return (0);
 }

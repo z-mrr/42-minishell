@@ -27,3 +27,11 @@ int	parserError(t_sh *f, char *error)
 	return (1);
 }
 
+void	p_error(int status, char *str)
+{
+	g_status = errno;
+	if (status != -2)
+		g_status = status;
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	perror(str);
+}

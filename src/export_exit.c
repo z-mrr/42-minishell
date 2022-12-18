@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:15:11 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/17 21:27:26 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 00:51:51 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int	ft_exit(t_cmd *cmd)
 	if (n > 2)
 	{
 		mtr_free(cmd->full_cmd);
-		ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
+		p_error(-2, "exit: ");
 		return (1);
 	}
 	status = 0;

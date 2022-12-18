@@ -52,3 +52,4 @@ void	free_all(t_sh *sh)
 	sh->parser = NULL;
 	sh = NULL;
 }
+//free parser->str?? double free happens

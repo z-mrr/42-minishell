@@ -6,29 +6,35 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 17:35:36 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 18:32:19 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 int	g_status;
+
 /*elimina envs sem value e retira value do OLDPWD*/
 void	oldpwd(t_sh *sh)
 {
-	int	i;
+	int		i;
 	char	*temp;
+	int		oldpwd;
 
 	i = -1;
+	oldpwd = 0;
 	while (sh->envp[++i])
 	{
-		if(!ft_strncmp("OLDPWD", sh->envp[i], 6) && ft_strchr(sh->envp[i], '='))
+		if(!ft_strncmp("OLDPWD", sh->envp[i], 6))
 		{
 			temp = sh->envp[i];
 			sh->envp[i] = ft_strdup("OLDPWD");
 			free(temp);
+			oldpwd = 1;
 		}
 	}
+	if (!oldpwd)
+		sh->envp = mtr_add(ft_strdup("OLDPWD"), sh->envp);
 	i = -1;
 	while (sh->envp[++i])
 	{

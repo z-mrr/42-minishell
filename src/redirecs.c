@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:04:22 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/18 19:50:27 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/18 21:51:02 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,10 +139,10 @@ int	redir_heredoc(t_cmd *node, char *eof)
 		buffer = readline("> ");
 		if (!buffer)
 			return (node->in_file = -2); //if empty
-		if (!str)
-			str = ft_strdup(buffer);
-		else
+		if (str)
 			str = heredoc_nstr(str, buffer);
+		else if (ft_strcmp(buffer, eof) != 0)
+			str = ft_strdup(buffer);
 		if (ft_strcmp(buffer, eof) == 0)
 		{
 			free(buffer);

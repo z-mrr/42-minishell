@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 20:37:29 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 14:52:29 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:27:30 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*get_filepathname(char *path, t_token *token)
 
 	pathname = NULL;
 	if (token->word[0] == '/' || (token->word[0] == '.'
+			&& token->word[1] == '/') || (token->word[0] == '~'
 			&& token->word[1] == '/'))
 	{
 		pathname = ft_strdup(token->word);
@@ -39,6 +40,7 @@ char	*get_filepath(t_sh *f, t_token *token)
 
 	path = NULL;
 	if (token->word[0] == '/' || (token->word[0] == '.'
+			&& token->word[1] == '/') || (token->word[0] == '~'
 			&& token->word[1] == '/'))
 	{
 		i = ft_strlen(token->word) - 1;

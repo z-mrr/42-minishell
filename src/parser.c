@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 13:51:16 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 14:17:14 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,12 @@ void	addstr_cmd(t_cmd *node, char *s)
 /* parse dos ops, se | cria novo cmd*/
 int	parse_operators(t_sh *f, t_cmd *node, t_token *token)
 {
-	if (token->next == NULL)
+	if (token->next == NULL || token->next->type == 'O'
+			|| (token->prev == NULL && ft_strcmp(token->word, "<<") != 0))
 	{
+		g_status = 2;
 		printf("minishell: syntax error near unexpected token '%s'\n", token->word);
 		return (1);
-	}
-	else
-	{
-		if (token->next->type == 'O' || (token->prev == NULL && ft_strcmp(token->word, "<<") != 0))
-		{
-			printf("minishell: syntax error near unexpected token '%s'\n", token->word);
-			return (1);
-		}
 	}
 	if (ft_strcmp(token->word, "|") == 0)
 	{
@@ -77,7 +71,7 @@ int	parse_operators(t_sh *f, t_cmd *node, t_token *token)
 	return (0);
 }
 
-/* adiciona token a cmd struct, se OP cria novo node da cmd struct*/
+/* adiciona token a cmd struct, se OP cria novo node da cmd struct */
 int	parsecmd(t_sh *f)
 {
 	t_token	*token;
@@ -93,7 +87,7 @@ int	parsecmd(t_sh *f)
 		if (token->type == 'O') /* op */
 		{
 			if (parse_operators(f, node, token) != 0)
-				return (1); //erro apenas neste cmd
+				return (1); //erro: so da return se for erro syntax
 			if (node->next)
 				node = node->next;
 			if (ft_strcmp(token->word, "|") != 0 && token->next)

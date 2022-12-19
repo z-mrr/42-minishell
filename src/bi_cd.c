@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 04:56:44 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 00:11:10 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 00:15:38 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,16 @@ int	cd_dash(t_sh *sh, t_cmd *cmd)
 			return(p_error("minishell: cd: OLDPWD not set", NULL, NULL, NULL, 1));
 		temp =  getcwd(NULL, 0);
 		if (chdir(cmd->full_cmd[1]) == -1)
+		{
+			free(temp);
 			return(p_error("minishell: ", cmd->full_cmd[1], ": ", strerror(errno), 1));
+		}
 		set_env("OLDPWD", temp, sh);
 		free (temp);
 		temp = getcwd(NULL, 0);
 		set_env("PWD", temp, sh);
 		free (temp);
+		g_status = 0;
 		return (1);
 	}
 	return (0);

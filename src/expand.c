@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 20:50:32 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 21:26:53 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 21:33:56 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	_expander(t_sh *f)
 			rmv_quotes(node);
 		node = node->next;
 	}
-	if (rmvNodes(f))
+	if (rmv_nodes(f))
 		return (1);
 	return (0);
 }

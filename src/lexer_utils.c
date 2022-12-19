@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 20:37:01 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/16 21:11:00 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 21:32:54 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	rmv_quotes(t_token *n)
 
 	i = 0;
 	j = 0;
-	nstr = (char *)malloc(sizeof(char) * ((ft_strlen(n->word) - (count_pairs(n->word) * 2) + 1)));
+	nstr = (char *)malloc(sizeof(char) * ((ft_strlen(n->word)
+					- (count_pairs(n->word) * 2) + 1)));
 	while (n->word[i] != '\0')
 	{
 		if (n->word[i] == 34 || n->word[i] == 39)

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 20:52:31 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 22:06:45 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,6 @@ void	addstr_cmd(t_cmd *node, char *s)
 /* parse dos ops, se | cria novo cmd*/
 int	parse_operators(t_sh *f, t_cmd *node, t_token *token)
 {
-	if (token->next == NULL || token->next->type == 'O'
-		|| (token->prev == NULL && ft_strcmp(token->word, "<<") != 0))
-	{
-		g_status = 2;
-		printf("minishell: syntax errornear unexpected token '%s'\n",
-			token->word);
-		return (1);
-	}
 	if (ft_strcmp(token->word, "|") == 0)
 	{
 		ddl_append(&(f->cmd));

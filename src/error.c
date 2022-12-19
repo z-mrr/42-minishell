@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 00:29:06 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 14:54:05 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 21:32:04 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int	parser_error(t_sh *f, char *error)
 	}
 	else if (!(ft_strcmp(error, "|")))
 		write(1, "minishell: syntax error near unexpected token '|'\n", 50);
-	/*else if (redir != 0)
-		redirecErrors(error, redir);*/
 	if (f->token)
 		free_tokens(f);
 	if (f->cmd)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   createWords.c                                      :+:      :+:    :+:   */
+/*   create_words.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:46 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/17 14:09:52 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 21:35:23 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 /* check for operators */
 int	find_operator(char c)
 {
-	if (c == 60) /* < */
+	if (c == 60)
 		return (1);
-	if (c == 62) /* > */
+	if (c == 62)
 		return (1);
-	if (c == 124) /* | */
+	if (c == 124)
 		return (1);
 	return (0);
 }
@@ -28,34 +28,38 @@ int	find_operator(char c)
 void	lex_op(t_sh *f)
 {
 	if (f->parser->pos - f->parser->wd_b)
-		append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_b, f->parser->pos - f->parser->wd_b)); //palavra ate operator
+		append_dll(f, &(f->token), ft_substr(f->parser->str,
+				f->parser->wd_b, f->parser->pos - f->parser->wd_b));
 	f->parser->wd_b = f->parser->pos;
-	if (f->parser->str[f->parser->pos] == 60 || f->parser->str[f->parser->pos] == 62) /* << >> */
+	if (f->parser->str[f->parser->pos] == 60
+		|| f->parser->str[f->parser->pos] == 62)
 	{
-		if (f->parser->str[f->parser->pos + 1] == f->parser->str[f->parser->pos])
+		if (f->parser->str[f->parser->pos + 1]
+			== f->parser->str[f->parser->pos])
 			f->parser->pos += 2;
 		else
 			f->parser->pos++;
 	}
 	else
 		f->parser->pos++;
-
-	append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_b, f->parser->pos - f->parser->wd_b)); //operator
+	append_dll(f, &(f->token), ft_substr(f->parser->str,
+			f->parser->wd_b, f->parser->pos - f->parser->wd_b));
 	f->parser->wd_b = f->parser->pos;
-	addType_ll(f, 'O');
+	add_type_ll(f, 'O');
 }
 
 /* separa palavra normal + espacos entre palavras */
 void	lex_wdend(t_sh *f)
 {
 	if (f->parser->pos - f->parser->wd_b)
-		append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_b, f->parser->pos - f->parser->wd_b));
+		append_dll(f, &(f->token), ft_substr(f->parser->str,
+				f->parser->wd_b, f->parser->pos - f->parser->wd_b));
 	while (f->parser->str[f->parser->pos] == ' ')
 		f->parser->pos++;
 	f->parser->wd_b = f->parser->pos;
 }
 
-/* separa desde 1a aspa ate proxima aspa, return 1 em caso de erro: falta de aspas */
+/* separa desde 1a aspa ate proxima aspa, return 1 falta de aspas */
 int	lex_quote(t_sh *f)
 {
 	if (f->parser->str[f->parser->pos] == 34)
@@ -89,7 +93,8 @@ int	create_words(t_sh *f)
 	f->parser->wd_b = 0;
 	while (f->parser->str[f->parser->pos] != '\0')
 	{
-		if (f->parser->str[f->parser->pos] == '\'' || f->parser->str[f->parser->pos] == '\"') /* errno */
+		if (f->parser->str[f->parser->pos] == '\''
+			|| f->parser->str[f->parser->pos] == '\"')
 		{
 			if (lex_quote(f))
 				return (1);
@@ -102,6 +107,7 @@ int	create_words(t_sh *f)
 			f->parser->pos++;
 	}
 	if (f->parser->pos - f->parser->wd_b)
-		append_dll(f, &(f->token), ft_substr(f->parser->str, f->parser->wd_b, f->parser->pos - f->parser->wd_b)); //ultima palavra
+		append_dll(f, &(f->token), ft_substr(f->parser->str,
+				f->parser->wd_b, f->parser->pos - f->parser->wd_b));
 	return (0);
 }

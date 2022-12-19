@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 21:26:01 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 21:36:54 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ char	*_get_expansion(char *old_str, t_sh *f);
 
 //ddl_utils.c
 void	append_dll(t_sh *f, t_token **head, char *s);
-void	addType_ll(t_sh *f, char type);
-int	rmvNodes(t_sh *f);
+void	add_type_ll(t_sh *f, char type);
+int		rmv_nodes(t_sh *f);
 
 //free.c
 void	free_all(t_sh *sh);
@@ -134,10 +134,10 @@ int		parse_redirecs(t_sh *f, t_cmd *node, t_token *token);
 int		redirec_outfile(char *pathname, t_cmd *node, t_token *token);
 char	*get_filepath(t_sh *f, t_token *token);
 char	*get_filepathname(char *path, t_token *token);
-int	redirec_infile(char *pathname, t_cmd *node, t_token *token);
+int		redirec_infile(char *pathname, t_cmd *node, t_token *token);
 
 //heredoc.c
-int	redir_heredoc(t_cmd *node, char *eof);
+int		redir_heredoc(t_cmd *node, char *eof);
 
 //bi_pwd_unset_echo_env.c
 int		ft_pwd(void);

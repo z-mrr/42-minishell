@@ -6,16 +6,16 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:06 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 20:56:48 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 21:35:49 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	rmvNodes(t_sh *f)
+int	rmv_nodes(t_sh *f)
 {
-	t_token *node;
-	t_token *tmp;
+	t_token	*node;
+	t_token	*tmp;
 
 	node = f->token;
 	while (node != NULL)
@@ -36,18 +36,17 @@ void	initcmd(t_cmd *node)
 {
 	node->full_cmd = NULL;
 	node->path = NULL;
-	node->in_file= STDIN_FILENO;
+	node->in_file = STDIN_FILENO;
 	node->out_file = STDOUT_FILENO;
 }
 
-void ddl_append(t_cmd **head)
+void	ddl_append(t_cmd **head)
 {
 	t_cmd	*new_node;
 	t_cmd	*last;
 
 	new_node = NULL;
 	new_node = (t_cmd *)malloc(sizeof(t_cmd));
-
 	new_node->next = NULL;
 	if (*head == NULL)
 	{
@@ -64,7 +63,7 @@ void ddl_append(t_cmd **head)
 }
 
 /* adiciona tipo de token */
-void	addType_ll(t_sh *f, char type)
+void	add_type_ll(t_sh *f, char type)
 {
 	t_token	*head;
 
@@ -75,7 +74,7 @@ void	addType_ll(t_sh *f, char type)
 }
 
 /* adiciona mais um node (do tipo neutro) a lista de tokens */
-void append_dll(t_sh *f, t_token **head, char *s)
+void	append_dll(t_sh *f, t_token **head, char *s)
 {
 	t_token	*new_node;
 	t_token	*last;
@@ -83,7 +82,6 @@ void append_dll(t_sh *f, t_token **head, char *s)
 	(void)f;
 	new_node = NULL;
 	new_node = (t_token *)malloc(sizeof(t_token));
-
 	new_node->word = s;
 	new_node->type = 'N';
 	new_node->next = NULL;

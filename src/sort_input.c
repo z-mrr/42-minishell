@@ -6,47 +6,11 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 22:18:54 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 22:24:43 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	print_list(t_token *head)
-{
-	printf("\n                                          Mem                                    \n");
-	while (head != NULL)
-	{
-		printf("word: %s | ", head->word);
-		printf("type: %c\n", head->type);
-		head = head->next;
-	}
-	printf("\n                                      Mem END                                    \n");
-}
-
-void	print_listcmd(t_cmd *head)
-{
-	int	i;
-
-
-	printf("\n                                          Mem                                    \n");
-	if (!(head->full_cmd) && head)
-		head = head->next;
-	while (head != NULL)
-	{
-		i = 0;
-		while (head->full_cmd[i])
-		{
-			if (i == 0)
-				printf("Command: %s | ADRESS: %p\n", head->full_cmd[i], head);
-			else
-				printf("Arg[%i]: %s\n", i - 1, head->full_cmd[i]);
-			i++;
-		}
-		head = head->next;
-	}
-	printf("\n                                      Mem END                                    \n");
-}
 
 static int	check_operators(t_sh *f)
 {

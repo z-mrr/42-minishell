@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 03:20:04 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 20:30:12 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,10 @@ int		parse_redirecs(t_sh *f, t_cmd *node, t_token *token);
 int		redirec_outfile(char *pathname, t_cmd *node, t_token *token);
 char	*get_filepath(t_sh *f, t_token *token);
 char	*get_filepathname(char *path, t_token *token);
+int	redirec_infile(char *pathname, t_cmd *node, t_token *token);
+
+//heredoc.c
+int	redir_heredoc(t_cmd *node, char *eof);
 
 //bi_pwd_unset_echo_env.c
 int		ft_pwd(void);

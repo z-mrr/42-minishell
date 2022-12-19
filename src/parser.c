@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 00:28:08 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 13:51:16 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,17 @@ void	addstr_cmd(t_cmd *node, char *s)
 int	parse_operators(t_sh *f, t_cmd *node, t_token *token)
 {
 	if (token->next == NULL)
-		{printf("minishell: syntax error near unexpected token '%s'\n", token->word);exit(-1);}
+	{
+		printf("minishell: syntax error near unexpected token '%s'\n", token->word);
+		return (1);
+	}
 	else
 	{
 		if (token->next->type == 'O' || (token->prev == NULL && ft_strcmp(token->word, "<<") != 0))
-			{printf("minishell: syntax error near unexpected token '%s'\n", token->word);exit(-1);}
+		{
+			printf("minishell: syntax error near unexpected token '%s'\n", token->word);
+			return (1);
+		}
 	}
 	if (ft_strcmp(token->word, "|") == 0)
 	{
@@ -67,7 +73,7 @@ int	parse_operators(t_sh *f, t_cmd *node, t_token *token)
 		initcmd(node);
 	}
 	else
-		return (parse_redirecs(f, node, token));
+		parse_redirecs(f, node, token);
 	return (0);
 }
 
@@ -86,8 +92,8 @@ int	parsecmd(t_sh *f)
 	{
 		if (token->type == 'O') /* op */
 		{
-			if (parse_operators(f, node, token))
-				printf("erno\n");//return (1); //erro apenas neste cmd
+			if (parse_operators(f, node, token) != 0)
+				return (1); //erro apenas neste cmd
 			if (node->next)
 				node = node->next;
 			if (ft_strcmp(token->word, "|") != 0 && token->next)

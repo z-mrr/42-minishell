@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 01:22:05 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 13:51:59 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ int	main(int argc, char **argv, char **envp)
 		sh.parser->str = get_str(&sh);
 		if (!sh.parser->str)
 			continue ;
-		sort_input(&sh);
+		if (sort_input(&sh) == 0)
+			exec_input(&sh);
 		free(sh.parser->str);
-		exec_input(&sh);
 		free_tokens(&sh);
 		free_cmd(&sh);
 	}

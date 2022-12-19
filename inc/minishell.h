@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 22:34:12 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 00:03:04 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,10 @@
 # include <errno.h>
 # include <sys/ioctl.h>
 
-# define BUFFER_SIZE 4096 //MAX_PATH =~4096 bytes
 # define READ 0
 # define WRITE 1
 
-extern int	g_status;//exit status. When a script ends with an exit that has no parameter, the exit status of the script is the exit status of the last command executed in the script (previous to the exit). expand $?
+extern int	g_status;
 
 typedef struct	s_token
 {
@@ -47,12 +46,12 @@ typedef struct	s_token
 
 typedef	struct	s_cmd
 {
-	char			**full_cmd; //cmd e args
-	char			*path; //cmd PATH
+	char			**full_cmd;
+	char			*path;
 	int				in_file;
 	int				out_file;
 	struct s_cmd	*next;
-	struct s_cmd	*prev;//Nao pode ser simples?
+	struct s_cmd	*prev;
 }				t_cmd;
 
 typedef struct	s_parser
@@ -110,7 +109,7 @@ void	initcmd(t_cmd *node);
 int		parsecmd(t_sh *f);
 
 //ddl_utils.c
-void	append_dll(t_sh *f, t_token **head, char *s);/*f nao é usado*/
+void	append_dll(t_sh *f, t_token **head, char *s);
 void	addType_ll(t_sh *f, char type);
 void	print_list(t_token *head);
 void	print_listcmd(t_cmd *head);

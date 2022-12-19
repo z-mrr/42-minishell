@@ -6,19 +6,12 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 00:29:06 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 00:36:41 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 14:31:00 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*
-void	redirecErros(char *error, int redir)
-{
-	if (redir == 1)
-		write(1, )
-}
-*/
 int	parser_error(t_sh *f, char *error)
 {
 	if (!(ft_strcmp(error, "\'")) || !(ft_strcmp(error, "\"")))

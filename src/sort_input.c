@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 13:58:07 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 14:34:04 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	sort_input(t_sh *f)
 	printf("\n\n                                       ### PARSER ###                        \n\n");
 	if (parsecmd(f) != 0)
 		return (1);
-	printf("\n\n                                       ### NO FINAL ###                      \n\n");
-	print_listcmd(f->cmd);
-	printf("\n                                        ...free...                              \n");
+	//printf("\n\n                                       ### NO FINAL ###                      \n\n");
+	//print_listcmd(f->cmd);
+	//printf("\n                                        ...free...                              \n");
 	return (0);
 }

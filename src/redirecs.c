@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:04:22 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 01:00:19 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 14:41:29 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	redir_out(t_sh *f, t_cmd *node, t_token *token)
 	path = NULL;
 	path = get_filepath(f, token);
 	printf("path: %s\n", path);
+	if (node->out_file != STDOUT_FILENO && node->out_file != -2 && node->out_file != -1)
+		close(node->out_file);
 	if (access(path, F_OK) == 0) //path to dir exists
 	{
 		if (access(path, W_OK) == 0)
@@ -86,11 +88,11 @@ int	redir_out(t_sh *f, t_cmd *node, t_token *token)
 			return (i); //se nao for 0, erro
 		}
 		free(path);
-		printf("minishell: %s: Permission denied\n", token->word);
-		return (2); //access denied
+		node->out_file = -2;
+		return (p_error("minishell: ", token->word, ": Permission denied", 1));
 	}
-	printf("minishell: %s: No such file or directory\n", token->word);
-	return (1);
+	node->out_file = -2;
+	return (p_error("minishell: ", token->word, ": No such file or directory", 1));
 }
 
 char	*heredoc_nstr(char *str, char *buffer)

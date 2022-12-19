@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 20:37:29 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 17:09:33 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 20:49:35 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,19 @@ char	*get_filepath(t_sh *f, t_token *token)
 /* se o file ja existe, ve se csg aceder, senao da erro */
 int	redirec_infile(char *pathname, t_cmd *node, t_token *token)
 {
-	if (access(pathname, F_OK) == 0 && pathname[ft_strlen(pathname) - 1] != '/') /* existe ficheiro e nao e um file !*/
+	if (access(pathname, F_OK) == 0 && pathname[ft_strlen(pathname) - 1] != '/')
 	{
-		if (access(pathname, R_OK) == 0) /* podemos ler */
+		if (access(pathname, R_OK) == 0)
 		{
 			node->in_file = open(pathname, O_RDONLY, 0644);
-			return (0); /* no error ? */
+			return (0);
 		}
 		node->in_file = -2;
-		return (p_error("minishell: ", token->word, ": Permission denied", 1)); //access denied
+		return (p_error("minishell: ", token->word, ": Permission denied", 1));
 	}
 	node->in_file = -2;
-	return (p_error("minishell: ", token->word, ": No such file (or is a dir)", 1)); //no such file or ir a dir
+	return (p_error("minishell: ", token->word,
+			": No such file (or is a dir)", 1));
 }
 
 /* se o file ja existe, ve se csg aceder, senao da erro */
@@ -80,7 +81,7 @@ int	redirec_outfile(char *pathname, t_cmd *n, t_token *token)
 		n->out_file = -2;
 		return (p_error("minishell: ", token->word, ": Is a dir", 1));
 	}
-	if (access(pathname, F_OK) == 0) //existe ficheiro
+	if (access(pathname, F_OK) == 0)
 	{
 		if (access(pathname, W_OK) == 0)
 		{
@@ -88,14 +89,14 @@ int	redirec_outfile(char *pathname, t_cmd *n, t_token *token)
 				n->out_file = open(pathname, O_CREAT | O_RDWR | O_APPEND, 0644);
 			else
 				n->out_file = open(pathname, O_CREAT | O_RDWR | O_TRUNC, 0644);
-			return (0); //existe dir; pode escrever; nao existe file: escreve novo
+			return (0);
 		}
-		n->out_file = -2;//sinal que deu erro
-		return (p_error("minishell: ", token->word, ": Permission denied", 1)); //permission denied
+		n->out_file = -2;
+		return (p_error("minishell: ", token->word, ": Permission denied", 1));
 	}
 	if (ft_strcmp(token->word, ">>") == 0)
 		n->out_file = open(pathname, O_CREAT | O_RDWR | O_APPEND, 0644);
 	else
 		n->out_file = open(pathname, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	return (0); //existe dir; pode escrever; nao existe file: escreve novo
+	return (0);
 }

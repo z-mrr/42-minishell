@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 20:30:12 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 21:26:01 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,15 @@ void	ddl_append(t_cmd **head);
 void	initcmd(t_cmd *node);
 int		parsecmd(t_sh *f);
 
+//expand_utils.c
+char	*_get_full_rest(t_sh *f, char *old_str);
+char	*_get_rest(char *old_str, t_sh *f);
+char	*_get_expansion(char *old_str, t_sh *f);
+
 //ddl_utils.c
 void	append_dll(t_sh *f, t_token **head, char *s);
 void	addType_ll(t_sh *f, char type);
-void	print_list(t_token *head);
-void	print_listcmd(t_cmd *head);
+int	rmvNodes(t_sh *f);
 
 //free.c
 void	free_all(t_sh *sh);

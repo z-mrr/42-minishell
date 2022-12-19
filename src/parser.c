@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:25 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 14:17:14 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 20:52:31 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,11 @@ void	addstr_cmd(t_cmd *node, char *s)
 int	parse_operators(t_sh *f, t_cmd *node, t_token *token)
 {
 	if (token->next == NULL || token->next->type == 'O'
-			|| (token->prev == NULL && ft_strcmp(token->word, "<<") != 0))
+		|| (token->prev == NULL && ft_strcmp(token->word, "<<") != 0))
 	{
 		g_status = 2;
-		printf("minishell: syntax error near unexpected token '%s'\n", token->word);
+		printf("minishell: syntax errornear unexpected token '%s'\n",
+			token->word);
 		return (1);
 	}
 	if (ft_strcmp(token->word, "|") == 0)
@@ -84,10 +85,10 @@ int	parsecmd(t_sh *f)
 	initcmd(node);
 	while (token != NULL)
 	{
-		if (token->type == 'O') /* op */
+		if (token->type == 'O')
 		{
 			if (parse_operators(f, node, token) != 0)
-				return (1); //erro: so da return se for erro syntax
+				return (1);
 			if (node->next)
 				node = node->next;
 			if (ft_strcmp(token->word, "|") != 0 && token->next)

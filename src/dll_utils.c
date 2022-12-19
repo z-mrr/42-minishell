@@ -6,46 +6,30 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:06 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/18 22:36:26 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 20:56:48 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	print_list(t_token *head)
+int	rmvNodes(t_sh *f)
 {
-	printf("\n                                          Mem                                    \n");
-	while (head != NULL)
+	t_token *node;
+	t_token *tmp;
+
+	node = f->token;
+	while (node != NULL)
 	{
-		printf("word: %s | ", head->word);
-		printf("type: %c\n", head->type);
-		head = head->next;
+		tmp = node->next;
+		if (!node)
+			break ;
+		if (!(node->word))
+			ddl_remove_token(&(f->token), node);
+		node = tmp;
 	}
-	printf("\n                                      Mem END                                    \n");
-}
-
-void	print_listcmd(t_cmd *head)
-{
-	int	i;
-
-
-	printf("\n                                          Mem                                    \n");
-	if (!(head->full_cmd))
-		return ;
-	while (head != NULL)
-	{
-		i = 0;
-		while (head->full_cmd[i])
-		{
-			if (i == 0)
-				printf("Command: %s | ADRESS: %p\n", head->full_cmd[i], head);
-			else
-				printf("Arg[%i]: %s\n", i - 1, head->full_cmd[i]);
-			i++;
-		}
-		head = head->next;
-	}
-	printf("\n                                      Mem END                                    \n");
+	if (f->token == NULL)
+		return (1);
+	return (0);
 }
 
 void	initcmd(t_cmd *node)

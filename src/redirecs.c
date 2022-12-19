@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:04:22 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 14:41:29 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:58:44 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,18 @@
 /* se o file ja existe, ve se csg aceder, senao da erro */
 int	redirec_infile(char *pathname, t_cmd *node, t_token *token)
 {
-	if (access(pathname, F_OK) == 0) /* existe ficheiro */
+	if (access(pathname, F_OK) == 0 && pathname[ft_strlen(pathname) - 1] != '/') /* existe ficheiro e nao e um file !*/
 	{
 		if (access(pathname, R_OK) == 0) /* podemos ler */
 		{
 			node->in_file = open(pathname, O_RDONLY, 0644);
 			return (0); /* no error ? */
 		}
-		printf("minishell: %s: Permission denied\n", token->word);
-		return (4); /* permission denied */
+		node->in_file = -2;
+		return (p_error("minishell: ", token->word, ": Permission denied", 1)); //access denied
 	}
-	printf("minishell: %s: No such file.\n", token->word);
 	node->in_file = -2;
-	return (3); /* no such file or  ? */
+	return (p_error("minishell: ", token->word, ": No such file (or is a dir)", 1)); //no such file or ir a dir
 }
 
 /* ve se dir existe, se conseguir tenta escrever no dir, se sim continua*/
@@ -41,6 +40,8 @@ int	redir_in(t_sh *f, t_cmd *node, t_token *token)
 	path = NULL;
 	path = get_filepath(f, token);
 	printf("path: %s\n", path);
+	if (node->in_file != STDIN_FILENO && node->in_file != -2 && node->in_file != -1) // se fd ja foi aberto , fecha
+		close(node->in_file);
 	if (access(path, F_OK) == 0) //path to dir exists
 	{
 		if (access(path, R_OK) == 0)
@@ -54,11 +55,11 @@ int	redir_in(t_sh *f, t_cmd *node, t_token *token)
 			return (i); //se nao for 0, erro
 		}
 		free(path);
-		printf("minishell: %s: Permission denied\n", token->word);
-		return (2); //access denied
+		node->in_file = -2;
+		return (p_error("minishell: ", token->word, ": Permission denied", 1)); //access denied
 	}
-	printf("minishell: %s: No such file.\n", token->word);
-	return (1); //file or dir not exist
+	node->in_file = -2;
+	return (p_error("minishell: ", token->word, ": No such file or dir", 1)); //access denied
 }
 
 /* ve se dir existe, se conseguir tenta escrever no dir, se sim continua*/

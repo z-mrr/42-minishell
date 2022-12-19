@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:02:23 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 02:31:11 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 22:32:22 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int	check_fork(t_sh *sh, t_cmd *cmd, int *fd)
 		p_error("minishell: ", cmd->full_cmd[0],
 			": No such file or directory", 127);
 	else if (!cmd->path && !ft_strchr(cmd->full_cmd[0], '/'))
-		p_error(cmd->full_cmd[0], ": command not found\n", NULL, 127);
+		p_error(cmd->full_cmd[0], ": command not found", NULL, 127);
 	else if (is_dir(cmd->path))
-		p_error("minishell: ", cmd->full_cmd[0], ": Is a directory\n", 126);
+		p_error("minishell: ", cmd->full_cmd[0], ": Is a directory", 126);
 	else if (access(cmd->path, X_OK))
-		p_error("minishell: ", cmd->full_cmd[0], ": Permission denied\n", 126);
+		p_error("minishell: ", cmd->full_cmd[0], ": Permission denied", 126);
 	return (1);
 }
 

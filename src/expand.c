@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 20:50:32 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/18 18:46:28 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 01:00:02 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*_get_expansion(char *old_str, t_sh *f)
 	if (ft_strcmp(expansion, "$?") == 0)
 	{
 		free(expansion);
-		return (ft_itoa(g_status));//fixed
+		return (ft_itoa(g_status));
 	}
 	if (!(ft_strcmp(expansion, "$")))
 		return (expansion);

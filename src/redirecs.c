@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:04:22 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/18 22:03:35 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 01:00:19 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	heredocfd(t_cmd *node, char *str)
 	if (node->in_file != STDIN_FILENO && node->in_file != -2 && node->in_file != -1)
 		close(node->in_file);
 	if (pipe(fd) == -1)
-		return (g_status = errno);
+		return (g_status = 1);
 	if (str)
 	{
 		tmp = ft_strjoin(str, "\n");

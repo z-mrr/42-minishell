@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 20:50:09 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/18 18:57:58 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 00:26:50 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_tokens(t_sh *f)
 {
-	t_token *node;
+	t_token	*node;
 	t_token	*tmp;
 
 	node = f->token;
@@ -36,7 +36,7 @@ void	free_cmd(t_sh *sh)
 	t_cmd	*tmp;
 
 	node = sh->cmd;
-	while(node != NULL)
+	while (node != NULL)
 	{
 		tmp = node;
 		node = node->next;

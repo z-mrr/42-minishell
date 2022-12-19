@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:51:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 22:31:48 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 01:06:28 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_env(char *var, t_sh *sh)
 	pos = pos_env(var, sh->envp);
 	if (pos < 0 || !ft_strchr(sh->envp[pos], '='))
 		return (NULL);
-	return(ft_strdup(sh->envp[pos] + (ft_strlen(var) + 1)));
+	return (ft_strdup(sh->envp[pos] + (ft_strlen(var) + 1)));
 }
 
 /*modifica valor de env se já existente ou adiciona env se nao existe*/

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/19 00:29:06 by jdias-mo          #+#    #+#             */
+/*   Updated: 2022/12/19 00:36:41 by jdias-mo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
 /*
@@ -7,7 +19,6 @@ void	redirecErros(char *error, int redir)
 		write(1, )
 }
 */
-
 int	parser_error(t_sh *f, char *error)
 {
 	if (!(ft_strcmp(error, "\'")) || !(ft_strcmp(error, "\"")))
@@ -27,14 +38,11 @@ int	parser_error(t_sh *f, char *error)
 	return (1);
 }
 
-int	p_error(char *s1, char *s2, char *s3, char *s4, int status)
+int	p_error(char *s1, char *s2, char *s3, int status)
 {
-	if (status)
-		g_status = status;
 	ft_putstr_fd(s1, STDERR_FILENO);
 	ft_putstr_fd(s2, STDERR_FILENO);
 	ft_putstr_fd(s3, STDERR_FILENO);
-	ft_putstr_fd(s4, STDERR_FILENO);
 	ft_putchar_fd('\n', STDERR_FILENO);
-	return (g_status);
+	return (g_status = status);
 }

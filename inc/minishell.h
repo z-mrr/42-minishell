@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 00:03:04 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 01:25:18 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@
 
 extern int	g_status;
 
-typedef struct	s_token
+typedef struct s_token
 {
 	char			*word;
 	char			type;
 	struct s_token	*next;
 	struct s_token	*prev;
-}				t_token;
+}	t_token;
 
-typedef	struct	s_cmd
+typedef struct s_cmd
 {
 	char			**full_cmd;
 	char			*path;
@@ -52,22 +52,22 @@ typedef	struct	s_cmd
 	int				out_file;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
-}				t_cmd;
+}	t_cmd;
 
-typedef struct	s_parser
+typedef struct s_parser
 {
 	char	*str;
 	int		pos;
 	int		wd_b;
-}				t_parser;
+}	t_parser;
 
-typedef struct	s_sh
+typedef struct s_sh
 {
 	t_cmd		*cmd;
 	t_token		*token;
 	t_parser	*parser;
 	char		**envp;
-}				t_sh;
+}	t_sh;
 
 //fork.c
 void	child_fd(t_cmd *cmd, int *fd);
@@ -93,7 +93,7 @@ int		find_operator(char c);
 
 //lexer.c
 void	lexer(t_sh *f);
-int    _expander(t_sh *f);
+int		expander(t_sh *f);
 
 //lexer_utils.c
 void	rmv_quotes(t_token *node);
@@ -102,9 +102,9 @@ void	ddl_remove_token(t_token **head, t_token *node);
 int		end_varpos(char *s, int pos);
 
 //parser.c
-int     char_arraylen(char **array);
-void    addstr_cmd(t_cmd *n, char *s);
-void    ddl_append(t_cmd **head);
+int		char_arraylen(char **array);
+void	addstr_cmd(t_cmd *n, char *s);
+void	ddl_append(t_cmd **head);
 void	initcmd(t_cmd *node);
 int		parsecmd(t_sh *f);
 
@@ -121,7 +121,7 @@ void	free_cmd(t_sh *sh);
 
 //error.c
 int		parser_error(t_sh *f, char *error);
-int		p_error(char *s1, char *s2, char *s3, char *s4, int status);
+int		p_error(char *s1, char *s2, char *s3, int status);
 
 //redirecs.c
 int		parse_redirecs(t_sh *f, t_cmd *node, t_token *token);
@@ -140,11 +140,11 @@ int		ft_env(t_sh *sh);
 //bi_cd.c
 int		ft_cd(t_sh *sh, t_cmd *cmd);
 int		cd_home(t_sh *sh, t_cmd *cmd);
-int	cd_dash(t_sh *sh, t_cmd *cmd);
+int		cd_dash(t_sh *sh, t_cmd *cmd);
 
-//bi_export.c test args
+//bi_export.c
 int		ft_export(t_sh *sh, t_cmd *cmd);
-int		print_export(t_sh *sh);
+void	print_export(t_sh *sh);
 char	**set_export(t_sh *sh);
 int		export_novalue(t_sh *sh, char *var);
 

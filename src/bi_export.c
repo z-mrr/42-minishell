@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:15:11 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 14:20:01 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 01:05:55 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ int	ft_export(t_sh *sh, t_cmd *cmd)
 	n = mtr_len(cmd->full_cmd);
 	if (n > 1)
 	{
-			i = 0;
-			while (++i < n)
-			{
-				j = ft_strichr(cmd->full_cmd[i], '=');
-				if (j <= 0)
-					return (export_novalue(sh, cmd->full_cmd[i]));
-				var = ft_substr(cmd->full_cmd[i], 0, j);
-				value = ft_strdup(cmd->full_cmd[i] +  (j + 1));
-				set_env(var, value, sh);
-				free(var);
-				free(value);
-			}
+		i = 0;
+		while (++i < n)
+		{
+			j = ft_strichr(cmd->full_cmd[i], '=');
+			if (j <= 0)
+				return (export_novalue(sh, cmd->full_cmd[i]));
+			var = ft_substr(cmd->full_cmd[i], 0, j);
+			value = ft_strdup(cmd->full_cmd[i] + (j + 1));
+			set_env(var, value, sh);
+			free(var);
+			free(value);
+		}
 	}
 	else
 		print_export(sh);
@@ -45,14 +45,16 @@ int	ft_export(t_sh *sh, t_cmd *cmd)
 int	export_novalue(t_sh *sh, char *var)
 {
 	if (!ft_strichr(var, '='))
-		return(p_error("minishell: ", "export: `", var, "': not a valid identifier", 1));
+	{
+		ft_putstr_fd("minishell: ", STDOUT_FILENO);
+		return (p_error("export: `", var, "': not a valid identifier", 1));
+	}
 	set_env(var, NULL, sh);
-	return(g_status = 0);
-
+	return (g_status = 0);
 }
 
 /*print export with no args, ordered and with var="value"*/
-int	print_export(t_sh *sh)
+void	print_export(t_sh *sh)
 {
 	char	**env;
 	int		i;
@@ -79,7 +81,6 @@ int	print_export(t_sh *sh)
 		ft_putchar_fd('\n', 1);
 	}
 	mtr_free(env);
-	return (0);
 }
 
 /*envs to export format*/
@@ -107,4 +108,3 @@ char	**set_export(t_sh *sh)
 	}
 	return (env);
 }
-

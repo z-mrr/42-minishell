@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 22:34:14 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 01:22:05 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	oldpwd(t_sh *sh)
 	if (pos_env("OLDPWD", sh->envp) < 0)
 		set_env("OLDPWD", NULL, sh);
 }
+
 /*aumenta shlvl*/
 void	shlvl(t_sh *sh)
 {
@@ -35,7 +36,7 @@ void	shlvl(t_sh *sh)
 	int		shlvl;
 
 	temp = get_env("SHLVL", sh);
-	if(!temp)
+	if (!temp)
 		return ;
 	shlvl = ft_atoi(temp);
 	shlvl++;
@@ -54,21 +55,21 @@ int	init(int argc, char **argv, char **envp, t_sh *sh)
 	sh->token = NULL;
 	sh->parser = NULL;
 	sh->parser = malloc(sizeof(t_parser));
-	if(!sh->parser)
-		return (g_status = errno);
+	if (!sh->parser)
+		return (g_status = 1);
 	sh->parser->str = NULL;
 	sh->parser->pos = 0;
 	sh->parser->wd_b = 0;
 	sh->envp = mtr_dup(envp);
 	if (!(sh->envp))
-		exit(g_status = errno);
+		exit(g_status = 1);
 	shlvl(sh);
 	oldpwd(sh);
-	return(g_status = 0);
+	return (g_status = 0);
 }
 
 /*CTRL+C quebra de nova linha limpa*/
-void sig_handler(int signal)
+void	sig_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
@@ -86,7 +87,7 @@ int	main(int argc, char **argv, char **envp)
 	t_sh		sh;
 
 	init(argc, argv, envp, &sh);
-	while(1)
+	while (1)
 	{
 		signal(SIGINT, sig_handler);
 		signal(SIGQUIT, SIG_IGN);
@@ -101,5 +102,3 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
-
-

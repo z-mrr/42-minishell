@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/18 22:36:35 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 01:20:02 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,14 @@ char	*get_path(t_sh *sh, t_cmd *cmd)
 	int		i;
 
 	if (ft_strchr(cmd->full_cmd[0], '/') && !access(cmd->full_cmd[0], F_OK))
-		return(ft_strdup(cmd->full_cmd[0]));
+		return (ft_strdup(cmd->full_cmd[0]));
 	aux[2] = get_env("PATH", sh);
 	if (!aux[2])
 		return (NULL);
 	paths = ft_split(aux[2], ':');
 	free(aux[2]);
 	i = -1;
-	while(paths[++i])
+	while (paths[++i])
 	{
 		aux[0] = ft_strjoin(paths[i], "/");
 		aux[1] = ft_strjoin(aux[0], cmd->full_cmd[0]);
@@ -91,15 +91,15 @@ char	*get_path(t_sh *sh, t_cmd *cmd)
 
 void	parent_fd(t_cmd *cmd, int *fd)
 {
-		close(fd[WRITE]);
-		if (cmd->next && (cmd->next->in_file == STDIN_FILENO))
-			cmd->next->in_file = fd[READ];
-		else
-			close(fd[READ]);
-		if (cmd->in_file > 2)
-			close(cmd->in_file);
-		if (cmd->out_file > 2)
-			close(cmd->out_file);
+	close(fd[WRITE]);
+	if (cmd->next && (cmd->next->in_file == STDIN_FILENO))
+		cmd->next->in_file = fd[READ];
+	else
+		close(fd[READ]);
+	if (cmd->in_file > 2)
+		close(cmd->in_file);
+	if (cmd->out_file > 2)
+		close(cmd->out_file);
 }
 
 int	exec_input(t_sh *sh)
@@ -110,16 +110,15 @@ int	exec_input(t_sh *sh)
 	cmd = sh->cmd;
 	while (cmd && cmd->full_cmd)
 	{
-		if (check_builtin(cmd) < 0  && !cmd->next)
+		if (check_builtin(cmd) < 0 && !cmd->next)
 			ft_builtin(sh, cmd);
 		else if (cmd->in_file != -2 && cmd->out_file != -2)
 		{
 			signal(SIGINT, SIG_IGN);
 			signal(SIGQUIT, SIG_IGN);
-			if (!check_builtin(cmd))
-				cmd->path = get_path(sh, cmd);
+			cmd->path = get_path(sh, cmd);
 			if (pipe(fd) == -1)
-				return(g_status = errno);
+				return (g_status = 1);
 			if (!check_fork(sh, cmd, fd))
 				return (g_status);
 			parent_fd(cmd, fd);

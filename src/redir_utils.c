@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 20:37:29 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/18 18:55:05 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 14:52:29 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,14 @@ int	redirec_outfile(char *pathname, t_cmd *n, t_token *token)
 				n->out_file = open(pathname, O_CREAT | O_RDWR | O_APPEND, 0644);
 			else
 				n->out_file = open(pathname, O_CREAT | O_RDWR | O_TRUNC, 0644);
-			return (0); //no error ?
+			return (0); //existe dir; pode escrever; nao existe file: escreve novo
 		}
-		printf("minishell: %s: Permission denied\n", token->word);
-		n->out_file = -2;//suficiente?
-		return (3); //permission denied
+		n->out_file = -2;//sinal que deu erro
+		return (p_error("minishell: ", token->word, ": Permission denied", 1)); //permission denied
 	}
 	if (ft_strcmp(token->word, ">>") == 0)
 		n->out_file = open(pathname, O_CREAT | O_RDWR | O_APPEND, 0644);
 	else
 		n->out_file = open(pathname, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	return (0); //no erro ?
+	return (0); //existe dir; pode escrever; nao existe file: escreve novo
 }

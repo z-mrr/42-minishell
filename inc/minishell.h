@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 01:34:54 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 03:20:04 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ char	**mtr_add(char *str, char **old);
 //readline.c
 char	*get_str(t_sh *sh);
 char	*get_prompt(t_sh *sh);
-char	*get_user(void);
+char	*get_user(t_sh *sh);
 char	*get_dir(t_sh *sh);
 
 //main.c

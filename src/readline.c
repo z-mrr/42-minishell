@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 21:15:40 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 00:32:44 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 03:40:43 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ char	*get_dir(t_sh *sh)
 	char	*home;
 	char	*dir;
 
-	pwd = getcwd(NULL, 0);
+	pwd = get_env("PWD", sh);
 	if (!pwd)
-		pwd = ft_strdup("∅");
+		pwd = ft_strdup("");
 	home = get_env("HOME", sh);
 	if (home && !(ft_strncmp(pwd, home, ft_strlen(home))))
 		dir = ft_strjoin("~", pwd + ft_strlen(home));
@@ -33,15 +33,13 @@ char	*get_dir(t_sh *sh)
 }
 
 /*gets user for prompt, guest if no user env*/
-char	*get_user(void)
+char	*get_user(t_sh *sh)
 {
 	char	*user;
 
-	user = getenv("USER");
-	if (user)
-		user = ft_strdup(user);
-	else
-		user = ft_strdup("guest");
+	user = get_env("USER", sh);
+	if (!user)
+		user = ft_strdup("");
 	return (user);
 }
 
@@ -50,7 +48,7 @@ char	*get_prompt(t_sh *sh)
 {
 	char	*aux[3];
 
-	aux[2] = get_user();
+	aux[2] = get_user(sh);
 	aux[0] = ft_strjoin(WHT, aux[2]);
 	free(aux[2]);
 	aux[1] = ft_strjoin(aux[0], BLK);

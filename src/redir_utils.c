@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 20:37:29 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 16:01:47 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:32:31 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*get_filepath(t_sh *f, t_token *token)
 /* se o file ja existe, ve se csg aceder, senao da erro */
 int	redirec_outfile(char *pathname, t_cmd *n, t_token *token)
 {
-	if (pathname[ft_strlen(pathname - 1)] == '/')
+	if (pathname[ft_strlen(pathname) - 1] == '/')
 	{
 		n->out_file = -2;
 		return (p_error("minishell: ", token->word, ": Is a dir", 1));

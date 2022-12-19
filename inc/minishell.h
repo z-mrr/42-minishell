@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 01:25:18 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 01:34:54 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ int		exec_input(t_sh *sh);
 int		ft_builtin(t_sh *sh, t_cmd *cmd);
 int		check_builtin(t_cmd *cmd);
 
-//sortInput.c
+//sort_input.c
 int		sort_input(t_sh *f);
 
-//createWords.c //tokenizes the words
+//create_words.c //tokenizes the words
 int		create_words(t_sh *f);
 int		lex_quote(t_sh *f);
 void	lex_wdend(t_sh *f);
@@ -93,7 +93,7 @@ int		find_operator(char c);
 
 //lexer.c
 void	lexer(t_sh *f);
-int		expander(t_sh *f);
+int		_expander(t_sh *f);
 
 //lexer_utils.c
 void	rmv_quotes(t_token *node);

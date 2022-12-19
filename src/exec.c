@@ -6,13 +6,12 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 01:20:02 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/19 01:59:27 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*redirect -> is builtin -> path -> check fork -> fork -> fd/dup -> exec*/
 /*>0 to fork , <0 not fork*/
 int	check_builtin(t_cmd *cmd)
 {
@@ -39,7 +38,6 @@ int	check_builtin(t_cmd *cmd)
 		return (0);
 }
 
-/*returnar gstatus?*/
 int	ft_builtin(t_sh *sh, t_cmd *cmd)
 {
 	if (!ft_strcmp(cmd->full_cmd[0], "echo"))
@@ -59,36 +57,37 @@ int	ft_builtin(t_sh *sh, t_cmd *cmd)
 	return (0);
 }
 
+/*se o cmd for dir ./ex; procura paths e checka access*/
 char	*get_path(t_sh *sh, t_cmd *cmd)
 {
-	char	**paths;
+	char	**paths[2];
 	char	*aux[3];
-	int		i;
 
 	if (ft_strchr(cmd->full_cmd[0], '/') && !access(cmd->full_cmd[0], F_OK))
 		return (ft_strdup(cmd->full_cmd[0]));
 	aux[2] = get_env("PATH", sh);
 	if (!aux[2])
 		return (NULL);
-	paths = ft_split(aux[2], ':');
+	paths[0] = ft_split(aux[2], ':');
+	paths[1] = paths[0];
 	free(aux[2]);
-	i = -1;
-	while (paths[++i])
+	while (*paths[0])
 	{
-		aux[0] = ft_strjoin(paths[i], "/");
+		aux[0] = ft_strjoin(*paths[0]++, "/");
 		aux[1] = ft_strjoin(aux[0], cmd->full_cmd[0]);
 		free(aux[0]);
 		if (!access(aux[1], F_OK))
 		{
-			mtr_free(paths);
+			mtr_free(paths[1]);
 			return (aux[1]);
 		}
 		free(aux[1]);
 	}
-	mtr_free(paths);
+	mtr_free(paths[1]);
 	return (NULL);
 }
 
+/*out file and pipe fd control on parent*/
 void	parent_fd(t_cmd *cmd, int *fd)
 {
 	close(fd[WRITE]);

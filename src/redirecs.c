@@ -6,11 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:04:22 by gde-alme          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/12/20 15:42:39 by gde-alme         ###   ########.fr       */
-=======
-/*   Updated: 2022/12/20 01:31:02 by jdias-mo         ###   ########.fr       */
->>>>>>> refs/remotes/origin/gde5
+/*   Updated: 2022/12/20 16:11:41 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +77,14 @@ int	redir_out(t_sh *f, t_cmd *node, t_token *token)
 
 	path = NULL;
 	path = get_filepath(f, token);
-	printf("path: %s\n", path);
+	//printf("path: %s\n", path);
 	if (node->out_file != STDOUT_FILENO
 		&& node->out_file != -2 && node->out_file != -1)
 	{
 		close(node->out_file);
 	}
 	if (access(path, F_OK) == 0)
-	{
-		/*if (access(path, W_OK) == 0)
-			*/return (_opendirout(path, node, token));//);
-		/*free(path);
-		node->out_file = -2;
-		return (p_error("minishell: ", token->word, ": Permission denied", 1));
-	*/}
+		return (_opendirout(path, node, token));//);
 	node->out_file = -2;
 	return (p_error("minishell: ", token->word,
 			": No such file or directory", 1));

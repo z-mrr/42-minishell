@@ -6,7 +6,11 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:04:22 by gde-alme          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/12/20 15:42:39 by gde-alme         ###   ########.fr       */
+=======
+/*   Updated: 2022/12/20 01:31:02 by jdias-mo         ###   ########.fr       */
+>>>>>>> refs/remotes/origin/gde5
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +54,8 @@ int	redir_in(t_sh *f, t_cmd *node, t_token *token)
 		return (p_error("minishell: ", token->word, ": Permission denied", 1));
 	}
 	node->in_file = -2;
-	return (p_error("minishell: ", token->word, ": No such file or dir", 1));
+	return (p_error("minishell: ", token->word, \
+": No such file or directory", 1));
 }
 
 int	_opendirout(char *path, t_cmd *node, t_token *token)

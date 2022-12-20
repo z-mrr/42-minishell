@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:04:22 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 20:44:02 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/20 15:42:39 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ int	redir_out(t_sh *f, t_cmd *node, t_token *token)
 	}
 	if (access(path, F_OK) == 0)
 	{
-		if (access(path, W_OK) == 0)
-			return (_opendirout(path, node, token));
-		free(path);
+		/*if (access(path, W_OK) == 0)
+			*/return (_opendirout(path, node, token));//);
+		/*free(path);
 		node->out_file = -2;
 		return (p_error("minishell: ", token->word, ": Permission denied", 1));
-	}
+	*/}
 	node->out_file = -2;
 	return (p_error("minishell: ", token->word,
 			": No such file or directory", 1));

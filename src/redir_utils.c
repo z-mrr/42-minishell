@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 20:37:29 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 20:49:35 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/20 15:44:51 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*get_filepath(t_sh *f, t_token *token)
 /* se o file ja existe, ve se csg aceder, senao da erro */
 int	redirec_infile(char *pathname, t_cmd *node, t_token *token)
 {
-	if (access(pathname, F_OK) == 0 && pathname[ft_strlen(pathname) - 1] != '/')
+	if (access(pathname, F_OK) == 0/* && pathname[ft_strlen(pathname) - 1] != '/'*/)
 	{
 		if (access(pathname, R_OK) == 0)
 		{
@@ -76,7 +76,8 @@ int	redirec_infile(char *pathname, t_cmd *node, t_token *token)
 /* se o file ja existe, ve se csg aceder, senao da erro */
 int	redirec_outfile(char *pathname, t_cmd *n, t_token *token)
 {
-	if (pathname[ft_strlen(pathname) - 1] == '/')
+	printf("\n%s\n", pathname);
+	if (is_dir(pathname) == 1) //adicionar path acbar sem ser /
 	{
 		n->out_file = -2;
 		return (p_error("minishell: ", token->word, ": Is a dir", 1));

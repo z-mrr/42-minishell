@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 13:51:59 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/20 00:48:49 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	init(int argc, char **argv, char **envp, t_sh *sh)
 {
 	(void)argc;
 	(void)argv;
+	g_status = 0;
 	sh->cmd = NULL;
 	sh->token = NULL;
 	sh->parser = NULL;
@@ -84,7 +85,7 @@ void	sig_handler(int signal)
 dá erro se for ;, prompt personalizado com user e dir*/
 int	main(int argc, char **argv, char **envp)
 {
-	t_sh		sh;
+	t_sh	sh;
 
 	init(argc, argv, envp, &sh);
 	while (1)

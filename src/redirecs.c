@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:04:22 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 20:44:02 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/20 01:22:06 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	redir_in(t_sh *f, t_cmd *node, t_token *token)
 		return (p_error("minishell: ", token->word, ": Permission denied", 1));
 	}
 	node->in_file = -2;
-	return (p_error("minishell: ", token->word, ": No such file or dir", 1));
+	return (p_error("minishell: ", token->word, \
+": No such file or directory", 1));
 }
 
 int	_opendirout(char *path, t_cmd *node, t_token *token)
@@ -82,7 +83,7 @@ int	redir_out(t_sh *f, t_cmd *node, t_token *token)
 	{
 		close(node->out_file);
 	}
-	if (access(path, F_OK) == 0)
+	if (access(path, F_OK) == 0 && is_dir(path) == 0)
 	{
 		if (access(path, W_OK) == 0)
 			return (_opendirout(path, node, token));
@@ -91,6 +92,8 @@ int	redir_out(t_sh *f, t_cmd *node, t_token *token)
 		return (p_error("minishell: ", token->word, ": Permission denied", 1));
 	}
 	node->out_file = -2;
+	if (is_dir(path))
+		return (p_error("minishell: ", token->word, ": Is a directory", 1));
 	return (p_error("minishell: ", token->word,
 			": No such file or directory", 1));
 }

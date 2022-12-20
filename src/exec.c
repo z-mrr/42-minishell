@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 02:31:01 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/20 00:24:45 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 /*>0 to fork , <0 not fork*/
 int	check_builtin(t_cmd *cmd)
 {
+	if (!cmd->full_cmd)
+		return (0);
 	if (!ft_strcmp(cmd->full_cmd[0], "echo"))
 		return (1);
 	else if (!ft_strcmp(cmd->full_cmd[0], "cd"))
@@ -107,11 +109,11 @@ int	exec_input(t_sh *sh)
 	int		fd[2];
 
 	cmd = sh->cmd;
-	while (cmd && cmd->full_cmd)
+	while (cmd)
 	{
-		if (check_builtin(cmd) < 0 && !cmd->next)
+		if (cmd->full_cmd && check_builtin(cmd) < 0 && !cmd->next)
 			ft_builtin(sh, cmd);
-		else if (cmd->in_file != -2 && cmd->out_file != -2)
+		else if (cmd->full_cmd && cmd->in_file != -2 && cmd->out_file != -2)
 		{
 			signal(SIGINT, SIG_IGN);
 			signal(SIGQUIT, SIG_IGN);

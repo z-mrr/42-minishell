@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:16:40 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 22:24:43 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/19 22:47:43 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,5 @@ int	sort_input(t_sh *f)
 		return (1);
 	if (parsecmd(f) != 0)
 		return (1);
-	print_list(f->token);
-	print_listcmd(f->cmd);
 	return (0);
 }

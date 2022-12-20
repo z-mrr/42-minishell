@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 21:15:40 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 03:40:43 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/20 00:26:05 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*get_prompt(t_sh *sh)
 	free(aux[2]);
 	aux[1] = ft_strjoin(aux[0], BLK);
 	free(aux[0]);
-	aux[0] = ft_strjoin(aux[1], " ● ");
+	aux[0] = ft_strjoin(aux[1], " • ");
 	free(aux[1]);
 	aux[1] = ft_strjoin(aux[0], WHT);
 	free(aux[0]);

@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/20 00:48:49 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/20 15:46:37 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	init(int argc, char **argv, char **envp, t_sh *sh)
 		exit(g_status = 1);
 	shlvl(sh);
 	oldpwd(sh);
-	return (g_status = 0);
+	return (g_status);
 }
 
 /*CTRL+C quebra de nova linha limpa*/
@@ -95,8 +95,8 @@ int	main(int argc, char **argv, char **envp)
 		sh.parser->str = get_str(&sh);
 		if (!sh.parser->str)
 			continue ;
-		if (sort_input(&sh) == 0)
-			exec_input(&sh);
+		sort_input(&sh)
+		exec_input(&sh);
 		free(sh.parser->str);
 		free_tokens(&sh);
 		free_cmd(&sh);

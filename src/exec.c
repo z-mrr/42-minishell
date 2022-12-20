@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/20 01:21:37 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/20 15:45:58 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*get_path(t_sh *sh, t_cmd *cmd)
 	paths[0] = ft_split(aux[2], ':');
 	paths[1] = paths[0];
 	free(aux[2]);
-	while (*paths[0])
+	while (*paths[0] && cmd->full_cmd[0] && cmd->full_cmd[0][0])
 	{
 		aux[0] = ft_strjoin(*paths[0]++, "/");
 		aux[1] = ft_strjoin(aux[0], cmd->full_cmd[0]);

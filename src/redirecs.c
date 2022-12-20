@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:04:22 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/20 01:31:02 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/20 15:47:23 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	redir_in(t_sh *f, t_cmd *node, t_token *token)
 
 	path = NULL;
 	path = get_filepath(f, token);
-	printf("path: %s\n", path);
 	if (node->in_file != STDIN_FILENO
 		&& node->in_file != -2 && node->in_file != -1)
 	{
@@ -77,7 +76,6 @@ int	redir_out(t_sh *f, t_cmd *node, t_token *token)
 
 	path = NULL;
 	path = get_filepath(f, token);
-	printf("path: %s\n", path);
 	if (node->out_file != STDOUT_FILENO
 		&& node->out_file != -2 && node->out_file != -1)
 	{

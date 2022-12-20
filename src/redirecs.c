@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:04:22 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 01:00:19 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/20 15:57:34 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	redir_in(t_sh *f, t_cmd *node, t_token *token)
 
 	path = NULL;
 	path = get_filepath(f, token);
-	printf("path: %s\n", path);
 	if (access(path, F_OK) == 0) //path to dir exists
 	{
 		if (access(path, R_OK) == 0)
@@ -72,7 +71,6 @@ int	redir_out(t_sh *f, t_cmd *node, t_token *token)
 	pathname = NULL;
 	path = NULL;
 	path = get_filepath(f, token);
-	printf("path: %s\n", path);
 	if (access(path, F_OK) == 0) //path to dir exists
 	{
 		if (access(path, W_OK) == 0)

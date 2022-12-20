@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 02:31:01 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/20 15:56:26 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*get_path(t_sh *sh, t_cmd *cmd)
 	paths[0] = ft_split(aux[2], ':');
 	paths[1] = paths[0];
 	free(aux[2]);
-	while (*paths[0])
+	while (*paths[0] && cmd->full_cmd[0] && cmd->full_cmd[0][0])
 	{
 		aux[0] = ft_strjoin(*paths[0]++, "/");
 		aux[1] = ft_strjoin(aux[0], cmd->full_cmd[0]);
@@ -107,11 +107,11 @@ int	exec_input(t_sh *sh)
 	int		fd[2];
 
 	cmd = sh->cmd;
-	while (cmd && cmd->full_cmd)
+	while (cmd)
 	{
-		if (check_builtin(cmd) < 0 && !cmd->next)
+		if (cmd->full_cmd && check_builtin(cmd) < 0 && !cmd->next)
 			ft_builtin(sh, cmd);
-		else if (cmd->in_file != -2 && cmd->out_file != -2)
+		else if (cmd->full_cmd && cmd->in_file != -2 && cmd->out_file != -2)
 		{
 			signal(SIGINT, SIG_IGN);
 			signal(SIGQUIT, SIG_IGN);

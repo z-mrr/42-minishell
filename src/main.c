@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:16 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 01:22:05 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/20 15:54:36 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	init(int argc, char **argv, char **envp, t_sh *sh)
 {
 	(void)argc;
 	(void)argv;
+	g_status = 0;
 	sh->cmd = NULL;
 	sh->token = NULL;
 	sh->parser = NULL;
@@ -65,7 +66,7 @@ int	init(int argc, char **argv, char **envp, t_sh *sh)
 		exit(g_status = 1);
 	shlvl(sh);
 	oldpwd(sh);
-	return (g_status = 0);
+	return (g_status);
 }
 
 /*CTRL+C quebra de nova linha limpa*/

@@ -32,6 +32,7 @@ int	cd_dash(t_sh *sh, t_cmd *cmd)
 	free (temp);
 	temp = getcwd(NULL, 0);
 	set_env("PWD", temp, sh);
+	ft_putendl_fd(temp, STDOUT_FILENO);
 	free (temp);
 	return (g_status = 0);
 }

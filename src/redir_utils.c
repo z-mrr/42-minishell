@@ -70,14 +70,14 @@ int	redirec_infile(char *pathname, t_cmd *node, t_token *token)
 	}
 	node->in_file = -2;
 	return (p_error("minishell: ", token->word,
-			": No such file (or is a dir)", 1));
+			": No such file or directory", 1));
 }
 
 /* se o file ja existe, ve se csg aceder, senao da erro */
 int	redirec_outfile(char *pathname, t_cmd *n, t_token *token)
 {
 	printf("\n%s\n", pathname);
-	if (is_dir(pathname) == 1) //adicionar path acbar sem ser /
+	if (is_dir(pathname) == 1)
 	{
 		n->out_file = -2;
 		return (p_error("minishell: ", token->word, ": Is a dir", 1));

@@ -52,6 +52,7 @@ int	init(int argc, char **argv, char **envp, t_sh *sh)
 	(void)argc;
 	(void)argv;
 	g_status = 0;
+	sh->i = 0;
 	sh->cmd = NULL;
 	sh->token = NULL;
 	sh->parser = NULL;
@@ -66,7 +67,7 @@ int	init(int argc, char **argv, char **envp, t_sh *sh)
 		exit(g_status = 1);
 	shlvl(sh);
 	oldpwd(sh);
-	return (g_status = 0);
+	return (g_status);
 }
 
 /*CTRL+C quebra de nova linha limpa*/
@@ -97,6 +98,13 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (sort_input(&sh) == 0)
 			exec_input(&sh);
+		while (sh.i)
+		{
+			wait(&g_status);
+			sh.i--;
+		}
+		if (g_status > 255)
+			g_status = g_status / 255;
 		free(sh.parser->str);
 		free_tokens(&sh);
 		free_cmd(&sh);

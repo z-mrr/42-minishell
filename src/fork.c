@@ -18,7 +18,10 @@ int	check_fork(t_sh *sh, t_cmd *cmd, int *fd)
 		return (0);
 	else if ((cmd->path && !access(cmd->path, X_OK) && !is_dir(cmd->path))
 		|| check_builtin(cmd))
-		ft_fork(sh, cmd, fd);
+		{
+			ft_fork(sh, cmd, fd);
+			sh->i++;
+		}
 	else if (!cmd->path && ft_strchr(cmd->full_cmd[0], '/'))
 		p_error("minishell: ", cmd->full_cmd[0],
 			": No such file or directory", 127);

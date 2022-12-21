@@ -67,6 +67,7 @@ typedef struct s_sh
 	t_token		*token;
 	t_parser	*parser;
 	char		**envp;
+	int			i;
 }	t_sh;
 
 //fork.c

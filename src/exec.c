@@ -123,9 +123,6 @@ int	exec_input(t_sh *sh)
 			if (!check_fork(sh, cmd, fd))
 				return (g_status);
 			parent_fd(cmd, fd);
-			wait(&g_status);
-			if (g_status > 255)
-				g_status = g_status / 255;
 		}
 		cmd = cmd->next;
 	}

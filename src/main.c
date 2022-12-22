@@ -76,10 +76,9 @@ void	sig_handler(int signal)
 	if (signal == SIGINT)
 	{
 		g_status = 130;
-		ft_putchar_fd('\n', STDOUT_FILENO);
-		rl_on_new_line();
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
 		rl_replace_line("", 0);
-		rl_redisplay();
+		rl_on_new_line();
 	}
 }
 

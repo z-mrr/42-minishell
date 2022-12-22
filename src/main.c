@@ -52,6 +52,7 @@ int	init(int argc, char **argv, char **envp, t_sh *sh)
 	(void)argc;
 	(void)argv;
 	g_status = 0;
+	sh->wstatus = 0;
 	sh->i = 0;
 	sh->cmd = NULL;
 	sh->token = NULL;
@@ -98,15 +99,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (sort_input(&sh) == 0)
 			exec_input(&sh);
-		while (sh.i)
-		{
-			wait(&sh.wstatus);
-			if (sh.fork)
-				g_status = sh.wstatus;
-			sh.i--;
-		}
-		if (g_status > 255)
-			g_status = g_status / 255;
+		ft_wait(&sh);
 		free(sh.parser->str);
 		free_tokens(&sh);
 		free_cmd(&sh);

@@ -86,7 +86,7 @@ char	*get_str(t_sh *sh)
 	if (!line)
 	{
 		ft_putendl_fd("exit", 1);
-		exiting(sh);
+		ft_ctrld(sh);
 	}
 	str = ft_strtrim(line, " \t");
 	if (*str == '\0')

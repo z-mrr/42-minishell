@@ -173,7 +173,8 @@ void	rmv_env(char *var, t_sh *sh);
 int		ft_strichr(char *str, char c);
 int		ft_strcmp(char *s1, char *s2);
 int		is_dir(char *path);
-void	exiting(t_sh *sh);
+void	ft_ctrld(t_sh *sh);
+void	ft_wait(t_sh *sh);
 
 //mtr_utils.c
 int		mtr_len(char **m);

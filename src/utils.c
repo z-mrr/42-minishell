@@ -12,7 +12,22 @@
 
 #include "../inc/minishell.h"
 
-void	exiting(t_sh *sh)
+void	ft_wait(t_sh *sh)
+{
+	while (sh->i)
+		{
+			wait(&sh->wstatus);
+			if (sh->fork)
+				g_status = sh->wstatus;
+			sh->i--;
+		}
+		if (g_status > 255)
+			g_status = g_status / 255;
+		if (g_status == 13)
+			g_status = 0;
+}
+
+void	ft_ctrld(t_sh *sh)
 {
 	clear_history();
 	free_all(sh);

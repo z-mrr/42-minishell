@@ -22,7 +22,7 @@ void	ft_wait(t_sh *sh)
 		if (WIFSIGNALED(wstatus))
 			wstatus += 128;
 		if (sh->fork)
-		g_status = wstatus;
+			g_status = wstatus;
 		sh->i--;
 	}
 	if (g_status > 255)

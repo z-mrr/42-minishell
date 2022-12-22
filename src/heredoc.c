@@ -78,6 +78,5 @@ int	redir_heredoc(t_cmd *node, char *eof)
 		if (g_status == 130)
 			free(str);
 	}
-	node->in_file = -2;
 	return (1);
 }

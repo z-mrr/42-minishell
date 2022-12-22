@@ -59,6 +59,8 @@ int	parse_operators(t_sh *f, t_cmd *node, t_token *token)
 		node = node->next;
 		initcmd(node);
 	}
+	else if (ft_strcmp(token->word, "<<") == 0)
+		return (parse_redirecs(f, node, token));
 	else
 		return (parse_redirecs(f, node, token));
 	return (0);

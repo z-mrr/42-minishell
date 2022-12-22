@@ -100,7 +100,9 @@ int	main(int argc, char **argv, char **envp)
 			exec_input(&sh);
 		while (sh.i)
 		{
-			wait(&g_status);
+			wait(&sh.wstatus);
+			if (sh.fork)
+				g_status = sh.wstatus;
 			sh.i--;
 		}
 		if (g_status > 255)

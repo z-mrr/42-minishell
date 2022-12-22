@@ -68,6 +68,8 @@ typedef struct s_sh
 	t_parser	*parser;
 	char		**envp;
 	int			i;
+	int			fork;
+	int			wstatus;
 }	t_sh;
 
 //fork.c

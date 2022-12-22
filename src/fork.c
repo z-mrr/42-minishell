@@ -21,6 +21,7 @@ int	check_fork(t_sh *sh, t_cmd *cmd, int *fd)
 	{
 		ft_fork(sh, cmd, fd);
 		sh->i++;
+		sh->fork = 1;
 	}
 	else if (!cmd->path && ft_strchr(cmd->full_cmd[0], '/'))
 		p_error("minishell: ", cmd->full_cmd[0],

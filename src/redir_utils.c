@@ -23,11 +23,9 @@ char	*get_filepathname(char *path, t_token *token)
 			&& token->word[1] == '/'))
 	{
 		pathname = ft_strdup(token->word);
-		printf("pathname: %s\n", pathname);
 		return (pathname);
 	}
 	pathname = ft_strjoin(path, token->word);
-	printf("pathname: %s\n", pathname);
 	return (pathname);
 }
 
@@ -58,7 +56,7 @@ char	*get_filepath(t_sh *f, t_token *token)
 /* se o file ja existe, ve se csg aceder, senao da erro */
 int	redirec_infile(char *pathname, t_cmd *node, t_token *token)
 {
-	if (access(pathname, F_OK) == 0/* && pathname[ft_strlen(pathname) - 1] != '/'*/)
+	if (access(pathname, F_OK) == 0)
 	{
 		if (access(pathname, R_OK) == 0)
 		{
@@ -76,7 +74,6 @@ int	redirec_infile(char *pathname, t_cmd *node, t_token *token)
 /* se o file ja existe, ve se csg aceder, senao da erro */
 int	redirec_outfile(char *pathname, t_cmd *n, t_token *token)
 {
-	printf("\n%s\n", pathname);
 	if (is_dir(pathname) == 1)
 	{
 		n->out_file = -2;

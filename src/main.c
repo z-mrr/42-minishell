@@ -52,7 +52,6 @@ int	init(int argc, char **argv, char **envp, t_sh *sh)
 	(void)argc;
 	(void)argv;
 	g_status = 0;
-	sh->wstatus = 0;
 	sh->i = 0;
 	sh->cmd = NULL;
 	sh->token = NULL;

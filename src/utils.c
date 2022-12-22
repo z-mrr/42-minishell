@@ -14,17 +14,21 @@
 
 void	ft_wait(t_sh *sh)
 {
+	int	wstatus;
+
 	while (sh->i)
-		{
-			wait(&sh->wstatus);
-			if (sh->fork)
-				g_status = sh->wstatus;
-			sh->i--;
-		}
-		if (g_status > 255)
-			g_status = g_status / 255;
-		if (g_status == 13)
-			g_status = 0;
+	{
+		wait(&wstatus);
+		if (WIFSIGNALED(wstatus))
+			wstatus += 128;
+		if (sh->fork)
+		g_status = wstatus;
+		sh->i--;
+	}
+	if (g_status > 255)
+		g_status = g_status / 255;
+	if (g_status == 13)
+		g_status = 0;
 }
 
 void	ft_ctrld(t_sh *sh)

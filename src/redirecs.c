@@ -35,7 +35,6 @@ int	redir_in(t_sh *f, t_cmd *node, t_token *token)
 
 	path = NULL;
 	path = get_filepath(f, token);
-	printf("path: %s\n", path);
 	if (node->in_file != STDIN_FILENO
 		&& node->in_file != -2 && node->in_file != -1)
 	{

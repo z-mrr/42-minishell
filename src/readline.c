@@ -53,7 +53,7 @@ char	*get_prompt(t_sh *sh)
 	free(aux[2]);
 	aux[1] = ft_strjoin(aux[0], BLK);
 	free(aux[0]);
-	aux[0] = ft_strjoin(aux[1], " • ");
+	aux[0] = ft_strjoin(aux[1], " ");
 	free(aux[1]);
 	aux[1] = ft_strjoin(aux[0], WHT);
 	free(aux[0]);
@@ -61,10 +61,7 @@ char	*get_prompt(t_sh *sh)
 	aux[0] = ft_strjoin(aux[1], aux[2]);
 	free(aux[2]);
 	free(aux[1]);
-	if (!g_status)
-		aux[1] = ft_strjoin(aux[0], BLU);
-	else
-		aux[1] = ft_strjoin(aux[0], RED);
+	aux[1] = ft_strjoin(aux[0], WHT);
 	free(aux[0]);
 	aux[0] = ft_strjoin(aux[1], " $ ");
 	free(aux[1]);

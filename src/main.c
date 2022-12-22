@@ -52,7 +52,6 @@ int	init(int argc, char **argv, char **envp, t_sh *sh)
 	(void)argc;
 	(void)argv;
 	g_status = 0;
-	sh->wstatus = 0;
 	sh->i = 0;
 	sh->cmd = NULL;
 	sh->token = NULL;
@@ -76,10 +75,10 @@ void	sig_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
-		g_status = 130;
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		rl_replace_line("", 0);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 }
 

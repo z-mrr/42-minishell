@@ -60,7 +60,7 @@ int	parse_operators(t_sh *f, t_cmd *node, t_token *token)
 		initcmd(node);
 	}
 	else
-		parse_redirecs(f, node, token);
+		return (parse_redirecs(f, node, token));
 	return (0);
 }
 

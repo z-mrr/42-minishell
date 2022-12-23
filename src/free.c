@@ -36,7 +36,7 @@ void	free_cmd(t_sh *sh)
 	t_cmd	*tmp;
 
 	node = sh->cmd;
-	while (node != NULL)
+	while (node)
 	{
 		tmp = node;
 		node = node->next;

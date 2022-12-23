@@ -163,8 +163,9 @@ char	**set_export(t_sh *sh);
 int		export_novalue(t_sh *sh, char *var);
 
 //bi_exit.c
-int		ft_exit(t_cmd *cmd);
-void	exit_check(char **str);
+int		ft_exit(t_sh *sh, t_cmd *cmd);
+int		exit_check(char **str);
+void	exiting(t_sh *sh, t_cmd *cmd);
 
 //env.c
 char	*get_env(char *var, t_sh *sh);

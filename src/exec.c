@@ -55,7 +55,7 @@ int	ft_builtin(t_sh *sh, t_cmd *cmd)
 	else if (!ft_strcmp(cmd->full_cmd[0], "env"))
 		ft_env(sh);
 	else if (!ft_strcmp(cmd->full_cmd[0], "exit"))
-		ft_exit(cmd);
+		ft_exit(sh, cmd);
 	return (0);
 }
 

@@ -69,6 +69,7 @@ typedef struct s_sh
 	char		**envp;
 	int			i;
 	int			fork;
+	pid_t		pid;
 }	t_sh;
 
 //fork.c

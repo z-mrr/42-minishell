@@ -16,13 +16,17 @@ void	ft_wait(t_sh *sh)
 {
 	int	wstatus;
 
-	while (sh->i)
+	if (waitpid(sh->pid, &wstatus, 0) != -1)
 	{
-		wait(&wstatus);
 		if (WIFSIGNALED(wstatus))
 			wstatus += 128;
 		if (sh->fork)
 			g_status = wstatus;
+		sh->i--;
+	}
+	while (sh->i)
+	{
+		wait(0);
 		sh->i--;
 	}
 	if (g_status > 255)

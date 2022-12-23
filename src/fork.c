@@ -37,16 +37,14 @@ int	check_fork(t_sh *sh, t_cmd *cmd, int *fd)
 
 void	ft_fork(t_sh *sh, t_cmd *cmd, int *fd)
 {
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == -1)
+	sh->pid = fork();
+	if (sh->pid == -1)
 	{
 		close(fd[READ]);
 		close(fd[WRITE]);
 		g_status = 1;
 	}
-	else if (!pid)
+	else if (!sh->pid)
 	{
 		child_fd(cmd, fd);
 		signal(SIGINT, SIG_DFL);

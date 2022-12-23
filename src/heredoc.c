@@ -51,10 +51,9 @@ int	heredocfd(t_cmd *node, char *str)
 	return (0);
 }
 
-int	handle_quit(t_cmd *node, char *buff, char *s, char *eof)
+int	handle_quit(t_cmd *node, char *s, char *eof)
 {
-	printf("-minishell: warning: heredoc delimited by EOF (wanted `%s')\n", eof);
-	free(buff);
+	printf("minishell: warning: heredoc delimited by EOF (wanted `%s')\n", eof);
 	free(s);
 	return (node->in_file = -2);
 }
@@ -72,7 +71,7 @@ int	redir_heredoc(t_cmd *node, char *eof)
 	{
 		buffer = readline("> ");
 		if (!buffer)
-			return (handle_quit(node, buffer, str, eof));
+			return (handle_quit(node, str, eof));
 		if (str && ft_strcmp(buffer, eof) != 0)
 			str = heredoc_nstr(str, buffer);
 		else if (ft_strcmp(buffer, eof) != 0)

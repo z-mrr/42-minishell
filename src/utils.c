@@ -28,7 +28,11 @@ void	ft_wait(t_sh *sh)
 	}
 	while (sh->i)
 	{
-		wait(0);
+		waitpid(-1, &wstatus, 0);
+		if (WIFSIGNALED(wstatus))
+			wstatus += 128;
+		if (wstatus == 130)
+			ft_putchar_fd('\n', STDOUT_FILENO);
 		sh->i--;
 	}
 	if (g_status > 255)

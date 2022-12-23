@@ -141,6 +141,9 @@ int		redirec_infile(char *pathname, t_cmd *node, t_token *token);
 
 //heredoc.c
 int		redir_heredoc(t_cmd *node, char *eof);
+int		handle_quit(t_cmd *node, char *s, char *eof);
+int		heredocfd(t_cmd *node, char *str);
+char	*heredoc_nstr(char *str, char *buffer);
 
 //bi_pwd_unset_echo_env.c
 int		ft_pwd(void);

@@ -22,6 +22,8 @@ void	ft_wait(t_sh *sh)
 			wstatus += 128;
 		if (sh->fork)
 			g_status = wstatus;
+		if (g_status == 130)
+			ft_putchar_fd('\n', STDOUT_FILENO);
 		sh->i--;
 	}
 	while (sh->i)

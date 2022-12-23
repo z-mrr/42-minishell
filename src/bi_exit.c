@@ -35,6 +35,8 @@ void	exiting(t_sh *sh, t_cmd *cmd)
 {
 	mtr_free(sh->envp);
 	mtr_free(cmd->full_cmd);
+	free(cmd);
+	free_tokens(sh);
 	free(sh->parser->str);
 	free(sh->parser);
 	clear_history();

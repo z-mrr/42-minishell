@@ -112,7 +112,7 @@ int	exec_input(t_sh *sh)
 	while (cmd)
 	{
 		sh->fork = 0;
-		if (cmd->full_cmd && check_builtin(cmd) < 0 && !cmd->next)
+		if (cmd->full_cmd && check_builtin(cmd) < 0 && !cmd->next && !cmd->prev)
 			ft_builtin(sh, cmd);
 		else if (cmd->full_cmd && cmd->in_file != -2 && cmd->out_file != -2)
 		{

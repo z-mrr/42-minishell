@@ -65,7 +65,7 @@ int	ft_echo(t_cmd *cmd)
 		return (g_status = 0);
 	i = 0;
 	n = mtr_len(cmd->full_cmd);
-	opt = ft_strncmp(cmd->full_cmd[1], "-n", 2);
+	opt = check_echon(cmd);
 	if (n < 2 || (!opt && n < 3))
 		return (g_status = 0);
 	if (!opt)
@@ -79,4 +79,22 @@ int	ft_echo(t_cmd *cmd)
 	if (opt)
 		ft_putchar_fd('\n', 1);
 	return (g_status = 0);
+}
+
+int	check_echon(t_cmd *cmd)
+{
+	int	i;
+
+	if (!ft_strncmp(cmd->full_cmd[1], "-n", 2))
+	{
+		i = 1;
+		while (cmd->full_cmd[1][i])
+		{
+			if (cmd->full_cmd[1][i] != 'n')
+				return (1);
+			i++;
+		}
+		return (0);
+	}
+	return (1);
 }

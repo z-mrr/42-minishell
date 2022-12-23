@@ -150,6 +150,7 @@ int		ft_pwd(void);
 int		ft_unset(t_sh *sh, t_cmd *cmd);
 int		ft_echo(t_cmd *cmd);
 int		ft_env(t_sh *sh);
+int		check_echon(t_cmd *cmd);
 
 //bi_cd.c
 int		ft_cd(t_sh *sh, t_cmd *cmd);

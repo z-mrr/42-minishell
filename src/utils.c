@@ -19,7 +19,7 @@ void	ft_wait(t_sh *sh)
 	if (waitpid(sh->pid, &wstatus, 0) != -1)
 	{
 		if (WIFSIGNALED(wstatus))
-			wstatus += 128;
+			wstatus = WTERMSIG(wstatus) + 128;
 		if (sh->fork)
 			g_status = wstatus;
 		if (g_status == 130)
@@ -30,7 +30,7 @@ void	ft_wait(t_sh *sh)
 	{
 		waitpid(-1, &wstatus, 0);
 		if (WIFSIGNALED(wstatus))
-			wstatus += 128;
+			wstatus = WTERMSIG(wstatus) + 128;
 		if (wstatus == 130)
 			ft_putchar_fd('\n', STDOUT_FILENO);
 		sh->i--;

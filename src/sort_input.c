@@ -23,7 +23,8 @@ static int	check_operators(t_sh *f)
 		if (node->type == 'O')
 		{
 			if (node->next == NULL || node->next->type == 'O'
-				|| (node->prev == NULL && ft_strcmp(node->word, "<<") != 0))
+				|| (node->prev == NULL && ft_strcmp(node->word, "<<") != 0 \
+				&& ft_strcmp(node->word, "<") != 0))
 			{
 				g_status = 2;
 				printf("minishell: syntax error near unexpected token `%s'\n",

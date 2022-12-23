@@ -125,6 +125,7 @@ int		rmv_nodes(t_sh *f);
 void	free_all(t_sh *sh);
 void	free_tokens(t_sh *f);
 void	free_cmd(t_sh *sh);
+void	ft_ctrld(t_sh *sh);
 
 //error.c
 int		parser_error(t_sh *f, char *error);
@@ -178,7 +179,7 @@ void	rmv_env(char *var, t_sh *sh);
 int		ft_strichr(char *str, char c);
 int		ft_strcmp(char *s1, char *s2);
 int		is_dir(char *path);
-void	ft_ctrld(t_sh *sh);
+void	print_sig(int sig);
 void	ft_wait(t_sh *sh);
 
 //mtr_utils.c

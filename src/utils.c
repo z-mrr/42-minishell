@@ -22,8 +22,7 @@ void	ft_wait(t_sh *sh)
 			wstatus = WTERMSIG(wstatus) + 128;
 		if (sh->fork)
 			g_status = wstatus;
-		if (g_status == 130)
-			ft_putchar_fd('\n', STDOUT_FILENO);
+		print_sig(g_status);
 		sh->i--;
 	}
 	while (sh->i)
@@ -31,8 +30,7 @@ void	ft_wait(t_sh *sh)
 		waitpid(-1, &wstatus, 0);
 		if (WIFSIGNALED(wstatus))
 			wstatus = WTERMSIG(wstatus) + 128;
-		if (wstatus == 130)
-			ft_putchar_fd('\n', STDOUT_FILENO);
+		print_sig(wstatus);
 		sh->i--;
 	}
 	if (g_status > 255)
@@ -41,11 +39,12 @@ void	ft_wait(t_sh *sh)
 		g_status = 0;
 }
 
-void	ft_ctrld(t_sh *sh)
+void	print_sig(int sig)
 {
-	clear_history();
-	free_all(sh);
-	exit(g_status);
+	if (sig == 130)
+		ft_putchar_fd('\n', STDOUT_FILENO);
+	if (sig == 131)
+		ft_putendl_fd("Quit", STDOUT_FILENO);
 }
 
 int	is_dir(char *path)

@@ -64,4 +64,10 @@ void	free_all(t_sh *sh)
 	sh->parser = NULL;
 	sh = NULL;
 }
-//free parser->str?? double free happens
+
+void	ft_ctrld(t_sh *sh)
+{
+	clear_history();
+	free_all(sh);
+	exit(g_status);
+}

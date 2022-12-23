@@ -26,7 +26,7 @@ static int	check_operators(t_sh *f)
 				|| (node->prev == NULL && ft_strcmp(node->word, "<<") != 0))
 			{
 				g_status = 2;
-				printf("minishell: syntax error near unexpected token '%s'\n",
+				printf("minishell: syntax error near unexpected token `%s'\n",
 					node->word);
 				return (1);
 			}

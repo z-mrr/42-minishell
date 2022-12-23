@@ -6,7 +6,7 @@
 /*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 20:45:04 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 20:46:50 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/23 02:45:26 by gde-alme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,14 @@ int	heredocfd(t_cmd *node, char *str)
 	return (0);
 }
 
+int	handle_quit(t_cmd *node, char *buff, char *s, char *eof)
+{
+	printf("-minishell: warning: heredoc delimited by EOF (wanted `%s')\n", eof);
+	free(buff);
+	free(s);
+	return (node->in_file = -2);
+}
+
 /* heredoc: writes to a str lines read by newline until eof */
 int	redir_heredoc(t_cmd *node, char *eof)
 {
@@ -64,7 +72,7 @@ int	redir_heredoc(t_cmd *node, char *eof)
 	{
 		buffer = readline("> ");
 		if (!buffer)
-			return (node->in_file = -2);
+			return (handle_quit(node, buffer, str, eof));
 		if (str && ft_strcmp(buffer, eof) != 0)
 			str = heredoc_nstr(str, buffer);
 		else if (ft_strcmp(buffer, eof) != 0)

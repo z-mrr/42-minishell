@@ -26,7 +26,7 @@ int	cd_dash(t_sh *sh, t_cmd *cmd)
 	{
 		free(temp);
 		ft_putstr_fd("minishell: ", STDOUT_FILENO);
-		return (p_error(cmd->full_cmd[1], ": ", strerror(errno), 1));
+		return (p_error(cmd->full_cmd[0], ": ", strerror(errno), 1));
 	}
 	set_env("OLDPWD", temp, sh);
 	free (temp);
@@ -53,11 +53,11 @@ int	ft_cd(t_sh *sh, t_cmd *cmd)
 		&& ft_strlen(cmd->full_cmd[1]) == 1)
 		return (cd_dash(sh, cmd));
 	oldpwd = getcwd(NULL, 0);
-	if (chdir(cmd->full_cmd[1]) == -1)
+	if (cmd->full_cmd[1] && chdir(cmd->full_cmd[1]) == -1)
 	{
 		free (oldpwd);
 		ft_putstr_fd("minishell: ", STDOUT_FILENO);
-		return (p_error(cmd->full_cmd[1], ": ", strerror(errno), 1));
+		return (p_error(cmd->full_cmd[0], ": ", strerror(errno), 1));
 	}
 	pwd = getcwd(NULL, 0);
 	set_env("PWD", pwd, sh);

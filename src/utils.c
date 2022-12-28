@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 01:23:06 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/28 18:02:34 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/28 18:16:52 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,6 @@ void	ft_wait(t_sh *sh)
 		g_status = g_status / 255;
 	if (g_status == 13)
 		g_status = 0;
-}
-
-void	ft_sleep(unsigned int n)
-{
-	while (n)
-		n--;
 }
 
 int	is_dir(char *path)

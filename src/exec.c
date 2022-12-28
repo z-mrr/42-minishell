@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:18:07 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/28 18:08:28 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/28 18:16:45 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,6 @@ int	exec_input(t_sh *sh)
 			if (!check_fork(sh, cmd, fd))
 				return (g_status);
 			parent_fd(cmd, fd);
-			if (cmd->out_file > 2 && cmd->next->in_file > 2)
-				ft_sleep(99999);
 		}
 		cmd = cmd->next;
 	}

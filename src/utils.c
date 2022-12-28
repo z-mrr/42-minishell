@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 01:23:06 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 02:36:25 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/12/28 18:02:34 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,10 @@ void	ft_wait(t_sh *sh)
 		g_status = 0;
 }
 
-void	ft_ctrld(t_sh *sh)
+void	ft_sleep(unsigned int n)
 {
-	clear_history();
-	free_all(sh);
-	exit(g_status);
+	while (n)
+		n--;
 }
 
 int	is_dir(char *path)

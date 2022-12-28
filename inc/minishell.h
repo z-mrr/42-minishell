@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 21:36:54 by gde-alme         ###   ########.fr       */
+/*   Updated: 2022/12/28 18:02:26 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void	rmv_env(char *var, t_sh *sh);
 int		ft_strichr(char *str, char c);
 int		ft_strcmp(char *s1, char *s2);
 int		is_dir(char *path);
-void	ft_ctrld(t_sh *sh);
+void	ft_sleep(unsigned int n);
 void	ft_wait(t_sh *sh);
 
 //mtr_utils.c

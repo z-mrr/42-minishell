@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 11:42:14 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/28 18:16:57 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2023/01/04 13:39:47 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # include "../inc/color.h"
-# include "../libft/libft.h"
+# include "../libft/inc/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdio.h>

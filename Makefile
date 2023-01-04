@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/01/04 13:02:01 by jdias-mo          #+#    #+#              #
+#    Updated: 2023/01/04 13:51:45 by jdias-mo         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME =			minishell
 
 SRC =			$(addsuffix .c, bi_cd \
@@ -41,11 +53,15 @@ INC =			-I$(INC_DIR) -I$(LIBFT_DIR) -I$(READLINE_DIR)
 
 LIBFT =			libft/libft.a
 
-LINK =			-L$(LIBFT_DIR) -lft -L$(READLINE_DIR) -lreadline
+LINK =			-L$(LIBFT_DIR) -L$(READLINE_DIR)
+
+LIB =			-lft -lreadline
 
 CC =			gcc
 
 CFLAGS =		-Wall -Werror -Wextra
+
+RM =			rm -f
 
 all:			$(NAME)
 
@@ -56,18 +72,18 @@ $(OBJ_DIR):
 				mkdir $(OBJ_DIR)
 
 $(NAME):		$(LIBFT) $(OBJ_DIR) $(OBJ)
-				$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(INC) $(LINK)
+				$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(INC) $(LINK) $(LIB)
 
 $(LIBFT):
-				make bonus -s -C $(LIBFT_DIR)
+				make bonus -C $(LIBFT_DIR)
 
 clean:
-				make clean -s -C $(LIBFT_DIR)
-				rm -f $(OBJ)
+				make clean -C $(LIBFT_DIR)
+				$(RM) $(OBJ) -r $(OBJ_DIR)
 
 fclean:			clean
-				make fclean -s -C $(LIBFT_DIR)
-				rm -rf $(OBJ_DIR) $(NAME)
+				make fclean -C $(LIBFT_DIR)
+				$(RM) $(NAME)
 
 re:				fclean all
 

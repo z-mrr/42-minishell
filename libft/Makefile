@@ -5,53 +5,98 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/10/26 16:27:32 by jdias-mo          #+#    #+#              #
-#    Updated: 2021/10/27 14:14:14 by jdias-mo         ###   ########.fr        #
+#    Created: 2023/01/04 13:02:01 by jdias-mo          #+#    #+#              #
+#    Updated: 2023/01/04 13:52:19 by jdias-mo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME =			libft.a
 
-SRCS = ft_isascii.c ft_isprint.c ft_isalpha.c ft_isdigit.c ft_isalnum.c \
-			ft_tolower.c ft_toupper.c ft_strlen.c ft_strlcpy.c ft_strlcat.c \
-			ft_strchr.c ft_strrchr.c ft_strnstr.c ft_strncmp.c ft_atoi.c \
-			ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_striteri.c \
-			ft_memchr.c ft_memcmp.c ft_strdup.c ft_calloc.c ft_itoa.c \
-			ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
-			ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_strmapi.c
+SRC =			$(addsuffix .c, ft_isascii \
+								ft_isprint \
+								ft_isalpha \
+								ft_isdigit \
+								ft_isalnum \
+								ft_tolower \
+								ft_toupper \
+								ft_strlen \
+								ft_strlcpy \
+								ft_strlcat \
+								ft_strchr \
+								ft_strrchr \
+								ft_strnstr \
+								ft_strncmp \
+								ft_atoi \
+								ft_memset \
+								ft_bzero \
+								ft_memcpy \
+								ft_memmove \
+								ft_striteri \
+								ft_memchr \
+								ft_memcmp \
+								ft_strdup \
+								ft_calloc \
+								ft_itoa \
+								ft_putchar_fd \
+								ft_putstr_fd \
+								ft_putendl_fd \
+								ft_putnbr_fd \
+								ft_substr \
+								ft_strjoin \
+								ft_strtrim \
+								ft_split \
+								ft_strmapi \
+								)
 
-BONUS =  ft_lstadd_front.c ft_lstnew.c ft_lstsize.c ft_lstlast.c \
-			ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
-			ft_lstmap.c \
+B_SRC =			$(addsuffix .c, ft_lstadd_front \
+								ft_lstnew \
+								ft_lstsize \
+								ft_lstlast \
+								ft_lstadd_back \
+								ft_lstdelone\
+								ft_lstclear \
+								ft_lstiter \
+								ft_lstmap \
+								)
 
-OBJS = ${SRCS:.c=.o}
+SRC_DIR =		src/
 
-BONUS_OBJS = $(BONUS:.c=.o)
+OBJ_DIR =		obj/
 
-CC		= gcc
-RM		= rm -f
+OBJ =			$(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC)))
 
-CFLAGS = -Wall -Wextra -Werror
+B_OBJ =			$(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(B_SRC)))
 
-.c.o:
-		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+AR =			ar rcs
 
-$(NAME):	${OBJS}
-			ar rcs ${NAME} ${OBJS}
+CC =			gcc
 
-all:	${NAME}
+CFLAGS =		-Wall -Werror -Wextra
+
+RM =			rm -f
+
+all:			$(NAME)
+
+$(OBJ_DIR)%.o:	$(SRC_DIR)%.c
+				$(CC) $(CFLAGS) -c $(<) -o $(@)
+
+$(OBJ_DIR):
+				mkdir $(OBJ_DIR)
+
+$(NAME):		$(OBJ_DIR) $(OBJ)
+				$(AR) $(NAME) $(OBJ)
+
+bonus:			$(OBJ_DIR) $(OBJ) $(B_OBJ)
+				$(AR) $(NAME) $(OBJ) $(B_OBJ)
 
 clean:
-		${RM} ${OBJS} ${BONUS_OBJS}
+				$(RM) $(OBJ) -r $(OBJ_DIR)
 
-fclean:	clean
-		${RM} ${NAME}
+fclean:			clean
+				$(RM) $(NAME)
 
-bonus:	${OBJS} $(BONUS_OBJS)
-		ar rcs $(NAME) ${OBJS} $(BONUS_OBJS)
+re:				fclean all
 
-rebonus:	fclean bonus
+rebonus:		fclean bonus
 
-re:		fclean all
-
-.PHONY : all clean fclean re bonus rebonus
+.PHONY:			all clean fclean re bonus rebonus

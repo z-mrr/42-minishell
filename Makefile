@@ -1,54 +1,74 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/12/02 13:13:31 by jdias-mo          #+#    #+#              #
-#    Updated: 2022/12/18 22:22:23 by jdias-mo         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME =			minishell
 
-NAME			=	minishell
-INC_DIR			=	inc
-LIBFT_DIR		=	libft
-BUILD_DIR		=	obj
-SRC_DIR			=	src
-OBJ_DIR			=	$(BUILD_DIR)/objects
-READLINE_DIR	=	/usr/include/readline
-SRC				=	$(SRC_DIR)/*.c
-CC				=	gcc
-CFLAGS			=	-Wall -Werror -Wextra -g
-INCLUDES		=	-I$(INC_DIR) -I$(LIBFT_DIR) -I$(READLINE_DIR)
-LINKS			=	-L$(LIBFT_DIR) -lft -L$(READLINE_DIR) -lreadline
+SRC =			$(addsuffix .c, bi_cd \
+								bi_exit \
+								bi_export \
+								bi_pwd_unset_echo \
+								create_words \
+								dll_utils \
+								env \
+								error \
+								exec \
+								expand_utils \
+								expand \
+								fork \
+								free \
+								heredoc \
+								lexer_utils \
+								main \
+								mtr_utils \
+								parser \
+								readline \
+								redir_utils \
+								redirecs \
+								sort_input \
+								utils \
+								)
 
-all: mklibft $(BUILD_DIR) $(NAME)
+INC_DIR =		inc/
 
-readline:
-	@../libreadline.sh
+SRC_DIR =		src/
 
-$(NAME): $(SRC)
-	@$(CC) $(CFLAGS) $(INCLUDES) $(^) -o $(@) $(LINKS)
+OBJ_DIR =		obj/
 
-$(BUILD_DIR):
-	@mkdir -p $(BUILD_DIR)
-	@mkdir -p $(OBJ_DIR)
+LIBFT_DIR =		libft/
 
-mklibft:
-	@make bonus -s -C $(LIBFT_DIR)
+READLINE_DIR =	/usr/include/readline
+
+OBJ =			$(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC)))
+
+INC =			-I$(INC_DIR) -I$(LIBFT_DIR) -I$(READLINE_DIR)
+
+LIBFT =			libft/libft.a
+
+LINK =			-L$(LIBFT_DIR) -lft -L$(READLINE_DIR) -lreadline
+
+CC =			gcc
+
+CFLAGS =		-Wall -Werror -Wextra
+
+all:			$(NAME)
+
+$(OBJ_DIR)%.o:	$(SRC_DIR)%.c
+				$(CC) $(CFLAGS) -c $(<) -o $(@)
+
+$(OBJ_DIR):
+				mkdir $(OBJ_DIR)
+
+$(NAME):		$(LIBFT) $(OBJ_DIR) $(OBJ)
+				$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(INC) $(LINK)
+
+$(LIBFT):
+				make bonus -s -C $(LIBFT_DIR)
 
 clean:
-	@make clean -s -C $(LIBFT_DIR)
-	@rm -rf $(BUILD_DIR)
+				make clean -s -C $(LIBFT_DIR)
+				rm -f $(OBJ)
 
-fclean: clean
-	@make fclean -s -C $(LIBFT_DIR)
-	@rm -f $(NAME)
+fclean:			clean
+				make fclean -s -C $(LIBFT_DIR)
+				rm -rf $(OBJ_DIR) $(NAME)
 
-re: fclean all
+re:				fclean all
 
-e: re
-	@./minishell
-
-.PHONY: all clean fclean re bonus
+.PHONY:			all clean fclean re

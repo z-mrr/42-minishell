@@ -6,11 +6,11 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 04:56:44 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 02:42:42 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2023/01/09 19:40:28 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "minishell.h"
 
 int	cd_dash(t_sh *sh, t_cmd *cmd)
 {

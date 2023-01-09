@@ -6,7 +6,7 @@
 #    By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/04 13:02:01 by jdias-mo          #+#    #+#              #
-#    Updated: 2023/01/04 13:52:19 by jdias-mo         ###   ########.fr        #
+#    Updated: 2023/01/09 19:31:07 by jdias-mo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,10 @@ SRC_DIR =		src/
 
 OBJ_DIR =		obj/
 
+INC_DIR =		inc/
+
+INC =			-I$(INC_DIR)
+
 OBJ =			$(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC)))
 
 B_OBJ =			$(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(B_SRC)))
@@ -78,7 +82,7 @@ RM =			rm -f
 all:			$(NAME)
 
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.c
-				$(CC) $(CFLAGS) -c $(<) -o $(@)
+				$(CC) $(CFLAGS) -c $(<) -o $(@) $(INC)
 
 $(OBJ_DIR):
 				mkdir $(OBJ_DIR)

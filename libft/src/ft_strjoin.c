@@ -6,11 +6,11 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 12:46:58 by jdias-mo          #+#    #+#             */
-/*   Updated: 2023/01/04 13:38:03 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2023/01/09 19:30:38 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/libft.h"
+#include "libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gde-alme <gde-alme@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 21:32:21 by gde-alme          #+#    #+#             */
-/*   Updated: 2022/12/19 21:32:24 by gde-alme         ###   ########.fr       */
+/*   Updated: 2023/01/09 19:40:28 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "minishell.h"
 
 /* devolve expansao ou null */
 char	*_get_expansion(char *old_str, t_sh *f)

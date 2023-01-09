@@ -6,11 +6,11 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:15:11 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 01:05:55 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2023/01/09 19:40:28 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "minishell.h"
 
 /*export no options. mudar test para sh->cmd->full_cmdcmd->content->args*/
 int	ft_export(t_sh *sh, t_cmd *cmd)

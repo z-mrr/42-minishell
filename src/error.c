@@ -6,11 +6,11 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 00:29:06 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/12/19 21:32:04 by gde-alme         ###   ########.fr       */
+/*   Updated: 2023/01/09 19:40:28 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "minishell.h"
 
 /*int	redir_error(char *word, char *error, )
 
